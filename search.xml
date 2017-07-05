@@ -239,11 +239,49 @@
         
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> tools </tag>
             
             <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vim]]></title>
+      <url>/Linux/vim/</url>
+      <content type="html"><![CDATA[<h2 id="配置文件的位置"><a href="#配置文件的位置" class="headerlink" title="配置文件的位置"></a>配置文件的位置</h2><p>   终端中输入<code>vim</code><br>   命令模式输入<code>:echo $VIM</code>  </p>
+<h2 id="vim安装markdown插件"><a href="#vim安装markdown插件" class="headerlink" title="vim安装markdown插件"></a>vim安装markdown插件</h2><p>   参考链接： <a href="http://www.jianshu.com/p/44d31327f953" target="_blank" rel="external">http://www.jianshu.com/p/44d31327f953</a><br>   项目链接： <a href="https://github.com/suan/vim-instant-markdown" target="_blank" rel="external">https://github.com/suan/vim-instant-markdown</a><br>   安装了vim-instant-markdown插件,输入下面这个命令可以进行预览：<br>   <code>:InstantMarkdownPreview</code>    </p>
+<ul>
+<li><p>安装新版的<code>node.js</code>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:chris-lea/node.js</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install nodejs</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装instant-markdown-d<br><code>sudo npm -g install instant-markdown-d</code>  </p>
+</li>
+<li>按照参考链接的步骤配置vim配置文件/usr/share/vim/vimrc  </li>
+<li>下载项目链接里的文件，放在~/.vim下,修改配置文件，加入<code>Plugin 文件地址</code>    </li>
+<li>在vim里面运行PluginInstall,安装完成  </li>
+<li>在vimrc里面设置InstantMarkdown禁止自动启动，而是通过输入命令启动，并更改其启动的命令的名称：  <blockquote>
+<p>vimrc中加入<code>command Preview InstantMarkdownPreview</code> 简单更改为<code>Preview</code>  </p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
             
         </tags>
         
@@ -410,99 +448,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[vim]]></title>
-      <url>/Linux/vim/</url>
-      <content type="html"><![CDATA[<h2 id="配置文件的位置"><a href="#配置文件的位置" class="headerlink" title="配置文件的位置"></a>配置文件的位置</h2><p>   终端中输入<code>vim</code><br>   命令模式输入<code>:echo $VIM</code>  </p>
-<h2 id="vim安装markdown插件"><a href="#vim安装markdown插件" class="headerlink" title="vim安装markdown插件"></a>vim安装markdown插件</h2><p>   参考链接： <a href="http://www.jianshu.com/p/44d31327f953" target="_blank" rel="external">http://www.jianshu.com/p/44d31327f953</a><br>   项目链接： <a href="https://github.com/suan/vim-instant-markdown" target="_blank" rel="external">https://github.com/suan/vim-instant-markdown</a><br>   安装了vim-instant-markdown插件,输入下面这个命令可以进行预览：<br>   <code>:InstantMarkdownPreview</code>    </p>
-<ul>
-<li><p>安装新版的<code>node.js</code>  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:chris-lea/node.js</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install nodejs</div></pre></td></tr></table></figure>
-</li>
-<li><p>安装instant-markdown-d<br><code>sudo npm -g install instant-markdown-d</code>  </p>
-</li>
-<li>按照参考链接的步骤配置vim配置文件/usr/share/vim/vimrc  </li>
-<li>下载项目链接里的文件，放在~/.vim下,修改配置文件，加入<code>Plugin 文件地址</code>    </li>
-<li>在vim里面运行PluginInstall,安装完成  </li>
-<li>在vimrc里面设置InstantMarkdown禁止自动启动，而是通过输入命令启动，并更改其启动的命令的名称：  <blockquote>
-<p>vimrc中加入<code>command Preview InstantMarkdownPreview</code> 简单更改为<code>Preview</code>  </p>
-</blockquote>
-</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> tools </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[ipython]]></title>
-      <url>/notes/ipython/</url>
-      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
-<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
-<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
-<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
-<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
-<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> notes </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> tools </tag>
-            
-            <tag> python </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[pip]]></title>
-      <url>/notes/pip/</url>
-      <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用apt-get install pip会导致pip无法升级的问题<br>因此这里使用的是<br><code>sudo easy_install pip</code>  </p>
-<h2 id="pip的使用"><a href="#pip的使用" class="headerlink" title="pip的使用"></a>pip的使用</h2><p><a href="http://www.jianshu.com/p/9acc85d0ff16" target="_blank" rel="external">http://www.jianshu.com/p/9acc85d0ff16</a></p>
-<h2 id="安装位置"><a href="#安装位置" class="headerlink" title="安装位置"></a>安装位置</h2><p>pip install … 会直接安装在~/.local/lib/python2.7/site-packages这个目录下<br>sudo pip install … 安装在/usr/local/lib/… 这个目录下<br>sudo pip install -t destination-dir package-name  指定安装路径  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> notes </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> tools </tag>
-            
-            <tag> python </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[docker]]></title>
       <url>/notes/docker/</url>
       <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
@@ -532,11 +477,39 @@
         
         <tags>
             
+            <tag> tools </tag>
+            
             <tag> linux </tag>
             
             <tag> Deep Learning </tag>
             
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ipython]]></title>
+      <url>/notes/ipython/</url>
+      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
+<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
+<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
+<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
+<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
+<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
             <tag> tools </tag>
+            
+            <tag> python </tag>
             
         </tags>
         
@@ -591,6 +564,57 @@
     </entry>
     
     <entry>
+      <title><![CDATA[pip]]></title>
+      <url>/notes/pip/</url>
+      <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用apt-get install pip会导致pip无法升级的问题<br>因此这里使用的是<br><code>sudo easy_install pip</code>  </p>
+<h2 id="pip的使用"><a href="#pip的使用" class="headerlink" title="pip的使用"></a>pip的使用</h2><p><a href="http://www.jianshu.com/p/9acc85d0ff16" target="_blank" rel="external">http://www.jianshu.com/p/9acc85d0ff16</a></p>
+<h2 id="安装位置"><a href="#安装位置" class="headerlink" title="安装位置"></a>安装位置</h2><p>pip install … 会直接安装在~/.local/lib/python2.7/site-packages这个目录下<br>sudo pip install … 安装在/usr/local/lib/… 这个目录下<br>sudo pip install -t destination-dir package-name  指定安装路径  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Theano]]></title>
+      <url>/Deep-Learning/theano/</url>
+      <content type="html"><![CDATA[<h2 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h2><p>theano需要手工设定使用GPU，方法如下:<br><code>vim ~/.theanorc</code></p>
+<p>add these content<br>[global]<br>device=gpu<br>floatX=float32</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> libs </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[opencv]]></title>
       <url>/Deep-Learning/opencv/</url>
       <content type="html"><![CDATA[<h2 id="安装opencv"><a href="#安装opencv" class="headerlink" title="安装opencv"></a>安装opencv</h2><p>1 解压，mkdir release , cd release<br>2 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv/2.4.9 -D CUDA_GENERATION=Kepler ..<br>3 make -j8<br>4 sudo make install  </p>
@@ -619,30 +643,6 @@
             <tag> libs </tag>
             
             <tag> computer vision </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Theano]]></title>
-      <url>/Deep-Learning/theano/</url>
-      <content type="html"><![CDATA[<h2 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h2><p>theano需要手工设定使用GPU，方法如下:<br><code>vim ~/.theanorc</code></p>
-<p>add these content<br>[global]<br>device=gpu<br>floatX=float32</p>
-]]></content>
-      
-        <categories>
-            
-            <category> Deep Learning </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> libs </tag>
-            
-            <tag> Deep Learning </tag>
             
         </tags>
         
@@ -752,38 +752,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[注意事项]]></title>
-      <url>/Server/attention/</url>
-      <content type="html"><![CDATA[<div class="message"><br>为了服务器的正常运行，请大家留意一下以下注意事项。<br></div>
-
-<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
-<li>文件存放路径<ul>
-<li>数据集请放在/data目录下，如果需要在这个目录底下存放数据，请联系我</li>
-<li>各种软件、库的安装，请放在/tools底下，如若需要使用这个目录，同样请跟我联系</li>
-<li>服务器的主目录空间有限，请尽量避免在主目录底下放数据，如若需要存放大量数据，请联系我，我会在/data目录下，建立一个供你个人使用的目录，以存储数据</li>
-</ul>
-</li>
-<li>网络访问<ul>
-<li>服务器的静态ip地址已在slack上周知诸位，请勿外传</li>
-<li>现在网络可以仅通过校园网访问，这是不计外网流量的。同时，服务器通过无线网卡连接外网，大家可以通过服务器上网，但是，这是有流量限制的，因此，请诸位除科研用途外，尽量不要使用服务器的外网，请谅解！</li>
-</ul>
-</li>
-</ul>
-<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ul>
-<li><strong>请不要轻易关机或者重启，如有特别需要，请周知大家！</strong></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Server </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[服务器使用指南]]></title>
       <url>/Server/guideline/</url>
       <content type="html"><![CDATA[<div class="message"><br>考虑到服务器的安全问题，下文中，服务器的ip地址用ip_address表示<br></div>
@@ -827,6 +795,38 @@
     </entry>
     
     <entry>
+      <title><![CDATA[注意事项]]></title>
+      <url>/Server/attention/</url>
+      <content type="html"><![CDATA[<div class="message"><br>为了服务器的正常运行，请大家留意一下以下注意事项。<br></div>
+
+<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
+<li>文件存放路径<ul>
+<li>数据集请放在/data目录下，如果需要在这个目录底下存放数据，请联系我</li>
+<li>各种软件、库的安装，请放在/tools底下，如若需要使用这个目录，同样请跟我联系</li>
+<li>服务器的主目录空间有限，请尽量避免在主目录底下放数据，如若需要存放大量数据，请联系我，我会在/data目录下，建立一个供你个人使用的目录，以存储数据</li>
+</ul>
+</li>
+<li>网络访问<ul>
+<li>服务器的静态ip地址已在slack上周知诸位，请勿外传</li>
+<li>现在网络可以仅通过校园网访问，这是不计外网流量的。同时，服务器通过无线网卡连接外网，大家可以通过服务器上网，但是，这是有流量限制的，因此，请诸位除科研用途外，尽量不要使用服务器的外网，请谅解！</li>
+</ul>
+</li>
+</ul>
+<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ul>
+<li><strong>请不要轻易关机或者重启，如有特别需要，请周知大家！</strong></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Server </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[服务器配置过程]]></title>
       <url>/Server/config/</url>
       <content type="html"><![CDATA[<div class="message"><br>这个页面主要记录了服务器的配置过程，和一些问题的解决方法，为后期服务器的维护提供参考<br></div>
@@ -846,12 +846,6 @@
   
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[About Me]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><ul>
@@ -864,6 +858,12 @@
 </ul>
 <h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>School of Electronic Engineering,<br>Xidian University,<br>Xi’an, Shaanxi, 710071, P. R. China<br>Email: lch_xdu@163.com</p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
