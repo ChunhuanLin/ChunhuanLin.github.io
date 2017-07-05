@@ -455,46 +455,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[docker]]></title>
-      <url>/notes/docker/</url>
-      <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
-<p>docker images<br>查看本地的镜像仓库  </p>
-<p>docker run -p 4000:80 friendlyhello<br>4000是主机端口，80是在Dockerfile里设置的对外开放的容器端口，最终要在主机的localhost:4000访问该服务<br>可以在浏览器中输入localhost:4000访问，也可以在终端中输入 curl <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  </p>
-<p>docker run -d -p 4000:80 friendlyhello<br>在background运行docker  </p>
-<p>docker ps<br>打印当前正在运行的容器信息  </p>
-<p>docker stop 1fa4ab2cf395<br>停止某个容器，后面的字符串是该容器的ID  </p>
-<h2 id="分享镜像"><a href="#分享镜像" class="headerlink" title="分享镜像"></a>分享镜像</h2><h3 id="注册账户、仓库与镜像的关系"><a href="#注册账户、仓库与镜像的关系" class="headerlink" title="注册账户、仓库与镜像的关系"></a>注册账户、仓库与镜像的关系</h3><p>A registry is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.</p>
-<p>docker login<br>登录你的Docker帐号  </p>
-<p>docker tag image username/repository:tag<br>这个命令标记你本地的Image所要上传的对应的账户和仓库，tag是可选的，但建议使用，可以通过他来给出镜像的版本号，如果不指定tag，那么它默认为latest</p>
-<p>docker push username/repository:tag<br>上传docker镜像,上传之后就可以在Docker Hub看到这个新的镜像。  </p>
-<h2 id="从远程仓库pull并运行镜像"><a href="#从远程仓库pull并运行镜像" class="headerlink" title="从远程仓库pull并运行镜像"></a>从远程仓库pull并运行镜像</h2><p>docker run -p 4000:80 username/repository:tag<br>如果docker在本地找不到这个镜像，那么他就会从远程把这个镜像pull到本地。  </p>
-<h2 id="nvidia-docker"><a href="#nvidia-docker" class="headerlink" title="nvidia-docker"></a>nvidia-docker</h2><p><code>nvidia-docker run -it -p hostPort:containerPort TensorFlowGPUImage</code> 在jupyter上运行tensorflow，这里的containerPort是8888<br><code>nvidia-docker run -it TensorFlowGPUImage bash</code> 可以在终端上运行tensorflow  </p>
-<p><code>-v host_folder:container_floder</code> 使得本地的文件在jupyter中可见<br><code>-p 8888:8888 -p 6006:6006</code> 前一个端口是jupyter的端口，后一个端口是tensorboard的端口  </p>
-<p>—————–我是分割线——————</p>
-<h2 id="在服务中使用docker"><a href="#在服务中使用docker" class="headerlink" title="在服务中使用docker"></a>在服务中使用docker</h2><h3 id="什么是服务？"><a href="#什么是服务？" class="headerlink" title="什么是服务？"></a>什么是服务？</h3><p>在分布式应用中，app的不同部分称为服务。比如说前端，后台，他们接管一个应用的不同服务。一个服务只需要跑一个镜像，然而他还要规范通信端口，容器应该跑多少部分等。  </p>
-<p>docker-compose.yml<br>定义Docker容器在产品中怎么做？  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> notes </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> tools </tag>
-            
-            <tag> linux </tag>
-            
-            <tag> Deep Learning </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[ipython]]></title>
       <url>/notes/ipython/</url>
       <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
@@ -598,24 +558,40 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Theano]]></title>
-      <url>/Deep-Learning/theano/</url>
-      <content type="html"><![CDATA[<h2 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h2><p>theano需要手工设定使用GPU，方法如下:<br><code>vim ~/.theanorc</code></p>
-<p>add these content<br>[global]<br>device=gpu<br>floatX=float32</p>
+      <title><![CDATA[docker]]></title>
+      <url>/notes/docker/</url>
+      <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
+<p>docker images<br>查看本地的镜像仓库  </p>
+<p>docker run -p 4000:80 friendlyhello<br>4000是主机端口，80是在Dockerfile里设置的对外开放的容器端口，最终要在主机的localhost:4000访问该服务<br>可以在浏览器中输入localhost:4000访问，也可以在终端中输入 curl <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  </p>
+<p>docker run -d -p 4000:80 friendlyhello<br>在background运行docker  </p>
+<p>docker ps<br>打印当前正在运行的容器信息  </p>
+<p>docker stop 1fa4ab2cf395<br>停止某个容器，后面的字符串是该容器的ID  </p>
+<h2 id="分享镜像"><a href="#分享镜像" class="headerlink" title="分享镜像"></a>分享镜像</h2><h3 id="注册账户、仓库与镜像的关系"><a href="#注册账户、仓库与镜像的关系" class="headerlink" title="注册账户、仓库与镜像的关系"></a>注册账户、仓库与镜像的关系</h3><p>A registry is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.</p>
+<p>docker login<br>登录你的Docker帐号  </p>
+<p>docker tag image username/repository:tag<br>这个命令标记你本地的Image所要上传的对应的账户和仓库，tag是可选的，但建议使用，可以通过他来给出镜像的版本号，如果不指定tag，那么它默认为latest</p>
+<p>docker push username/repository:tag<br>上传docker镜像,上传之后就可以在Docker Hub看到这个新的镜像。  </p>
+<h2 id="从远程仓库pull并运行镜像"><a href="#从远程仓库pull并运行镜像" class="headerlink" title="从远程仓库pull并运行镜像"></a>从远程仓库pull并运行镜像</h2><p>docker run -p 4000:80 username/repository:tag<br>如果docker在本地找不到这个镜像，那么他就会从远程把这个镜像pull到本地。  </p>
+<h2 id="nvidia-docker"><a href="#nvidia-docker" class="headerlink" title="nvidia-docker"></a>nvidia-docker</h2><p><code>nvidia-docker run -it -p hostPort:containerPort TensorFlowGPUImage</code> 在jupyter上运行tensorflow，这里的containerPort是8888<br><code>nvidia-docker run -it TensorFlowGPUImage bash</code> 可以在终端上运行tensorflow  </p>
+<p><code>-v host_folder:container_floder</code> 使得本地的文件在jupyter中可见<br><code>-p 8888:8888 -p 6006:6006</code> 前一个端口是jupyter的端口，后一个端口是tensorboard的端口  </p>
+<p>—————–我是分割线——————</p>
+<h2 id="在服务中使用docker"><a href="#在服务中使用docker" class="headerlink" title="在服务中使用docker"></a>在服务中使用docker</h2><h3 id="什么是服务？"><a href="#什么是服务？" class="headerlink" title="什么是服务？"></a>什么是服务？</h3><p>在分布式应用中，app的不同部分称为服务。比如说前端，后台，他们接管一个应用的不同服务。一个服务只需要跑一个镜像，然而他还要规范通信端口，容器应该跑多少部分等。  </p>
+<p>docker-compose.yml<br>定义Docker容器在产品中怎么做？  </p>
 ]]></content>
       
         <categories>
             
-            <category> Deep Learning </category>
+            <category> notes </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Deep Learning </tag>
+            <tag> tools </tag>
             
-            <tag> libs </tag>
+            <tag> linux </tag>
+            
+            <tag> Deep Learning </tag>
             
         </tags>
         
@@ -650,6 +626,30 @@
             <tag> libs </tag>
             
             <tag> computer vision </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Theano]]></title>
+      <url>/Deep-Learning/theano/</url>
+      <content type="html"><![CDATA[<h2 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h2><p>theano需要手工设定使用GPU，方法如下:<br><code>vim ~/.theanorc</code></p>
+<p>add these content<br>[global]<br>device=gpu<br>floatX=float32</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> libs </tag>
             
         </tags>
         
@@ -759,6 +759,38 @@
     </entry>
     
     <entry>
+      <title><![CDATA[注意事项]]></title>
+      <url>/Server/attention/</url>
+      <content type="html"><![CDATA[<div class="message"><br>为了服务器的正常运行，请大家留意一下以下注意事项。<br></div>
+
+<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
+<li>文件存放路径<ul>
+<li>数据集请放在/data目录下，如果需要在这个目录底下存放数据，请联系我</li>
+<li>各种软件、库的安装，请放在/tools底下，如若需要使用这个目录，同样请跟我联系</li>
+<li>服务器的主目录空间有限，请尽量避免在主目录底下放数据，如若需要存放大量数据，请联系我，我会在/data目录下，建立一个供你个人使用的目录，以存储数据</li>
+</ul>
+</li>
+<li>网络访问<ul>
+<li>服务器的静态ip地址已在slack上周知诸位，请勿外传</li>
+<li>现在网络可以仅通过校园网访问，这是不计外网流量的。同时，服务器通过无线网卡连接外网，大家可以通过服务器上网，但是，这是有流量限制的，因此，请诸位除科研用途外，尽量不要使用服务器的外网，请谅解！</li>
+</ul>
+</li>
+</ul>
+<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ul>
+<li><strong>请不要轻易关机或者重启，如有特别需要，请周知大家！</strong></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Server </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[服务器使用指南]]></title>
       <url>/Server/guideline/</url>
       <content type="html"><![CDATA[<div class="message"><br>考虑到服务器的安全问题，下文中，服务器的ip地址用ip_address表示<br></div>
@@ -789,38 +821,6 @@
 <li>这样就可以使用这个远程桌面啦！不过终端的环境变量还要重新设置一下，这样就可以正常使用了！<br><img src="/images/x2go8.png" alt="png"></li>
 </ul>
 </li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Server </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[注意事项]]></title>
-      <url>/Server/attention/</url>
-      <content type="html"><![CDATA[<div class="message"><br>为了服务器的正常运行，请大家留意一下以下注意事项。<br></div>
-
-<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
-<li>文件存放路径<ul>
-<li>数据集请放在/data目录下，如果需要在这个目录底下存放数据，请联系我</li>
-<li>各种软件、库的安装，请放在/tools底下，如若需要使用这个目录，同样请跟我联系</li>
-<li>服务器的主目录空间有限，请尽量避免在主目录底下放数据，如若需要存放大量数据，请联系我，我会在/data目录下，建立一个供你个人使用的目录，以存储数据</li>
-</ul>
-</li>
-<li>网络访问<ul>
-<li>服务器的静态ip地址已在slack上周知诸位，请勿外传</li>
-<li>现在网络可以仅通过校园网访问，这是不计外网流量的。同时，服务器通过无线网卡连接外网，大家可以通过服务器上网，但是，这是有流量限制的，因此，请诸位除科研用途外，尽量不要使用服务器的外网，请谅解！</li>
-</ul>
-</li>
-</ul>
-<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ul>
-<li><strong>请不要轻易关机或者重启，如有特别需要，请周知大家！</strong></li>
 </ul>
 ]]></content>
       
