@@ -17,6 +17,13 @@
 </li>
 <li><p>根据官方的github主页配置<br><a href="https://github.com/hexojs/hexo" target="_blank" rel="external">https://github.com/hexojs/hexo</a>  </p>
 </li>
+<li><p>配置远程服务器</p>
+<ul>
+<li>在github创建一个名为<code>yourname.github.io</code>的仓库，然后在仓库处，设置域名（域名自行购买）  </li>
+<li>在站点配置文件<code>_config.yml</code>修改自己的github信息和url（这里填你的域名即可）  </li>
+<li>在站点的<code>source</code>文件夹下，放入一个CNAME文件，里面填入你的域名信息。事实上，在hexo的文件中，<code>/</code>这个路径都指<code>source</code>文件夹。  </li>
+</ul>
+</li>
 </ul>
 <h2 id="使用的主题"><a href="#使用的主题" class="headerlink" title="使用的主题"></a>使用的主题</h2><p>  <a href="https://github.com/viosey/hexo-theme-material" target="_blank" rel="external">https://github.com/viosey/hexo-theme-material</a><br>  配置站点文件<code>_config.yml</code>的language，设为zh-CN，否则会报错  </p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
