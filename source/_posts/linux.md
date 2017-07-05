@@ -1,0 +1,10 @@
+---
+title: linux常用语法
+date: 2017-06-28
+categories: Linux
+tags: linux
+---
+## find  
+
+查找目录：find /（查找范围） -name '查找关键字' -type d  
+查找文件：find /（查找范围） -name 查找关键字 -print  
