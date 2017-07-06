@@ -5,6 +5,7 @@ categories: Deep Learning
 tags: 
 - Deep Learning
 - libs
+- theano
 ---
 
 ## 使用GPU  

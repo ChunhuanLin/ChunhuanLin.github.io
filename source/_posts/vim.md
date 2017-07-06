@@ -4,6 +4,7 @@ date: 2017-07-03
 categories: Linux
 tags:
 - linux
+- vim
 - tools
 ---
 

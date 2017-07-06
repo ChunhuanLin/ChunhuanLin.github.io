@@ -4,7 +4,7 @@ date: 2017-07-02
 categories: Linux
 tags:
 - tools
-- Linux
+- linux
 ---
 
 ## 设置tmux参数

@@ -3,6 +3,7 @@ layout: post
 title: 注意事项
 date: 2017-04-10
 categories: Server
+tags: server
 ---
 <div class="message">
 为了服务器的正常运行，请大家留意一下以下注意事项。

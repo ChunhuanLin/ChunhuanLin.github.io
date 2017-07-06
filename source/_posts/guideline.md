@@ -3,6 +3,7 @@ layout: post
 title: 服务器使用指南
 categories: Server
 date: 2017-04-10
+tags: server
 ---
 <div class="message">
 考虑到服务器的安全问题，下文中，服务器的ip地址用ip_address表示

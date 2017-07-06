@@ -5,6 +5,7 @@ categories: Deep Learning
 tags:
 - Deep Learning
 - libs
+- keras
 ---
 > 针对版本v2.0.5，参照[官方文档](https://keras.io/)  
 

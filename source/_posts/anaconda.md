@@ -6,6 +6,7 @@ tags:
 - tools
 - python
 - linux
+- anaconda
 ---
 
 ## 配置路径  
