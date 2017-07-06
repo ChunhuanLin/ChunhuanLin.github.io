@@ -148,7 +148,7 @@ sns_share:
 sidebar:
     dropdown:
         Email Me:
-            link: "#"
+            link: "mailto: lch_xdu@163.com"
             icon: email
     homepage:
         use: true
@@ -166,10 +166,11 @@ sidebar:
         标签: 
             link: "/tags"
             icon: bookmark
+            divider: true
         About:
             link: "/about"
             icon: person
-            divider: true
+            divider: false
     article_num:
         use: false
         divider: false
