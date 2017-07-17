@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Home
-subtitle:
-description: Personal blog, major in cv, linux and so on.
+title: Chlin's Blog
+subtitle: af
+description: Personal blog, major in cv, deep learning, linux and so on.
 author: Chunhuan Lin
 language: zh-CN
 timezone:
@@ -44,7 +44,7 @@ highlight:
   tab_replace:
 
 # Category & Tag
-default_category: uncategorized
+default_category: info
 category_map:
 tag_map:
 

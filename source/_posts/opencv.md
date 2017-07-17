@@ -30,3 +30,5 @@ pkg-config --modversion opencv 查看当前opencv的版本号
 export PKG_CONFIG_PATH=/usr/local/opencv/2.4.8/lib/pkgconfig  
 export LD_LIBRARY_PATH=/usr/local/opencv/2.4.8/lib/
 
+### 加入PYTHONPATH
+export PYTHONPATH=$PYTHONPATH:/usr/local/opencv/2.4.9/lib/python2.7/dist-packages

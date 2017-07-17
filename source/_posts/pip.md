@@ -14,6 +14,12 @@ tags:
 因此这里使用的是  
 `sudo easy_install pip`  
 
+## 使用国内镜像源
+以安装`pandas`为例：  
+`pip  install --index https://pypi.mirrors.ustc.edu.cn/simple/ pandas`  
+别的镜像：http://mirrors.sohu.com/python/
+> 有时候，国内镜像更新不够及时（比如我装jupyter的时候），这时候就用默认的吧
+
 ## pip的使用
 http://www.jianshu.com/p/9acc85d0ff16
 
