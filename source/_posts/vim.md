@@ -30,5 +30,5 @@ tags:
    * 按照参考链接的步骤配置vim配置文件/usr/share/vim/vimrc  
    * 下载项目链接里的文件，放在~/.vim下,修改配置文件，加入`Plugin 文件地址`    
    * 在vim里面运行PluginInstall,安装完成  
-   * 在vimrc里面设置InstantMarkdown禁止自动启动，而是通过输入命令启动，并更改其启动的命令的名称：  
+   * 在~/.vim/bundle/plugin里面寻找`instant-markdown-d`，设置InstantMarkdown禁止自动启动，而是通过输入命令启动，并更改其启动的命令的名称：  
 	> vimrc中加入`command Preview InstantMarkdownPreview` 简单更改为`Preview`  
