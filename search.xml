@@ -629,7 +629,7 @@ input_shape=(3, 32, 32)))
 <ol>
 <li>在其他设备上都要有hexo的环境。  </li>
 <li>建立一个blog文件夹，运行<code>git remote add origin ...github.io</code>,<code>git pull</code>;然后<code>git checkout -b source origin/source</code>。  </li>
-<li>在source分支下，安装hexo所需环境，运行<code>npm install</code>，即可进行编辑。运行完<code>hexo g -d</code>后，记得要向远程分支<code>origin/origin</code>，进行push。  </li>
+<li>在source分支下，安装hexo所需环境，运行<code>npm install</code>，即可进行编辑。运行完<code>hexo g -d</code>后，记得要向远程分支<code>origin/source</code>，进行push。  </li>
 </ol>
 <h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
 <li>由于不明原因，默认启动的iP若使用<code>localhost</code>则打不开，而使用<code>127.0.0.1</code>却能打开。因此修改这个文件<code>/node_modules/hexo-server/lib/server.js</code>,将其中配置ip的那行改为：<br><code>var ip = args.i || args.ip || &#39;127.0.0.1&#39; || config.server.ip;</code></li>
