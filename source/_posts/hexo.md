@@ -215,7 +215,7 @@ sudo apt-get install npm
 由于**hexo**传到**github**上的是生成的静态网页，而当我们使用另一台机器要对我们的文档进行更新时，需要获取相应的hexo部署的文件，而不能直接操作静态网页。因此，可以在github.io上建立一个source分支，在source分支中上传hexo的配置文件，包括md文档，这样当我们使用另一台设备要更新个人网页时，就可以从这个分支上下载配置文件。  
 1. 在其他设备上都要有hexo的环境。  
 2. 建立一个blog文件夹，运行`git remote add origin ...github.io`,`git pull`;然后`git checkout -b source origin/source`。  
-3. 在source分支下，安装hexo所需环境，运行`npm install`，即可进行编辑。运行完`hexo g -d`后，记得要向远程分支`origin/origin`，进行push。  
+3. 在source分支下，安装hexo所需环境，运行`npm install`，即可进行编辑。运行完`hexo g -d`后，记得要向远程分支`origin/source`，进行push。  
 
 
 
