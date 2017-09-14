@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.4.0 -->
+    <script>window.materialVersion = "1.4.0"</script>
+
+    <!-- Title -->
+    
+    <title>
+        
+            Keras | 
+        
+        Chlin&#39;s Blog
+    </title>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    
+    
+    
+    
+    
+    
+    
+        <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
+    
+    
+    
+    
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0097A7">
+    <meta name="author" content="Chunhuan Lin">
+    <meta name="description" itemprop="description" content="Personal blog, major in cv, deep learning, linux and so on.">
+    <meta name="keywords" content="null,Deep Learning,libs,keras">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" sizes="192x192" href="/img/favicon.png">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!--iOS -->
+    <meta name="apple-mobile-web-app-title" content="Title">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="480">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Chlin&#39;s Blog">
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://www.chlin.win">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Keras | Chlin&#39;s Blog">
+    <meta property="og:image" content="/img/favicon.png" />
+    <meta property="og:description" content="Personal blog, major in cv, deep learning, linux and so on.">
+    <meta property="og:article:tag" content="Deep Learning"> <meta property="og:article:tag" content="libs"> <meta property="og:article:tag" content="keras"> 
+
+    
+        <meta property="article:published_time" content="7月 06, 2017" />
+        <meta property="article:modified_time" content="9月 14, 2017" />
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:title" content="Keras | Chlin&#39;s Blog">
+    <meta name="twitter:description" content="Personal blog, major in cv, deep learning, linux and so on.">
+    <meta name="twitter:image" content="/img/favicon.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="http://www.chlin.win" />
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://www.chlin.win/Deep-Learning/keras/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Chlin&#39;s Blog",
+        "logo": "/img/favicon.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Chunhuan Lin",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/favicon.png"
+        },
+        "description": "Hi, nice to meet you"
+    },
+    "headline": "Keras",
+    "url": "http://www.chlin.win/Deep-Learning/keras/index.html",
+    "datePublished": "7月 06, 2017",
+    "dateModified": "9月 14, 2017",
+    "description": "Personal blog, major in cv, deep learning, linux and so on.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://www.chlin.win"
+    }
+}
+</script>
+
+
+    
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(key){try{localStorage.removeItem(key)}catch(e){}};lsloader.setLS=function(key,val){try{localStorage.setItem(key,val)}catch(e){}};lsloader.getLS=function(key){var val="";try{val=localStorage.getItem(key)}catch(e){val=""}return val};versionString="/*"+materialVersion+"*/";lsloader.clean=function(){try{var keys=[];for(var i=0;i<localStorage.length;i++){keys.push(localStorage.key(i))}keys.forEach(function(key){var data=lsloader.getLS(key);if(data&&data.indexOf(versionString)===-1){lsloader.removeLS(key)}})}catch(e){}};lsloader.clean();lsloader.load=function(jsname,jspath,cssonload){cssonload=cssonload||function(){};var code;code=this.getLS(jsname);if(code&&code.indexOf(versionString)===-1){this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}if(code){var versionNumber=code.split(versionString)[0];if(versionNumber!=jspath){console.log("reload:"+jspath);this.removeLS(jsname);this.requestResource(jsname,jspath,cssonload);return}code=code.split(versionString)[1];if(/\.js?.+$/.test(versionNumber)){this.jsRunSequence.push({name:jsname,code:code});this.runjs(jspath,jsname,code)}else{document.getElementById(jsname).appendChild(document.createTextNode(code));cssonload()}}else{this.requestResource(jsname,jspath,cssonload)}};lsloader.requestResource=function(name,path,cssonload){var that=this;if(/\.js?.+$/.test(path)){this.iojs(path,name,function(path,name,code){that.setLS(name,path+versionString+code);that.runjs(path,name,code)})}else if(/\.css?.+$/.test(path)){this.iocss(path,name,function(code){document.getElementById(name).appendChild(document.createTextNode(code));that.setLS(name,path+versionString+code)},cssonload)}};lsloader.iojs=function(path,jsname,callback){var that=this;that.jsRunSequence.push({name:jsname,code:""});try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(path,jsname,xhr.response);return}}that.jsfallback(path,jsname)}};xhr.send(null)}catch(e){that.jsfallback(path,jsname)}};lsloader.iocss=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.iofonts=function(path,jsname,callback,cssonload){var that=this;try{var xhr=new XMLHttpRequest;xhr.open("get",path,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){callback(xhr.response);cssonload();return}}that.cssfallback(path,jsname,cssonload)}};xhr.send(null)}catch(e){that.cssfallback(path,jsname,cssonload)}};lsloader.runjs=function(path,name,code){if(!!name&&!!code){for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code=code}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var script=document.createElement("script");script.appendChild(document.createTextNode(this.jsRunSequence[0].code));script.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(script);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var that=this;var script=document.createElement("script");script.src=this.jsRunSequence[0].path;script.type="text/javascript";this.jsRunSequence[0].status="loading";script.onload=function(){that.jsRunSequence.shift();if(that.jsRunSequence.length>0){that.runjs()}};document.body.appendChild(script)}};lsloader.tagLoad=function(path,name){this.jsRunSequence.push({name:name,code:"",path:path,status:"failed"});this.runjs()};lsloader.jsfallback=function(path,name){if(!!this.jsnamemap[name]){return}else{this.jsnamemap[name]=name}for(var k in this.jsRunSequence){if(this.jsRunSequence[k].name==name){this.jsRunSequence[k].code="";this.jsRunSequence[k].status="failed";this.jsRunSequence[k].path=path}}this.runjs()};lsloader.cssfallback=function(path,name,cssonload){if(!!this.cssnamemap[name]){return}else{this.cssnamemap[name]=1}var link=document.createElement("link");link.type="text/css";link.href=path;link.rel="stylesheet";link.onload=link.onerror=cssonload;var root=document.getElementsByTagName("script")[0];root.parentNode.insertBefore(link,root)};lsloader.runInlineScript=function(scriptId,codeId){var code=document.getElementById(codeId).innerText;this.jsRunSequence.push({name:scriptId,code:code});this.runjs()};lsloader.loadCombo=function(jslist){var updateList="";var requestingModules={};for(var k in jslist){var LS=this.getLS(jslist[k].name);if(!!LS){var version=LS.split(versionString)[0];var code=LS.split(versionString)[1]}else{var version=""}if(version==jslist[k].path){this.jsRunSequence.push({name:jslist[k].name,code:code,path:jslist[k].path})}else{this.jsRunSequence.push({name:jslist[k].name,code:null,path:jslist[k].path,status:"comboloading"});requestingModules[jslist[k].name]=true;updateList+=(updateList==""?"":";")+jslist[k].path}}var that=this;if(!!updateList){var xhr=new XMLHttpRequest;xhr.open("get",combo+updateList,true);xhr.onreadystatechange=function(){if(xhr.readyState==4){if(xhr.status>=200&&xhr.status<300||xhr.status==304){if(xhr.response!=""){that.runCombo(xhr.response,requestingModules);return}}else{for(var i in that.jsRunSequence){if(requestingModules[that.jsRunSequence[i].name]){that.jsRunSequence[i].status="failed"}}that.runjs()}}};xhr.send(null)}this.runjs()};lsloader.runCombo=function(comboCode,requestingModules){comboCode=comboCode.split("/*combojs*/");comboCode.shift();for(var k in this.jsRunSequence){if(!!requestingModules[this.jsRunSequence[k].name]&&!!comboCode[0]){this.jsRunSequence[k].status="comboJS";this.jsRunSequence[k].code=comboCode[0];this.setLS(this.jsRunSequence[k].name,this.jsRunSequence[k].path+versionString+comboCode[0]);comboCode.shift()}}this.runjs()}})();</script>
+
+    <!-- Import CSS & jQuery -->
+    
+        <style id="css/material.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/material.min.css","/css/material.min.css?fJTiM/K1J3dWIruo3pxtAw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        <style id="css/style.min.css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("css/style.min.css","/css/style.min.css?oCSEO3ST+aEypEwttTDI9g==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";})</script>
+        
+        
+            <style>
+    
+    
+    
+    
+    
+    
+    
+    .footer-sns-github {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgY2xhc3M9Imljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxwYXRoIGQ9Ik0xMzguNCA3OGMtNi40IDEuNC0yNi40IDE0LjItMzYgMjIuOC04IDcuMi0yMiAyOS44LTI0LjQgMzkuMi0xLjYgNi40LTIgMTEzLjItMS42IDM2OCAuNiAyOTkuNCAxIDM1OS44IDMuNCAzNjQgMTEgMjAuMiAyMS42IDMyLjQgMzcuMiA0MyAxNS42IDEwLjYgMTcuMiAxMS4yIDM0LjIgMTMuMiAxMC42IDEuMiA2My40IDEuNiAxMjcuNiAxLjRsMTA5LjYtLjYgNi02LjggNi4yLTYuOC0xLjItMjUuMmMtLjgtMTUuOC0uMi0zMy40IDEuNC00Ny4yIDMtMjUuNCAxLjQtMzYuMi02LTQzLjItNS00LjYtNi4yLTQuOC0zMC42LTQuMi0yNy42LjgtMjQgMS42LTY4LjgtMTYtOC42LTMuNC0yMi42LTE4LTI4LjQtMjkuOC0xMS40LTIyLjgtMjctNDUtMzkuMi01NS42LTE0LTEyLjItMTkuOC0yMC44LTE5LjgtMjguNiAwLTExLjYgMTMuNi0xMi42IDMzLjItMi40IDE2LjYgOC44IDIwLjggMTIuNCA0MC44IDM2LjIgMjQuMiAyOC42IDMxIDMzLjYgNTQgMzkuNiAxNS4yIDQgNDIuMiAzIDUxLjQtMS44IDktNC42IDE4LTE1LjIgMjQuNC0yOS4yIDExLjQtMjQuMiA3LjQtMzEuMi0yMC42LTM2LjgtOS44LTItMjkuMi04LTQzLjQtMTMuNC00MC40LTE1LjgtNjQuNi0zNy40LTg1LjQtNzYuMi0xMS42LTIxLjgtMTUuNC0zMy0xOC4yLTUzLjYtNC4yLTMyLjItNC44LTYwLjItMS40LTg0IDMuNC0yMy44IDYuOC0zMi44IDIwLjItNTQgNC02IDguOC0xNS42IDExLTIxLjQgMy44LTEwIDMuOC0xMS42IDEtMzAtNS4yLTM0LjItMy4yLTUyLjQgNy42LTcwLjIgNy4yLTEyLjIgMTUtMTcuMiAyNC4yLTE1LjggMTIuOCAyLjIgNTIgMTcuNCA2Ni44IDI2LjIgMjYgMTUgMjkgMTUuNCA4Mi40IDcuMiAyNC42LTMuOCAzMy44LTQuMiA2MC0zLjIgMTcgLjYgNDEuNCAzIDU0IDUuMiAzOC40IDYuNiA0OS42IDUuMiA3My0xMCA2LjYtNC4yIDE3LjQtOS40IDI0LTExLjYgNi42LTIuMiAxNi01LjggMjEtOC4yIDEzLTYgMjgtNS42IDM1LjYuOCAxMi40IDEwLjQgMTguNiA0MS40IDE0LjQgNzEuNi00LjQgMzAuNi0zIDM5LjQgOC40IDUzLjggMy40IDQuNCAxMS4yIDE5LjIgMTcuNCAzMy4yTDc3NSA0NDN2NzhsLTEwIDI4Yy0xNS4yIDQzLjItMzYuOCA3My4yLTY2LjIgOTIuOC0xMy40IDguOC01NyAyNS40LTc2LjggMjktMjguMiA1LjItMzMuMiAxMi42LTIyIDMyLjIgMTEuMiAxOS40IDEyLjQgMzIuOCAxMS42IDEyOS42bC0uNiA4NS44IDUuNCA0LjZjMy42IDMgOS4yIDUuMiAxNiA2IDUuOC44IDYwLjIgMSAxMjAuNi42IDEwOC40LS42IDExMC4yLS42IDExOS01IDI0LTExLjYgNDAtMjcuNCA1MS42LTUwLjZsNS40LTExIC42LTM0N2MuNC0yMjMtLjItMzUzLjQtMS40LTM2NS0yLTE3LTIuNi0xOC42LTEzLTM0LTEwLjYtMTUuNC0yMi44LTI2LjItNDMuMi0zNy4yLTQuMi0yLjQtNjQuNi0yLjgtMzY2LTMuMi0xOTguNiAwLTM2NCAuNC0zNjcuNiAxLjR6Ii8+PC9zdmc+);
+    }
+    
+    
+    
+    
+    
+</style>
+
+        
+        <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-color: #F5F5F5;
+      }
+
+      /* blog_info bottom background */
+      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
+        background-color: #fff;
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+
+        <script>lsloader.load("js/jquery.min.js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==")</script>
+    
+    
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Analytics -->
+    
+
+    <!-- Custom Head -->
+    
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+    <!-- Left aligned menu below button -->
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Getting-Started"><span class="post-toc-number">1.</span> <span class="post-toc-text">Getting Started</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单的例子"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">简单的例子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Sequential-Model导读"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Sequential Model导读</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Functional-API导读"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">Functional API导读</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Models"><span class="post-toc-number">2.</span> <span class="post-toc-text">Models</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于models"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">关于models</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Sequential"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Sequential</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Model-functional-API"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Model(functional API)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Layers"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Layers</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#核心层"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">核心层</span></a></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#now-model-output-shape-None-64-32-32"><span class="post-toc-number"></span> <span class="post-toc-text">now: model.output_shape == (None, 64, 32, 32)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#now-model-output-shape-None-65536"><span class="post-toc-number"></span> <span class="post-toc-text">now: model.output_shape == (None, 65536)</span></a>
+        <!--
+        <li class="mdl-menu__item">
+            Some Action
+        </li>
+        -->
+    </ul>
+    
+
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                Keras
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/me.jpg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Chunhuan Lin</strong>
+        <span>7月 06, 2017</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+        <button id="article-functions-qrcode-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">devices other</i>
+    <span class="visuallyhidden">devices other</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-qrcode-button">
+    <li class="mdl-menu__item">在其它设备中阅读本文章</li>
+    
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACWElEQVR42u3aQXaDMAwFwNz/0u22i4Z8SdhA3njFCwl4vLAcSa+frx4vPDw8PDw8PDy8m/Fe8Xj3q39e8Ofz4+t3d0dzw8PDw9vC+7DVHjLyJXjHS5YjnxseHh7eTl71lZOwMXnXh3CCh4eHd3ve8YE4YefvxcPDw3suL/8kT1gcLxAeHh7ePXnJH/4kAdF72i1yLXh4eHgxLy8y7b/eWt/Dw8PDC3jllqbBxp1M7uSmKzw8PLwFvHwjrjYT5IvSCwx4eHh41/KqZa2cnU+u15RQ+MeAh4eHdyqvukHPQ0t+KM/xeHh4eHt4hQ23uE33EsSTxiw8PDy8nbxeSaw6lSQY5OxmAQwPDw/vJF5e1uo1FuRPzpMReHh4eFfxeltwcjcqVsXH9OQwjYeHh7eH12uH6iUvqgGmeSjHw8PD28ibh4q8nNajRqEFDw8PbwuvWvTKUxhntSA0m67w8PDwLuL1GgJ6S1NdpuhIjYeHh7eMlx9hj9MB+TcnqWE8PDy8q3jVREAvJFQbAqq/xcPDw7uKNwkA+cG3MNHeJ3h4eHhbeNUyWBJOeotSTUlER2o8PDy8xbzJRPO7veN1lCzGw8PDu5Q3KVD1nlBNcIwCAx4eHl6LVx29pO2k/bTaaoCHh4e3mnduQavanJof6JtNV3h4eHjLePMS12QsDwx4eHh4y3hJQWtynS9fXmbDw8PDexYvP15X0xOj5i08PDy8h/POLX1FYQYPDw9vI6/XODVpQVjRRoCHh4e3hzfZmnuYXjo4WnQ8PDy8xbzvG3h4eHh4eHh4eDcYvx9sPtqMv2spAAAAAElFTkSuQmCC">
+    
+</ul>
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Deep-Learning/">Deep Learning</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/keras/">keras</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/libs/">libs</a>
+    </ul>
+    
+
+    <!-- Share -->
+    <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=Keras&url=http://www.chlin.win/Deep-Learning/keras/index.html&pic=&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=Keras&url=http://www.chlin.win/Deep-Learning/keras/index.html&via=Chunhuan Lin" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chlin.win/Deep-Learning/keras/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://www.chlin.win/Deep-Learning/keras/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>针对版本v2.0.5，参照<a href="https://keras.io/" target="_blank" rel="external">官方文档</a>  </p>
+</blockquote>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>  Keras的核心数据结构是模型（<code>model</code>)。 最简单的模型是<code>Sequential</code>，它是层之间的线性叠加，更加复杂的结构请参考 <a href="https://keras.io/getting-started/functional-api-guide/" target="_blank" rel="external"><code>Keras functional API</code></a>。  </p>
+<h3 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h3><ul>
+<li><p>初始化一个Sequential模型  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from keras.models import Sequential  </div><div class="line">model = Sequential()</div></pre></td></tr></table></figure>
+</li>
+<li><p>搭建网络  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from keras.layers import Dense, Activation  </div><div class="line">model.add(Dense(units=64, input_dim=100))  </div><div class="line">model.add(Activation(&apos;relu&apos;))  </div><div class="line">model.add(Dense(units=10))  </div><div class="line">model.add(Activation(&apos;softmax&apos;))</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置学习方式  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">model.compile(loss=&apos;categorical_crossentropy&apos;,  </div><div class="line">            optimizer=&apos;sgd&apos;,  </div><div class="line">            metrics=[&apos;accuracy&apos;])</div></pre></td></tr></table></figure>
+<p>也可以进行更复杂的定义：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">model.compile(loss=keras.losses.categorical_crossentropy,  </div><div class="line">            optimizer=keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True))</div></pre></td></tr></table></figure>
+</li>
+<li><p>迭代训练  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># x_train and y_train are Numpy arrays --just like in the Scikit-Learn API.  </div><div class="line">model.fit(x_train, y_train, epochs=5, batch_size=32)</div></pre></td></tr></table></figure>
+<p>也可以手工自己喂batch：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.train_on_batch(x_batch, y_batch)</div></pre></td></tr></table></figure>
+</li>
+<li><p>评估结果  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loss_and_metrics = model.evaluate(x_test, y_test, batch_size=128)</div></pre></td></tr></table></figure>
+</li>
+<li><p>生成预测的结果  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">classes = model.predict(x_test, batch_size=128)`</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Sequential-Model导读"><a href="#Sequential-Model导读" class="headerlink" title="Sequential Model导读"></a>Sequential Model导读</h3><ul>
+<li><p>创建  </p>
+<ul>
+<li><p>通过传递一个包含层的实例的列表给构造函数创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from keras.models import Sequential  </div><div class="line">from keras.layers import Dense, Activation  </div><div class="line"></div><div class="line">model = Sequential([  </div><div class="line">    Dense(32, input_shape=(784,)),  </div><div class="line">    Activation(&apos;relu&apos;),  </div><div class="line">    Dense(10),  </div><div class="line">    Activation(&apos;softmax&apos;),  </div><div class="line">])</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>.add()</code>方法添加层  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">model = Sequential()  </div><div class="line">model.add(Dense(32, input_dim=784))  </div><div class="line">model.add(Activation(&apos;relu&apos;))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>指定输入的形状  </p>
+<ul>
+<li><code>input_shape</code><br>在第一层要指定输入的形状。<code>input_shape</code>参数是一个tuple或者None（表示输入形状可以是任意正数）。它不包含batch的维度。  </li>
+<li><code>input_dim</code>和<code>input_length</code><br>一些层支持使用<code>input_dim</code>和<code>input_length</code>来代替<code>input_shape</code>指定输入的形状。  </li>
+<li><code>batch_size</code><br>如果需要明确batch的大小，可以使用这个参数传入层中。  </li>
+</ul>
+</li>
+<li><p><code>compile</code>方法<br>它用来配置学习的处理方式。它接受以下三个参数：  </p>
+<ul>
+<li>optimizer<br>它可以是已存在的优化器的标识符，如<code>rmsprop</code>或者<code>adagrad</code>，或者是一个<code>Optimizer</code>类的实例。  </li>
+<li>损失函数<br>同样，它可以是一些已有的标识符，如<code>categorical_crossentropy</code>或者<code>mse</code>，也可以是一个目标函数。  </li>
+<li>metrics<br>一个metrics的列表（意味着可以有多个）。metric既可以是已有的metirc的标识符也可以是自定义的函数。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># For a multi-class classification problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;categorical_crossentropy&apos;,</div><div class="line">              metrics=[&apos;accuracy&apos;])</div><div class="line"></div><div class="line"># For a binary classification problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;binary_crossentropy&apos;,</div><div class="line">              metrics=[&apos;accuracy&apos;])</div><div class="line"></div><div class="line"># For a mean squared error regression problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;mse&apos;)</div><div class="line"></div><div class="line"># For custom metrics  </div><div class="line">import keras.backend as K  </div><div class="line"></div><div class="line">def mean_pred(y_true, y_pred):  </div><div class="line">    return K.mean(y_pred)  </div><div class="line"></div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,  </div><div class="line">              loss=&apos;binary_crossentropy&apos;,  </div><div class="line">              metrics=[&apos;accuracy&apos;, mean_pred])</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>训练<br>使用<code>fit</code>函数，输入是Numpy array形式的输入数据和标签。  </p>
+<ul>
+<li>参数<br><code>fit(self, x, y, batch_size=32, epochs=10, verbose=1, callbacks=None, validation_split=0.0, validation_data=None, shuffle=True, class_weight=None, sample_weight=None, initial_epoch=0)</code><blockquote>
+<p>verbose : 0表示不显示数据，1表示显示进度条，2表示只显示一个数据  </p>
+</blockquote>
+</li>
+<li>返回<br>返回一个<code>History</code>实例。<code>History.history</code>属性记录了训练过程的损失值和metric值。  </li>
+</ul>
+</li>
+<li><p>例子<br>这个<a href="https://github.com/fchollet/keras/tree/master/examples" target="_blank" rel="external">链接</a>里有一些例子，让你学会使用keras<br>也可以直接在<a href="https://keras.io/getting-started/sequential-model-guide/#training" target="_blank" rel="external">这里</a>看几个例子。</p>
+</li>
+</ul>
+<h3 id="Functional-API导读"><a href="#Functional-API导读" class="headerlink" title="Functional API导读"></a>Functional API导读</h3><p>  简单来说就是不用Sequential的方法，而直接使用<code>keras.models</code>或者<code>keras.layers</code>里面的函数来搭建网络。  </p>
+<ul>
+<li><p>所有的模型都像层一样，是可以被调用的，调用是，不仅调用了模型的结构，也调用了它的参数   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x = Input(shape=(784,))</div><div class="line">y = model(x)</div></pre></td></tr></table></figure>
+</li>
+<li><p>多输入和多输出结构  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">model = Model(inputs=[main_input, auxiliary_input], outputs=[main_output, auxiliary_output])</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;, loss=&apos;binary_crossentropy&apos;,</div><div class="line">            loss_weights=[1., 0.2])</div><div class="line">model.fit([headline_data, additional_data], [labels, labels],</div><div class="line">        epochs=50, batch_size=32)</div></pre></td></tr></table></figure>
+<p>如果给输入输出层命名了(eg. <code>main_input</code>, <code>main_output</code>)，也可以这样写这两层：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&#123;&apos;main_output&apos;: &apos;binary_crossentropy&apos;, &apos;aux_output&apos;: &apos;binary_crossentropy&apos;&#125;,</div><div class="line">              loss_weights=&#123;&apos;main_output&apos;: 1., &apos;aux_output&apos;: 0.2&#125;)</div><div class="line"></div><div class="line"># And trained it via:</div><div class="line">model.fit(&#123;&apos;main_input&apos;: headline_data, &apos;aux_input&apos;: additional_data&#125;,</div><div class="line">          &#123;&apos;main_output&apos;: labels, &apos;aux_output&apos;: labels&#125;,</div><div class="line">          epochs=50, batch_size=32)</div></pre></td></tr></table></figure>
+</li>
+<li><p>共享的层<br>不仅结构共享，权重也是共享的  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># This layer can take as input a matrix</div><div class="line"># and will return a vector of size 64</div><div class="line">shared_lstm = LSTM(64)</div><div class="line"></div><div class="line"># When we reuse the same layer instance</div><div class="line"># multiple times, the weights of the layer</div><div class="line"># are also being reused</div><div class="line"># (it is effectively *the same* layer)</div><div class="line">encoded_a = shared_lstm(tweet_a)</div><div class="line">encoded_b = shared_lstm(tweet_b)</div></pre></td></tr></table></figure>
+</li>
+<li><p>层的<code>node</code><br>当某层被调用时会输出一个张量，同时会添加一个<code>node</code>，根据被调用的次数，<code>node</code>的编号由0开始递增。<br><code>layer.ouput</code> 得到当前层的输出张量，新版本的<code>ouput</code>属性替代了原来的<code>get_output()</code><br><code>layer.ouput_shape</code> 得到输出的形状<br>如果一个层被调用多次，那么输出时，就会产生混乱，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = Input(shape=(140, 256))</div><div class="line">b = Input(shape=(140, 256))</div><div class="line"></div><div class="line">lstm = LSTM(32)</div><div class="line">encoded_a = lstm(a)</div><div class="line">encoded_b = lstm(b)</div><div class="line"></div><div class="line">lstm.output</div></pre></td></tr></table></figure>
+<p>上述代码最后一行会报错，那么，就要使用<code>get_output_at(node_index)</code>这个方法来代替<code>output</code>了，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lstm.get_output_at(0)</div></pre></td></tr></table></figure>
+<p>当输入/输出的形状在不同node可能发生改变时，也要使用类似的方法，来代替<code>layer.output_shape/layer.input_shape</code>，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conv.get_input_shape_at(0)</div></pre></td></tr></table></figure>
+</li>
+<li><p>更多的例子<br>请参考这个<a href="https://keras.io/getting-started/functional-api-guide/" target="_blank" rel="external">页面</a>。</p>
+</li>
+</ul>
+<h2 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h2><h3 id="关于models"><a href="#关于models" class="headerlink" title="关于models"></a>关于models</h3><p>  Keras里面一共有两类models：<code>Sequential model</code>和<code>使用functional API的Model类</code><br>  这些models共有几个方法：  </p>
+<ul>
+<li><code>model.summary()</code> 打印model的summary表示  </li>
+<li><p><code>model.get_config</code> 返回一个字典，记录模型的配置，model可以通过它来重新实例化：  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config = model.get_config()</div><div class="line">model = Model.from_config(config)</div><div class="line"># or, for Sequential:</div><div class="line">model = Sequential.from_config(config)</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>model.get_weights()</code> 返回一个列表，里面以Numpy array的形式记载了模型中所有权重张量的值  </p>
+</li>
+<li><code>model.set_weights(weights)</code> 设置权重值，weight是一个Numpy array构成的列表  </li>
+<li><p><code>model.to_json()</code> 以JSON字符串的格式，返回模型的表示。这个表示<strong>只包括结构，不包括权重</strong>，也可以从JSON字符串中重载模型：  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from models import model_from_json</div><div class="line"></div><div class="line">json_string = model.to_json()</div><div class="line">model = model_from_json(json_string)</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>model.to_yaml()</code> 与json相似  </p>
+</li>
+<li><code>model.save_weights(filepath)</code> 将权重存为HDF5文件  </li>
+<li><code>model.load_weight(filepath, by_name=False</code> 从HDF5文件中载入参数，当<code>by_name=True</code>时，只载入名字相同的层的参数  </li>
+</ul>
+<h3 id="Sequential"><a href="#Sequential" class="headerlink" title="Sequential"></a>Sequential</h3><blockquote>
+<p>参照<a href="https://keras.io/models/sequential/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li>属性： <ul>
+<li><code>model.layers</code> 一个包含模型的所有层的列表  </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>方法：  <ul>
+<li>compile<br>配置学习过程  </li>
+<li>fit<br>训练模型  </li>
+<li>evaluate<br>以batch为单位，计算输入的损失  </li>
+<li>pridict<br>生成输入样本的输出  </li>
+<li>train_on_batch<br>在一个batch的样本上更新梯度一次  </li>
+<li>test_on_batch<br>只评估一个batch的样本  </li>
+<li>predict_on_batch<br>返回一个batch的样本的输出  </li>
+<li>fit_generator<br>根据一个python的generator，以batch为单位，训练模型  </li>
+<li>evaluate_generator<br>根据一个数据生成器来评估模型  </li>
+<li>predict_generator<br>预测从数据生成器得到的输入样本</li>
+<li>get_layer<br>根据索引或名字返回模型相应的层  </li>
+</ul>
+</li>
+</ul>
+<h3 id="Model-functional-API"><a href="#Model-functional-API" class="headerlink" title="Model(functional API)"></a>Model(functional API)</h3><blockquote>
+<p>参照<a href="https://keras.io/models/model/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li><code>Model</code><br>通过给<code>Model</code>类输入张量和输出张量，即能够初始化<code>Model</code>类，如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from keras.models import Model</div><div class="line">from keras.layers import Input, Dense</div><div class="line"></div><div class="line">a = Input(shape=(32,))</div><div class="line">b = Dense(32)(a)</div><div class="line">model = Model(inputs=a, outputs=b)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>属性  <ul>
+<li><code>model.layers</code>   </li>
+<li><code>model.inputs</code>  </li>
+<li><code>model.outputs</code>  </li>
+</ul>
+</li>
+<li>方法  <ul>
+<li>compile</li>
+<li>fit</li>
+<li>evaluate</li>
+<li>predict </li>
+<li>train_on_batch</li>
+<li>test_on_batch  </li>
+<li>predict_on_batch  </li>
+<li>fit_generator  </li>
+<li>evaluate_generator  </li>
+<li>predict_generator  </li>
+<li>get_layer<blockquote>
+<p>方法貌似都一样  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Layers"><a href="#Layers" class="headerlink" title="Layers"></a>Layers</h3><blockquote>
+<p>参照<a href="https://keras.io/layers/about-keras-layers/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li>共有的方法  <ul>
+<li><code>layer.get_weights()</code></li>
+<li><code>layer.set_weights()</code></li>
+<li><code>layer.get_config()</code><br>layer可以通过如下方式重新初始化：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">layer = Dense(32)</div><div class="line">config = layer.get_config()</div><div class="line">reconstructed_layer = Dense.from_config(config)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<pre><code>或者  
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from keras import layers</div><div class="line"></div><div class="line">config = layer.get_config()</div><div class="line">layer = layers.deserialize(&#123;&apos;class_name&apos;: layer.__class__.__name__,</div><div class="line">                            &apos;config&apos;: config&#125;)</div></pre></td></tr></table></figure>
+</code></pre><h4 id="核心层"><a href="#核心层" class="headerlink" title="核心层"></a>核心层</h4><ul>
+<li><p>Dense  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  keras.layers.core.Dense(units, activation=None, use_bias=True, kernel_initializer=&apos;glorot_uniform&apos;, bias_initializer=&apos;zeros&apos;, kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)</div><div class="line">  ```   </div><div class="line">  - 相当于这个操作`output = activation(dot(input, kernel) + bias)`   </div><div class="line">  - units 表示输出的个数（神经元个数）  </div><div class="line">  - 里面也可以添加正则化的配置  </div><div class="line">  - 还可以对权重大小进行约束  </div><div class="line"></div><div class="line">* Activation</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Activation(activation)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  - activation可以是keras里的[激活函数](https://keras.io/activations/)，也可以是一个th或tf操作  </div><div class="line">* Dropout</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Dropout(rate, noise_shape=None, seed=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Flatten</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Flatten()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Example:</div></pre></td></tr></table></figure>
+<p>model = Sequential()<br>model.add(Convolution2D(64, 3, 3,</p>
+<pre><code>border_mode=&apos;same&apos;,
+input_shape=(3, 32, 32)))
+</code></pre><h1 id="now-model-output-shape-None-64-32-32"><a href="#now-model-output-shape-None-64-32-32" class="headerlink" title="now: model.output_shape == (None, 64, 32, 32)"></a>now: model.output_shape == (None, 64, 32, 32)</h1><p>model.add(Flatten())</p>
+<h1 id="now-model-output-shape-None-65536"><a href="#now-model-output-shape-None-65536" class="headerlink" title="now: model.output_shape == (None, 65536)"></a>now: model.output_shape == (None, 65536)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Reshape</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Reshape(target_shape)<br>```</p>
+</li>
+</ul>
+
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/info/2017qiuzhao/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/notes/anaconda/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/me.jpg" alt="Chunhuan Lin's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        lch_xdu@163.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="mailto: lch_xdu@163.com" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2017/07/">七月 2017<span class="sidebar_archives-count">14</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/06/">六月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/04/">四月 2017<span class="sidebar_archives-count">3</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">chrome_reader_mode</i>
+                
+                分类
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                <a class="sidebar_archives-link" href="/categories/Deep-Learning/">Deep Learning<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Linux/">Linux<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/Server/">Server<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/categories/notes/">notes<span class="sidebar_archives-count">7</span></a></li><li><a class="sidebar_archives-link" href="/categories/projects/">projects<span class="sidebar_archives-count">1</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签">
+                
+                    <i class="material-icons sidebar-material-icons">bookmark</i>
+                
+                标签
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+        <li>
+            <a href="/about" title="About">
+                
+                    <i class="material-icons sidebar-material-icons">person</i>
+                
+                About
+            </a>
+        </li>
+        
+    
+
+    <!-- Article Number  -->
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+
+<!-- Theme Material -->
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/ChunhuanLin" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>Chunhuan Lin
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import File -->
+
+
+    <script>lsloader.load("js/lazyload.min.js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==")</script>
+    <script>lsloader.load("js/js.min.js","/js/js.min.js?oAl/+lvaqTFV31JXTmbrNA==")</script>
+
+
+
+    <script>lsloader.load("js/nprogress.js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==")</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Window Load-->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+</script>
+
+<!-- MathJax Load-->
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Bing Background -->
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.4.0 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

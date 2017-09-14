@@ -1,0 +1,1299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[python codec]]></title>
+      <url>/info/python_codec/</url>
+      <content type="html"><![CDATA[<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p><strong>codec</strong> ： 编码（code)和解码(decode)的缩写组合<br><strong>unicode</strong> ：一种对各种符号进行统一编码的规则，即一种规定了各种字符（如中文，英文）到二进制吗映射关系的规则<br><strong>utf-8</strong> ： 按照一定规则将unicode存储到计算机中。由于有的字符对应的unicode字节少（如英文），而有的多（如中文），因此需要一种体系对unicode进行处理，以便能够更加高效的存储到计算机中。  </p>
+<blockquote>
+<p>具体参照：<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="external">阮一峰的博客</a></p>
+</blockquote>
+<h2 id="python中的编码处理"><a href="#python中的编码处理" class="headerlink" title="python中的编码处理"></a>python中的编码处理</h2><blockquote>
+<p>参考链接 <a href="http://www.jianshu.com/p/53bb448fe85b" target="_blank" rel="external">简书</a></p>
+</blockquote>
+<p>Python 默认脚本文件都是<strong>ANSCII</strong>编码的，当文件中有非 ANSCII 编码范围内的字符的时候就要使用”编码指示”来修正一个 module 的定义中，如果.py文件中含有非anscii字符（如中文字符），则需要在第一行或第二行指定编码声明：<code># -*- coding=utf-8 -*-</code> 或者 <code>#coding=utf-8</code>  </p>
+<ol>
+<li>python中有两种字符类型，一种是<code>str</code>，另一种是<code>unicode</code>，<code>str</code>如果要转换为特定的编码类型（如utf-8、gb2312），则必须要先转为<code>unicode</code>。也即，所有编码类型的转换都是从<code>unicode</code>开始的。  </li>
+<li><p>python编码转换函数  </p>
+<ul>
+<li><p>对unicode进行<strong>编码</strong><br>使用<strong>encode</strong>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># -*- coding=UTF-8 -*-  </div><div class="line">if __name__ == &apos;__main__&apos;:  </div><div class="line">   s = u&apos;中国&apos;  </div><div class="line">   s_gb = s.encode(&apos;gb2312&apos;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>将unicode编码<strong>还原</strong>为unicode字符<br>使用<strong>decode</strong>方法 或 <strong>unicode</strong>函数  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#coding=UTF-8</div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">   s = u&apos;中国&apos;</div><div class="line">   #s为unicode先转为utf-8</div><div class="line">   s_utf8 =  s.encode(&apos;UTF-8&apos;)</div><div class="line"></div><div class="line">   # 开始还原</div><div class="line">   assert(s_utf8.decode(&apos;utf-8&apos;) == s)</div><div class="line">   # 或者</div><div class="line">   # unicode(s_utf8, &apos;utf-8&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>str</code>转变编码方式<br>先按python脚本的编码方式进行解码，成为<code>unicode</code>，再进行编码，成为自己想要的编码格式。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#coding=UTF-8</div><div class="line">s = &apos;中国&apos;</div><div class="line">s.decode(&apos;utf-8&apos;).encode(&apos;gb2312&apos;)</div></pre></td></tr></table></figure>
+<p>如果直接进行<code>encode</code>，那么会先以<code>sys.defaultencoding</code>指明的方式来解码（默认是<code>ascii</code>），这是可能会报错：  </p>
+<blockquote>
+<p>UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe4 in position 0: ordinal not in range(128)    </p>
+</blockquote>
+<p>这时我们就需要向上述的方式，明确的指示解码方式，解码后再进行编码。也可以<strong>修改</strong><code>sys.defaultencodiing</code>，代码中加入：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import sys </div><div class="line">reload(sys) # Python2.5 初始化后会删除 sys.setdefaultencoding 这个方法，我们需要重新载入 </div><div class="line">sys.setdefaultencoding(&apos;utf-8&apos;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>判断文件的编码方式<br>使用<code>chardet</code><br><code>chardet.detect(rawdata)</code></p>
+</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> unicode </tag>
+            
+            <tag> utf-8 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Django]]></title>
+      <url>/projects/django/</url>
+      <content type="html"><![CDATA[<h2 id="app目录结构"><a href="#app目录结构" class="headerlink" title="app目录结构"></a>app目录结构</h2><ul>
+<li><p>migrations目录<br>跟数据库操作相关的目录  </p>
+</li>
+<li><p><strong>init</strong>.py<br>告诉python这个目录可以当作一个包来使用  </p>
+</li>
+<li><p>admin.py<br>后台的一些操作  </p>
+</li>
+<li><p>apps.py<br>1.9以后的版本才有<br>关于这个app的参数的设定，以前是设定到setting文件下面，可以更为自由的定义，为了规范和重复使用，现在放到这个文件底下。  </p>
+</li>
+<li><p>model.py<br>数据库的模型结构  </p>
+</li>
+<li><p>test.py<br>测试用的  </p>
+</li>
+<li><p>views.py<br>显示  </p>
+</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2>]]></content>
+      
+        <categories>
+            
+            <category> projects </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> django </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[2017内推]]></title>
+      <url>/info/2017qiuzhao/</url>
+      <content type="html"><![CDATA[<h2 id="阿里"><a href="#阿里" class="headerlink" title="阿里"></a>阿里</h2><p>面向群体：2018届毕业生<br>大家可以在下面网址查看招聘流程和职位<br><a href="https://campus.alibaba.com/process.html" target="_blank" rel="external">https://campus.alibaba.com/process.html</a><br>需要内推的同学请下面的QQ群，我会在群里说明简历相关事项并不定时在群内答疑<br>QQ群:645090811  </p>
+<ul>
+<li>关于网申/内部推荐：<br>面向群体：2018届毕业生（毕业时间：2018.1.1-2018.12.31）<br>内推时间：7月4日至8月18日<br>网申时间：7月4日至8月18日  </li>
+<li><p>关于在线编程：<br>1．面向人群：技术类岗位同学<br>2．测验有效期：简历投递后请点击邮件链接进行在线编程测验，完成答题的同学会增加面试几率<br>3．测验时间：总计30分钟(具体时长请注意查看邮件通知)，一旦开始编程，请在规定的时间内完成并提交，超过时长系统将不能继续答题<br>4．测验形式：在线编程<br>5．测验说明：在线编程确保答题过程完全由本人独立完成，编程结果供面试官面试参 考，不会作为筛选标准，若发现有任何作弊或欺诈行为，我们将取消亲的面试资格<br>6．测验通知：简历投递成功后，亲可以在个人中心“去测验”进行测验  </p>
+</li>
+<li><p>关于测评：  </p>
+</li>
+</ul>
+<ol>
+<li>面向人群：技术类岗位同学（实习生招聘已做过则此次不需要做）  </li>
+<li>测评时间：简历投递后请点击邮件链接进行在线人才测评，完成答题的同学会增加面试几率</li>
+<li>测评形式：在线测评</li>
+<li>测评要求：亲须保证个人信息真实有效，并确保答题过程完全由本人独立完成，如发现有任何作弊或欺诈行为，我们将取消亲的面试资格</li>
+<li>测评通知：简历投递后，亲可以在个人中心点击“去测评”完成人才测评  </li>
+</ol>
+<ul>
+<li>关于在线笔试：  </li>
+</ul>
+<ol>
+<li>笔试时间：2017年8月23日至8月25日，各科目具体安排8月中下旬公告  </li>
+<li>笔试形式：在线笔试</li>
+<li>笔试要求：亲须保证个人信息真实有效，并确保答题过程完全由本人独立完成，如发现有任何作弊或欺诈行为，我们将取消亲的面试资格</li>
+<li>笔试通知：请关注亲在官网个人中心的实时状态，笔试启动时会有邮件通知，请注意查收</li>
+</ol>
+<ul>
+<li>关于面试：  </li>
+</ul>
+<ol>
+<li>内推面试时间：2017年7月3日至2017年8月25日  </li>
+<li>内推面试流程：内推→简历完善→测评&amp;在线编程→简历评估→面试→发放录用意向书</li>
+<li>网申专场面试：2017年9月</li>
+<li>网申专场面试流程：网申→测评&amp;在线编程→笔试→面试→发放录用意向书</li>
+<li>网申面试通知：请关注亲的官网个人中心实时状态，面试开启时会有邮件通知</li>
+<li>校招团队会在8月18日前甄选出网申部分同学进入内推渠道，所以简历要早投递哦<br>六、关于offer：  </li>
+<li>我们会第一时间向确认录用意向的同学发放《录用意向书》,内推结束后分批发放offer直至校招结束。  </li>
+<li>我们非常欢迎有志于互联网事业的年轻人加入我们，与我们共创有价值有意义的事！  </li>
+</ol>
+<h2 id="蚂蚁金服"><a href="#蚂蚁金服" class="headerlink" title="蚂蚁金服"></a>蚂蚁金服</h2><p>招聘对象：2018年1月-12月应届毕业生<br>由支付宝自主研发的智能实时风险监控系统，是目前世界上最先进的网上支付风险实时监控系统之一。该系统基于用户行为来判断风险等级，集风险分析、预警、控制为一体，7*24小时全天候风险监控，保障支付宝每天亿万级交易的资金安全。我们探索的是世界上独一无二的、领先的基于海量数据风控解决方案，加入我们一起来建设下一代的风控数据实时计算体系，一起从IT时代跨越到DT时代，迎接互联网金融时代全新的挑战。</p>
+<ol>
+<li>搭建机器学习，人工智能服务平台</li>
+<li>建设百亿级别实时数据处理的高并发高可用平台。</li>
+</ol>
+<p>职位要求：<br>1.本科及以上在读，计算机相关专业<br>2.具备优秀的编程能力，熟练掌握Java/C/C++中的一种或几种<br>3.具备良好的系统分析能力，扎实的数据结构及算法基础<br>4.对技术有浓厚的兴趣，喜欢创新，善于钻研<br>5.有竞赛经验和实习经验者优先<br>6.工作地点：杭州,上海，成都<br>7.联系方式：di.yejd@antfin.com(杭州java ) luobin.chen@antfin.com(杭州 java ) yunzhen.sb@antfin.com(成都 java ) yue.zhouqy@antfin.com(杭州算法)  xiangdong.xd@antfin.com<br>(上海算法) qi.lq@antfin.com(杭州数据研发) jupeng.xia@antfin.com(杭州 安卓，ios, java,c,c++)</p>
+<h2 id="阿里云"><a href="#阿里云" class="headerlink" title="阿里云"></a>阿里云</h2><p>阿里云飞天八部 数据库技术组 校招内推<br>发送简历至 jianche.jh@alibaba-inc.com<br>联系人微信：jinhang19931006  </p>
+<h2 id="阿里-1"><a href="#阿里-1" class="headerlink" title="阿里"></a>阿里</h2><p>阿里校招内推开始了实验室大大大大师兄托我发帖寻找有理想、有技术的童鞋 算法、Java、C++、前端、测试各种岗位应有尽有 有意者简历发到huantian.lht@alibaba-inc.com  金币不多~小散一波~~  </p>
+<h2 id="美团点评"><a href="#美团点评" class="headerlink" title="美团点评"></a>美团点评</h2><p>JAVA工程师</p>
+<p>职责<br>1.负责预订后端技术方案的实际决策和部分核心编码，用技术解决业务需求<br>2.确保系统稳定，不断优化性能，攻克技术难题</p>
+<p>岗位要求<br>1.本科以上学历<br>2.具备扎实的基本功，掌控Java相关技术栈<br>2.有较强的抽象思维和建模能力，善于思考，善于分析，归纳，解决问题<br>3.善于把复杂的业务问题进行抽象和拆解，并推动解决问题<br>4.注重不断提升视野和认知水准<br>5.编码功底扎实，追求代码质量和风格优雅<br>6.用户端相关业务工作经验优先</p>
+<p>关于我们<br>1.我们是一家技术驱动的O2O企业<br>2.这是一个学习型组织，重视分享和成长，工作标准不断提高<br>3.致力于为商家和吃货提供高品质订餐服务</p>
+<p>简历投递<br>yangding@meituan.com</p>
+<p>简历格式<br>姓名<em>JAVA工程师</em>校招内推.pdf</p>
+<p>前端工程师</p>
+<p>挑战<br>1.优化网站性能，为用户体验提供坚实保障<br>2.推进自动化，包括自动化测试、监控&amp;报警、开发工具等，不断的提高开发效率和代码质量<br>3.建设前端架构，针对业务定制最为高效、稳定且具备一定先进性的前端架构<br>4.整合通用 UI 解决方案，抽象化、模块化 UI 组件，让业务实现更简单<br>5.革新前端开发方式，解放前端开发资源，做更为重要、更具挑战的工作</p>
+<p>职责<br>1.负责网站和手机终端的界面交互开发<br>2.负责建设前端系统架构<br>3.为美团用户呈现最好的界面交互体验</p>
+<p>岗位要求<br>1.本科学历以上<br>2.热衷学习与自我修炼，喜欢阅读英文原版技术文档和书籍<br>3.精通 HTML/CSS/Javascript 等前端技术，能轻松写出符合 W3C 标准、兼容主流浏览器的代码<br>4.精通至少一种 JS 框架或者对 JS 语言掌握较深<br>5.掌握至少一门非前端开发语言（如 PHP/Java/Python/Ruby 等），并有一定的实战经验<br>6.计算机、数学等相关专业毕业（或者计算机基础非常扎实）</p>
+<p>简历投递<br>yangding@meituan.com</p>
+<p>简历格式<br>姓名<em>前端工程师</em>校招内推.pdf</p>
+<h2 id="华为无线部门"><a href="#华为无线部门" class="headerlink" title="华为无线部门"></a>华为无线部门</h2><p>有意向华为无线网络产品线的18届硕士生或博士生，现在可以内推了，本内推无需面试、无需实习，不影响校招，形式类似大西电的“优研计划”，<br>参加软件挑战赛的、未参加比赛的但是优招/校招表现突出的，如果部门看上了优先“有钱途”的无线部门！</p>
+<p>无论你是参加华为软件挑战赛的，还是有牛逼项目的，还是编程能力厉害的，请把简历砸来！部门主管看上会优先联系大家见面畅谈！</p>
+<p>归根结底一句话：优先圈定一群牛逼的人！无线来抢！<br>华为“圣无线”欢迎你！职位参考官网：华为招聘</p>
+<p>内推邮箱是17802929726@163.com<br>邮件主题及简历格式：姓名-学校-学历-专业-职位（仅限西电本校的）</p>
+<h2 id="滴滴"><a href="#滴滴" class="headerlink" title="滴滴"></a>滴滴</h2><p>滴滴出行2018年校招应届内推来了，三大岗位，满足以下四点之一即可内推:   </p>
+<p>1、        超级学霸，专业前10%<br>2、        竞赛大神，各类大赛大奖尽收囊中<br>3、        学术达人，顶会paper发到手软<br>4、        实战高手，实习的足迹遍布google/MSRA等顶级科技公司<br>内推专属福利：<br>1、        免笔试：简历筛选通过，直接优先安排面试<br>2、        两条命：简历筛选未通过，进入在线笔试环节  </p>
+<p>内推岗位一：算法工程师<br>•        工作职责：<br>•        1.计算机、电子、自动化、控制、数学、物理、机器人、图形学、汽车工程等相关专业本科及以上学历<br>•        2.有机器学习、人工智能、数据挖掘、计算机视觉、统计学理论、最优化理论、分布式计算、机器人、自动控制、汽车工程、图形图像处理、语音识别、语音合成、自然语言处理等至少一个方向相关基础，熟悉基本算法<br>•        3.编程基础扎实，熟悉算法数据结构，有C++/Python/Java/Hadoop(mapreduce)/Hbase/Kafka/Flume/Zookeeper/Spark/Flink/Samza等相关技术至少一个方向的研究或开发经验者优先<br>•        4.有机器学习、数据挖掘、计算机视觉、机器人决策与路径规划、语音识别、语音合成等至少一个方向相关项目实际经验者优先<br>•        5.有大数据相关系统，如map-reduce、spark、mpi等经验者优先<br>•        6.踏实勤奋，自我驱动，善于沟通，动手能力强，视野开阔，具有创造性思维<br>•        任职资格：<br>•        1.参与公司核心算法设计与开发，成果将应用于滴滴各产品线，提供智能出行解决方案<br>•        2.构建高效率的算法平台，优化产品各环节的司机乘客体验  </p>
+<p>内推岗位二：研发工程师<br>•        工作职责：<br>•        1.计算机科学，数学与应用数学等相关专业本科及以上学历<br>•        2.逻辑缜密清晰，对技术充满热情<br>•        3.熟悉计算机科学中的某几个领域，至少在一个领域有一定见解，包括但不限于：算法，数据结构，网络，体系结构，编译原理，统计分析<br>•        4.至少擅长一门编程语言和熟练掌握基本算法的能力<br>•        5.踏实勤奋，自我驱动，善于沟通，动手能力强，视野开阔，具有创造性思维<br>•        任职资格：<br>•        1.通过各类技术手段，改善滴滴的产品体验<br>•        2.你要至少负责以下工作的一件：服务器开发、系统优化、数据挖掘、数据分析、移动端app开发、web前端页面开发  </p>
+<p>内推岗位三：安全工程师<br>•        工作职责：<br>•        1、本科学历以上，计算机信息安全相关专业优先<br>•        2、对安全某一领域有一定的了解，如网络安全、Linux系统安全、WEB安全、移动安全等。有安全攻防经验或有志在安全行业发展<br>•        3、熟练掌握SQL，熟悉Bash、Python、Perl等脚本中的至少其中一种<br>•        4、如果同时具有C++、Java或PHP的工程经验可以加分<br>•        5、具有优秀的数据敏感性和思维开阔度<br>•        6、优秀的沟通呈现及抗压能力<br>•        任职资格：<br>•        1、至少参与以下工作之一：移动客户端安全保护功能实现、移动客户端漏洞跟进分析、WEB业务的安全评估和测试、安全监控系统策略制定、安全事件应急响应。<br>•        2、持续体验业务，保持与产品研发团队的紧密沟通，提前发现业务发展过程中的安全漏洞。<br>•        3、基于大数据的分析、挖掘，找到作弊者的行为特点，并给出可落地的检测和打击的策略模型；4、持续迭代、优化反作弊系统的效果。<br>如果有需要的，请把简历发给黄学长，邮箱：673391138@qq.com<br>注意：简历中一定要包含邮箱和联系电话！<br>简历命名：学校+专业+岗位+电话+邮箱</p>
+<h2 id="美团点评-1"><a href="#美团点评-1" class="headerlink" title="美团点评"></a>美团点评</h2><p>美团/点评预定业务部JAVA工程师2017届补招内推</p>
+<p>负责美团/点评预定业务后台开发，职能包括但不限于<br>1.负责美团/点评两个平台的用户/商户入口，订单等系统的设计和建设<br>2.确保系统稳定，不断优化性能，攻克技术难题</p>
+<p>岗位要求：<br>1.1年以上java相关项目经验<br>2.具备扎实的基本功，掌控Java相关技术栈，spring，mybatis等框架<br>2.有较强的抽象思维和建模能力，善于思考，善于分析，归纳，解决问题<br>3.参与过复杂分布式WEB系统的设计开发，拥有一定的广度和深度<br>4.注重不断提升视野和认知水准<br>5.编码功底扎实，追求代码质量和风格优雅<br>6.对java开源框架，jvm有研究者优先，有java项目实习经验者优先</p>
+<p>简历发送: yangding@meituan.com</p>
+<h2 id="阿里CDN部门"><a href="#阿里CDN部门" class="headerlink" title="阿里CDN部门"></a>阿里CDN部门</h2><p> 同学在阿里cdn部门，内推各种职位。请讲简历发送到1033606062@qq.com</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Keras]]></title>
+      <url>/Deep-Learning/keras/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>针对版本v2.0.5，参照<a href="https://keras.io/" target="_blank" rel="external">官方文档</a>  </p>
+</blockquote>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>  Keras的核心数据结构是模型（<code>model</code>)。 最简单的模型是<code>Sequential</code>，它是层之间的线性叠加，更加复杂的结构请参考 <a href="https://keras.io/getting-started/functional-api-guide/" target="_blank" rel="external"><code>Keras functional API</code></a>。  </p>
+<h3 id="简单的例子"><a href="#简单的例子" class="headerlink" title="简单的例子"></a>简单的例子</h3><ul>
+<li><p>初始化一个Sequential模型  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">from keras.models import Sequential  </div><div class="line">model = Sequential()</div></pre></td></tr></table></figure>
+</li>
+<li><p>搭建网络  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from keras.layers import Dense, Activation  </div><div class="line">model.add(Dense(units=64, input_dim=100))  </div><div class="line">model.add(Activation(&apos;relu&apos;))  </div><div class="line">model.add(Dense(units=10))  </div><div class="line">model.add(Activation(&apos;softmax&apos;))</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置学习方式  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">model.compile(loss=&apos;categorical_crossentropy&apos;,  </div><div class="line">            optimizer=&apos;sgd&apos;,  </div><div class="line">            metrics=[&apos;accuracy&apos;])</div></pre></td></tr></table></figure>
+<p>也可以进行更复杂的定义：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">model.compile(loss=keras.losses.categorical_crossentropy,  </div><div class="line">            optimizer=keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True))</div></pre></td></tr></table></figure>
+</li>
+<li><p>迭代训练  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># x_train and y_train are Numpy arrays --just like in the Scikit-Learn API.  </div><div class="line">model.fit(x_train, y_train, epochs=5, batch_size=32)</div></pre></td></tr></table></figure>
+<p>也可以手工自己喂batch：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.train_on_batch(x_batch, y_batch)</div></pre></td></tr></table></figure>
+</li>
+<li><p>评估结果  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loss_and_metrics = model.evaluate(x_test, y_test, batch_size=128)</div></pre></td></tr></table></figure>
+</li>
+<li><p>生成预测的结果  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">classes = model.predict(x_test, batch_size=128)`</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Sequential-Model导读"><a href="#Sequential-Model导读" class="headerlink" title="Sequential Model导读"></a>Sequential Model导读</h3><ul>
+<li><p>创建  </p>
+<ul>
+<li><p>通过传递一个包含层的实例的列表给构造函数创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from keras.models import Sequential  </div><div class="line">from keras.layers import Dense, Activation  </div><div class="line"></div><div class="line">model = Sequential([  </div><div class="line">    Dense(32, input_shape=(784,)),  </div><div class="line">    Activation(&apos;relu&apos;),  </div><div class="line">    Dense(10),  </div><div class="line">    Activation(&apos;softmax&apos;),  </div><div class="line">])</div></pre></td></tr></table></figure>
+</li>
+<li><p>通过<code>.add()</code>方法添加层  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">model = Sequential()  </div><div class="line">model.add(Dense(32, input_dim=784))  </div><div class="line">model.add(Activation(&apos;relu&apos;))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>指定输入的形状  </p>
+<ul>
+<li><code>input_shape</code><br>在第一层要指定输入的形状。<code>input_shape</code>参数是一个tuple或者None（表示输入形状可以是任意正数）。它不包含batch的维度。  </li>
+<li><code>input_dim</code>和<code>input_length</code><br>一些层支持使用<code>input_dim</code>和<code>input_length</code>来代替<code>input_shape</code>指定输入的形状。  </li>
+<li><code>batch_size</code><br>如果需要明确batch的大小，可以使用这个参数传入层中。  </li>
+</ul>
+</li>
+<li><p><code>compile</code>方法<br>它用来配置学习的处理方式。它接受以下三个参数：  </p>
+<ul>
+<li>optimizer<br>它可以是已存在的优化器的标识符，如<code>rmsprop</code>或者<code>adagrad</code>，或者是一个<code>Optimizer</code>类的实例。  </li>
+<li>损失函数<br>同样，它可以是一些已有的标识符，如<code>categorical_crossentropy</code>或者<code>mse</code>，也可以是一个目标函数。  </li>
+<li>metrics<br>一个metrics的列表（意味着可以有多个）。metric既可以是已有的metirc的标识符也可以是自定义的函数。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># For a multi-class classification problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;categorical_crossentropy&apos;,</div><div class="line">              metrics=[&apos;accuracy&apos;])</div><div class="line"></div><div class="line"># For a binary classification problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;binary_crossentropy&apos;,</div><div class="line">              metrics=[&apos;accuracy&apos;])</div><div class="line"></div><div class="line"># For a mean squared error regression problem</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&apos;mse&apos;)</div><div class="line"></div><div class="line"># For custom metrics  </div><div class="line">import keras.backend as K  </div><div class="line"></div><div class="line">def mean_pred(y_true, y_pred):  </div><div class="line">    return K.mean(y_pred)  </div><div class="line"></div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,  </div><div class="line">              loss=&apos;binary_crossentropy&apos;,  </div><div class="line">              metrics=[&apos;accuracy&apos;, mean_pred])</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>训练<br>使用<code>fit</code>函数，输入是Numpy array形式的输入数据和标签。  </p>
+<ul>
+<li>参数<br><code>fit(self, x, y, batch_size=32, epochs=10, verbose=1, callbacks=None, validation_split=0.0, validation_data=None, shuffle=True, class_weight=None, sample_weight=None, initial_epoch=0)</code><blockquote>
+<p>verbose : 0表示不显示数据，1表示显示进度条，2表示只显示一个数据  </p>
+</blockquote>
+</li>
+<li>返回<br>返回一个<code>History</code>实例。<code>History.history</code>属性记录了训练过程的损失值和metric值。  </li>
+</ul>
+</li>
+<li><p>例子<br>这个<a href="https://github.com/fchollet/keras/tree/master/examples" target="_blank" rel="external">链接</a>里有一些例子，让你学会使用keras<br>也可以直接在<a href="https://keras.io/getting-started/sequential-model-guide/#training" target="_blank" rel="external">这里</a>看几个例子。</p>
+</li>
+</ul>
+<h3 id="Functional-API导读"><a href="#Functional-API导读" class="headerlink" title="Functional API导读"></a>Functional API导读</h3><p>  简单来说就是不用Sequential的方法，而直接使用<code>keras.models</code>或者<code>keras.layers</code>里面的函数来搭建网络。  </p>
+<ul>
+<li><p>所有的模型都像层一样，是可以被调用的，调用是，不仅调用了模型的结构，也调用了它的参数   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">x = Input(shape=(784,))</div><div class="line">y = model(x)</div></pre></td></tr></table></figure>
+</li>
+<li><p>多输入和多输出结构  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">model = Model(inputs=[main_input, auxiliary_input], outputs=[main_output, auxiliary_output])</div><div class="line">model.compile(optimizer=&apos;rmsprop&apos;, loss=&apos;binary_crossentropy&apos;,</div><div class="line">            loss_weights=[1., 0.2])</div><div class="line">model.fit([headline_data, additional_data], [labels, labels],</div><div class="line">        epochs=50, batch_size=32)</div></pre></td></tr></table></figure>
+<p>如果给输入输出层命名了(eg. <code>main_input</code>, <code>main_output</code>)，也可以这样写这两层：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">model.compile(optimizer=&apos;rmsprop&apos;,</div><div class="line">              loss=&#123;&apos;main_output&apos;: &apos;binary_crossentropy&apos;, &apos;aux_output&apos;: &apos;binary_crossentropy&apos;&#125;,</div><div class="line">              loss_weights=&#123;&apos;main_output&apos;: 1., &apos;aux_output&apos;: 0.2&#125;)</div><div class="line"></div><div class="line"># And trained it via:</div><div class="line">model.fit(&#123;&apos;main_input&apos;: headline_data, &apos;aux_input&apos;: additional_data&#125;,</div><div class="line">          &#123;&apos;main_output&apos;: labels, &apos;aux_output&apos;: labels&#125;,</div><div class="line">          epochs=50, batch_size=32)</div></pre></td></tr></table></figure>
+</li>
+<li><p>共享的层<br>不仅结构共享，权重也是共享的  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># This layer can take as input a matrix</div><div class="line"># and will return a vector of size 64</div><div class="line">shared_lstm = LSTM(64)</div><div class="line"></div><div class="line"># When we reuse the same layer instance</div><div class="line"># multiple times, the weights of the layer</div><div class="line"># are also being reused</div><div class="line"># (it is effectively *the same* layer)</div><div class="line">encoded_a = shared_lstm(tweet_a)</div><div class="line">encoded_b = shared_lstm(tweet_b)</div></pre></td></tr></table></figure>
+</li>
+<li><p>层的<code>node</code><br>当某层被调用时会输出一个张量，同时会添加一个<code>node</code>，根据被调用的次数，<code>node</code>的编号由0开始递增。<br><code>layer.ouput</code> 得到当前层的输出张量，新版本的<code>ouput</code>属性替代了原来的<code>get_output()</code><br><code>layer.ouput_shape</code> 得到输出的形状<br>如果一个层被调用多次，那么输出时，就会产生混乱，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">a = Input(shape=(140, 256))</div><div class="line">b = Input(shape=(140, 256))</div><div class="line"></div><div class="line">lstm = LSTM(32)</div><div class="line">encoded_a = lstm(a)</div><div class="line">encoded_b = lstm(b)</div><div class="line"></div><div class="line">lstm.output</div></pre></td></tr></table></figure>
+<p>上述代码最后一行会报错，那么，就要使用<code>get_output_at(node_index)</code>这个方法来代替<code>output</code>了，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lstm.get_output_at(0)</div></pre></td></tr></table></figure>
+<p>当输入/输出的形状在不同node可能发生改变时，也要使用类似的方法，来代替<code>layer.output_shape/layer.input_shape</code>，如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conv.get_input_shape_at(0)</div></pre></td></tr></table></figure>
+</li>
+<li><p>更多的例子<br>请参考这个<a href="https://keras.io/getting-started/functional-api-guide/" target="_blank" rel="external">页面</a>。</p>
+</li>
+</ul>
+<h2 id="Models"><a href="#Models" class="headerlink" title="Models"></a>Models</h2><h3 id="关于models"><a href="#关于models" class="headerlink" title="关于models"></a>关于models</h3><p>  Keras里面一共有两类models：<code>Sequential model</code>和<code>使用functional API的Model类</code><br>  这些models共有几个方法：  </p>
+<ul>
+<li><code>model.summary()</code> 打印model的summary表示  </li>
+<li><p><code>model.get_config</code> 返回一个字典，记录模型的配置，model可以通过它来重新实例化：  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">config = model.get_config()</div><div class="line">model = Model.from_config(config)</div><div class="line"># or, for Sequential:</div><div class="line">model = Sequential.from_config(config)</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>model.get_weights()</code> 返回一个列表，里面以Numpy array的形式记载了模型中所有权重张量的值  </p>
+</li>
+<li><code>model.set_weights(weights)</code> 设置权重值，weight是一个Numpy array构成的列表  </li>
+<li><p><code>model.to_json()</code> 以JSON字符串的格式，返回模型的表示。这个表示<strong>只包括结构，不包括权重</strong>，也可以从JSON字符串中重载模型：  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">from models import model_from_json</div><div class="line"></div><div class="line">json_string = model.to_json()</div><div class="line">model = model_from_json(json_string)</div></pre></td></tr></table></figure>
+</li>
+<li><p><code>model.to_yaml()</code> 与json相似  </p>
+</li>
+<li><code>model.save_weights(filepath)</code> 将权重存为HDF5文件  </li>
+<li><code>model.load_weight(filepath, by_name=False</code> 从HDF5文件中载入参数，当<code>by_name=True</code>时，只载入名字相同的层的参数  </li>
+</ul>
+<h3 id="Sequential"><a href="#Sequential" class="headerlink" title="Sequential"></a>Sequential</h3><blockquote>
+<p>参照<a href="https://keras.io/models/sequential/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li>属性： <ul>
+<li><code>model.layers</code> 一个包含模型的所有层的列表  </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>方法：  <ul>
+<li>compile<br>配置学习过程  </li>
+<li>fit<br>训练模型  </li>
+<li>evaluate<br>以batch为单位，计算输入的损失  </li>
+<li>pridict<br>生成输入样本的输出  </li>
+<li>train_on_batch<br>在一个batch的样本上更新梯度一次  </li>
+<li>test_on_batch<br>只评估一个batch的样本  </li>
+<li>predict_on_batch<br>返回一个batch的样本的输出  </li>
+<li>fit_generator<br>根据一个python的generator，以batch为单位，训练模型  </li>
+<li>evaluate_generator<br>根据一个数据生成器来评估模型  </li>
+<li>predict_generator<br>预测从数据生成器得到的输入样本</li>
+<li>get_layer<br>根据索引或名字返回模型相应的层  </li>
+</ul>
+</li>
+</ul>
+<h3 id="Model-functional-API"><a href="#Model-functional-API" class="headerlink" title="Model(functional API)"></a>Model(functional API)</h3><blockquote>
+<p>参照<a href="https://keras.io/models/model/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li><code>Model</code><br>通过给<code>Model</code>类输入张量和输出张量，即能够初始化<code>Model</code>类，如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from keras.models import Model</div><div class="line">from keras.layers import Input, Dense</div><div class="line"></div><div class="line">a = Input(shape=(32,))</div><div class="line">b = Dense(32)(a)</div><div class="line">model = Model(inputs=a, outputs=b)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>属性  <ul>
+<li><code>model.layers</code>   </li>
+<li><code>model.inputs</code>  </li>
+<li><code>model.outputs</code>  </li>
+</ul>
+</li>
+<li>方法  <ul>
+<li>compile</li>
+<li>fit</li>
+<li>evaluate</li>
+<li>predict </li>
+<li>train_on_batch</li>
+<li>test_on_batch  </li>
+<li>predict_on_batch  </li>
+<li>fit_generator  </li>
+<li>evaluate_generator  </li>
+<li>predict_generator  </li>
+<li>get_layer<blockquote>
+<p>方法貌似都一样  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Layers"><a href="#Layers" class="headerlink" title="Layers"></a>Layers</h3><blockquote>
+<p>参照<a href="https://keras.io/layers/about-keras-layers/" target="_blank" rel="external">这个文档</a></p>
+<ul>
+<li>共有的方法  <ul>
+<li><code>layer.get_weights()</code></li>
+<li><code>layer.set_weights()</code></li>
+<li><code>layer.get_config()</code><br>layer可以通过如下方式重新初始化：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">layer = Dense(32)</div><div class="line">config = layer.get_config()</div><div class="line">reconstructed_layer = Dense.from_config(config)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<pre><code>或者  
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from keras import layers</div><div class="line"></div><div class="line">config = layer.get_config()</div><div class="line">layer = layers.deserialize(&#123;&apos;class_name&apos;: layer.__class__.__name__,</div><div class="line">                            &apos;config&apos;: config&#125;)</div></pre></td></tr></table></figure>
+</code></pre><h4 id="核心层"><a href="#核心层" class="headerlink" title="核心层"></a>核心层</h4><ul>
+<li><p>Dense  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">  keras.layers.core.Dense(units, activation=None, use_bias=True, kernel_initializer=&apos;glorot_uniform&apos;, bias_initializer=&apos;zeros&apos;, kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)</div><div class="line">  ```   </div><div class="line">  - 相当于这个操作`output = activation(dot(input, kernel) + bias)`   </div><div class="line">  - units 表示输出的个数（神经元个数）  </div><div class="line">  - 里面也可以添加正则化的配置  </div><div class="line">  - 还可以对权重大小进行约束  </div><div class="line"></div><div class="line">* Activation</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Activation(activation)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  - activation可以是keras里的[激活函数](https://keras.io/activations/)，也可以是一个th或tf操作  </div><div class="line">* Dropout</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Dropout(rate, noise_shape=None, seed=None)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Flatten</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Flatten()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Example:</div></pre></td></tr></table></figure>
+<p>model = Sequential()<br>model.add(Convolution2D(64, 3, 3,</p>
+<pre><code>border_mode=&apos;same&apos;,
+input_shape=(3, 32, 32)))
+</code></pre><h1 id="now-model-output-shape-None-64-32-32"><a href="#now-model-output-shape-None-64-32-32" class="headerlink" title="now: model.output_shape == (None, 64, 32, 32)"></a>now: model.output_shape == (None, 64, 32, 32)</h1><p>model.add(Flatten())</p>
+<h1 id="now-model-output-shape-None-65536"><a href="#now-model-output-shape-None-65536" class="headerlink" title="now: model.output_shape == (None, 65536)"></a>now: model.output_shape == (None, 65536)</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Reshape</div></pre></td></tr></table></figure>
+<p>keras.layers.core.Reshape(target_shape)<br>```</p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> libs </tag>
+            
+            <tag> keras </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Anaconda]]></title>
+      <url>/notes/anaconda/</url>
+      <content type="html"><![CDATA[<h2 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h2><p>安装完anaconda后，numpy出错，原因不明，这时将anaconda安装路径下的./lib/python2.7/site-package/ 路径放到python路径的首选项中，解决问题  </p>
+<p>——————–修改解决方案————————</p>
+<p>发现似乎是因为使用了anaconda的python，出错的原因不清楚，为了不让之前安装的库白费功夫，将默认使用的python改成原来的python，只需要在添加PATH路径时，让anaconda的路径排到最后。同样将anaconda的python库放到最后。   </p>
+<p>——————- 最终解决方案———————–</p>
+<p>Jupyter使用的python是由anaconda提供的，因此我不能用上一个方案，这样使用anaconda版的python时，有些库会不能导入。因此，我把根目录地下python的一些库全部搬到anaconda底下了……</p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> anaconda </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[hexo]]></title>
+      <url>/notes/hexo/</url>
+      <content type="html"><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
+<li><p>安装npm  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:chris-lea/node.js  </div><div class="line">sudo apt-get update  </div><div class="line">sudo apt-get install npm</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装node.js<br>首先，在<a href="https://nodejs.org/en/" target="_blank" rel="external">官网</a>下载node.js的安装文件<br>然后将可执行文件复制到<code>/usr/bin</code>下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s ~/Libraries/node-v6.11.0-linux-x64/bin/node /usr/bin/node</div></pre></td></tr></table></figure>
+<blockquote>
+<p>也可以将 <code>npm</code> 放到 <code>usr/bin</code> 下面，但是我已经装过了，就没有这么做<br>使用默认的node-v4.2.0版本，material的1.4版本会出错</p>
+</blockquote>
+</li>
+<li><p>根据官方的github主页配置<br><a href="https://github.com/hexojs/hexo" target="_blank" rel="external">https://github.com/hexojs/hexo</a>  </p>
+</li>
+<li><p>配置远程服务器</p>
+<ul>
+<li>在github创建一个名为<code>yourname.github.io</code>的仓库，然后在仓库处，设置域名（域名自行购买）  </li>
+<li>在站点配置文件<code>_config.yml</code>修改自己的github信息和url（这里填你的域名即可）  </li>
+<li>在站点的<code>source</code>文件夹下，放入一个CNAME文件，里面填入你的域名信息。事实上，在hexo的文件中，<code>/</code>这个路径都指<code>source</code>文件夹。  </li>
+</ul>
+</li>
+</ul>
+<h2 id="使用的主题"><a href="#使用的主题" class="headerlink" title="使用的主题"></a>使用的主题</h2><p>  <a href="https://github.com/viosey/hexo-theme-material" target="_blank" rel="external">https://github.com/viosey/hexo-theme-material</a><br>  配置站点文件<code>_config.yml</code>的language，设为zh-CN，否则会报错  </p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
+<p>参考链接： <a href="https://hexo.io/docs/" target="_blank" rel="external">https://hexo.io/docs/</a>  </p>
+</blockquote>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ul>
+<li><p>创建一个post或者page  </p>
+<p>创建的命令为：<code>$ hexo new [layout] &lt;title&gt;</code>  </p>
+<ul>
+<li>layout<br>有三种：<code>post</code>、<code>page</code>和<code>draft</code>，生成的路径分别为：<code>source/_posts</code>、<code>source</code>和<code>source/_drafts</code>   </li>
+<li>生成的文件的名字<br>文件名的默认设置在<code>_config.md</code>文件中可以设置，这里我设置默认生成的文件名为<code>title.md</code>  </li>
+<li>draft<br>draft是不会被显示到网页上的，可以使用：<br><code>$ hexo publish [layout] &lt;title&gt;</code><br>来讲<code>draft</code>移动到<code>source/_posts</code>下，使其成为<code>post</code>  </li>
+</ul>
+</li>
+<li>Front-matter<br>Front-matter是在YAML文件或者JSON文件头部，用来描述书写设置的东西。YAML以<code>---</code>结束，而JSON以<code>;;;</code>结束  <ul>
+<li>可以设置的参数：  </li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Setting</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">layout</td>
+<td style="text-align:left">Layout</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">title</td>
+<td style="text-align:left">Title</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">date</td>
+<td style="text-align:left">Published dat</td>
+<td style="text-align:left">File created date</td>
+</tr>
+<tr>
+<td style="text-align:left">updated</td>
+<td style="text-align:left">Updated date</td>
+<td style="text-align:left">File updated date</td>
+</tr>
+<tr>
+<td style="text-align:left">comments</td>
+<td style="text-align:left">Enables comment feature for the post</td>
+<td style="text-align:left">true</td>
+</tr>
+<tr>
+<td style="text-align:left">tags</td>
+<td style="text-align:left">Tags (Not available for pages)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">categories</td>
+<td style="text-align:left">Categories (Not available for pages)</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">permalink</td>
+<td style="text-align:left">Overrides the default permalink of the post</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Categories &amp; Tags<br><code>categories</code>是按一定顺序组织的，因此书写时要按一定顺序，而<code>tags</code>则无顺序要求，书写方式如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">categories:</div><div class="line">- Sports</div><div class="line">- Baseball</div><div class="line">tags:</div><div class="line">- Injury</div><div class="line">- Fight</div><div class="line">- Shocking</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>标签插件（Tag Plugins）的语法  </p>
+<blockquote>
+<p>原文链接：<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">https://hexo.io/docs/tag-plugins.html</a>     </p>
+</blockquote>
+<ul>
+<li><p>引用（Block Quote）<br>形如：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;  </div><div class="line">content  </div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure>
+<p>例如引用网页链接：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% blockquote Seth Godin http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html Welcome to Island Marketing %&#125;  </div><div class="line">Every interaction is both precious and an opportunity to delight.  </div><div class="line">&#123;% endblockquote %&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>代码块<br>形如：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% codeblock [title] [lang:language] [url] [link text] %&#125;  </div><div class="line">code snippet  </div><div class="line">&#123;% endcodeblock %&#125;</div></pre></td></tr></table></figure>
+<p>例如使用objc语言：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% codeblock lang:objc %&#125;  </div><div class="line">[rectangle setX: 10 y: 10 width: 20 height: 20];  </div><div class="line">&#123;% endcodeblock %&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>加入其他post的链接  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&#123;% post_path slug %&#125;  </div><div class="line">&#123;% post_link slug [title] %&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>插入固定大小的图片  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;% img [class names] /path/to/image [width] [height] [title text [alt text]] %&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>插入YouTube视频  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;% youtube video_id %&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>更多其他功能请看<a href="https://hexo.io/docs/tag-plugins.html" target="_blank" rel="external">原文链接</a>  </p>
+</li>
+</ul>
+</li>
+<li><p>Asset Floders  </p>
+<ul>
+<li>Global Asset Folder<br>Assets指<code>source</code>文件夹里的非post文件，比如图片，CSS，JavaScript等等。 比如获得图片使用这种方式就可以：<br><code>![](/images/image.jpg)</code>  </li>
+<li>Post Asset Folder<br>在<code>_config.yml</code>文件中，做如下修改：<br><code>post_asset_folder: true</code><br>那么在你使用<code>hexo new [layout] &lt;title&gt;</code>生成一个新的post的时候，那么会生成跟这个post同名的一个Asset，用来存储他相关的文件。  </li>
+<li>使用markdown格式的相对路径会无法在网页上显示，因此要使用Tag Plugin的语法  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% asset_path slug %&#125;  </div><div class="line">&#123;% asset_img slug [title] %&#125;  </div><div class="line">&#123;% asset_link slug [title] %&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Server  </p>
+<ul>
+<li><p>指定启动服务器ip和端口  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo server -i 192.168.1.1  </div><div class="line">hexo server -p 5000</div></pre></td></tr></table></figure>
+</li>
+<li><p>静态模式<br>通常，直接使用server查看的并不是生成后的静态网页，生成静态网页首先要使用<code>genrate</code>，要查看静态网页要加上<code>-s</code>参数：<br><code>hexo server -s</code>  </p>
+</li>
+</ul>
+</li>
+<li><p>生成页面<br><code>hexo generate --watch</code> 只将有修改的文件进行重新生成  </p>
+<p>生成后配置，下面两条命令是等价的：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate --deploy  </div><div class="line">$ hexo deploy --generate</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置<br><code>hexo deploy</code> 将站点配置到远程服务器  </p>
+</li>
+</ul>
+<h3 id="个性化"><a href="#个性化" class="headerlink" title="个性化"></a>个性化</h3><ul>
+<li>Permalinks<br>可以使用这些变量对<code>_config.yml</code>进行设置  </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Variable</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>:year</code></td>
+<td style="text-align:left">Published year of posts (4-digit)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:month</code></td>
+<td style="text-align:left">Published month of posts (2-digit)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:i_month</code></td>
+<td style="text-align:left">Published month of posts (Without leading zeros)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:day</code></td>
+<td style="text-align:left">Published day of posts (2-digit)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:i_day</code></td>
+<td style="text-align:left">Published day of posts (Without leading zeros)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:title</code></td>
+<td style="text-align:left">Filename</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:id</code></td>
+<td style="text-align:left">Post ID</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>:category</code></td>
+<td style="text-align:left">Categories. If the post is uncategorized, it will use the default_category value.</td>
+</tr>
+</tbody>
+</table>
+<p>  修改<code>_config.yml</code>文件中的<code>deploy</code>项，hexo也可以同时进行多个部署：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">- type: git</div><div class="line">  repo:</div><div class="line">- type: heroku</div><div class="line">  repo:</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Git<br><code>$ npm install hexo-deployer-git --save</code><br>编辑设置：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type: git  </div><div class="line">repo: &lt;repository url&gt;  </div><div class="line">branch: [branch]  </div><div class="line">message: [message]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>主题<br>官方主题库： <a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a>  </p>
+</li>
+<li><p>变量<br>可以在<a href="https://hexo.io/docs/variables.html" target="_blank" rel="external">这个页面</a>看到所有变量。  </p>
+</li>
+</ul>
+<h3 id="Material的使用"><a href="#Material的使用" class="headerlink" title="Material的使用"></a>Material的使用</h3><blockquote>
+<p>参考链接： <a href="https://material.viosey.com/" target="_blank" rel="external">https://material.viosey.com/</a>  </p>
+</blockquote>
+<h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
+<li>由于不明原因，默认启动的iP若使用<code>localhost</code>则打不开，而使用<code>127.0.0.1</code>却能打开。因此修改这个文件<code>/node_modules/hexo-server/lib/server.js</code>,将其中配置ip的那行改为：<br><code>var ip = args.i || args.ip || &#39;127.0.0.1&#39; || config.server.ip;</code></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+            <tag> guide </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Github]]></title>
+      <url>/notes/github/</url>
+      <content type="html"><![CDATA[<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;Your Name&quot;</div><div class="line">$ git config --global user.email &quot;email@example.com&quot;</div></pre></td></tr></table></figure>
+<h2 id="添加文件"><a href="#添加文件" class="headerlink" title="添加文件"></a>添加文件</h2><p><code>git add filename</code> 把修改过的文件添加到git管理仓库，就可以对这个文件进行管理啦，但还不是提交<br><code>git commit -m &quot;message&quot;</code> 将文件提交给git  </p>
+<h2 id="时光机穿梭"><a href="#时光机穿梭" class="headerlink" title="时光机穿梭"></a>时光机穿梭</h2><p><code>git status</code> 查看仓库状态，看到哪些文件被修改了<br><code>git diff filename</code> 查看某个文件上次修改的情况  </p>
+<ul>
+<li>版本回退  <ul>
+<li><code>git log --graph --pretty=oneline</code><br>显示历史提交情况，<code>-- graph</code>显示图形结构，后面的参数表示简化显示结果  </li>
+<li><code>git reset --hard HEAD^</code><br>HEAD表示当前版本的哈希码，HEAD^表示上一个版本，HEAD^^表示上上个版本，以此类推<br>也可以用HEAD~100来表示往上100个版本  </li>
+<li>从过去再次回到未来<br>回溯之后，<code>git status</code>无法看到“未来”那个版本的<code>commit id</code>了。这时候，如果还能查到他的id，那么就可以使用<code>git reset --hard commit-id</code>回到未来。commit id不用全输，只要输前几位就可以了  </li>
+<li><code>git reflog</code><br>历史命令的所有记录。可以通过这个方式来找到上面说的“未来版本”的commit id  </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>工作区和暂存区  </p>
+<ul>
+<li>工作区<br>就是电脑里能看到的目录  </li>
+<li>版本库<br>就是隐藏目录<code>.git</code><br><img src="/images/git1.jpeg" alt=".git">  <ul>
+<li>stage<br>  <code>git add</code>的文件会先存放在stage里面  </li>
+<li>分支<br>  首先有一个默认分支<code>master</code>，<code>git commit</code>即将文件添加到分支中  </li>
+<li>HEAD<br>  一个指针，指向当前分支    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>管理修改  </p>
+<ul>
+<li>git管理的是修改，而不是文件</li>
+<li><code>git diff HEAD -- filename</code><br>查看工作区和版本库里面的最新版本的区别  </li>
+</ul>
+</li>
+<li><p>撤销修改  </p>
+<ul>
+<li><code>git checkout -- filename</code><br>让文件回到最近一次<code>git commit</code>或者<code>git add</code>时的状态，即回到git有记录的最新一次状态，撤销在那之后的在工作区的修改  <blockquote>
+<p>checkout的 <strong><em>- -</em></strong> 很重要，没有他就表示切换分支  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>删除文件  </p>
+<ul>
+<li><p>把文件从版本库里删除  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git rm filename  </div><div class="line">git commit -m &apos;message&apos;</div></pre></td></tr></table></figure>
+</li>
+<li><p>误删工作区里的文件，从版本库恢复<br>checkout即可  </p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><ul>
+<li><p>设置github  </p>
+<ol>
+<li>创建SSH Key<br>在~/.ssh下看有没有<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件，前者是私钥，后者是公钥，如果没有则使用下面命令创建：<br><code>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</code>  </li>
+<li>将公钥添加到github  </li>
+</ol>
+</li>
+<li><p>添加远程库  </p>
+<ul>
+<li>配置本地远程库<ol>
+<li>在github创建一个与本地仓库名字一致的仓库，记其地址为<code>remote_repo</code>  </li>
+<li>本次仓库下执行<code>git remote add origin remote_repo</code>  </li>
+</ol>
+</li>
+<li>将本地仓库所有内容推送到远程库<br><code>git push -u origin master</code><br>这个命令实际上是把当前分支<code>master</code>推送到远程的<code>master</code>分支。第一次推送加上<code>-u</code>参数，以后的提交可以不用<code>-u</code>了  </li>
+</ul>
+</li>
+<li><p>SSH警告<br>第一次使用<code>clone</code>或者<code>push</code>时，会得到一个警告，这是为了验证github服务器的key，输入<code>yes</code>即可  </p>
+</li>
+</ul>
+<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><ul>
+<li><code>git clone remote_repo</code></li>
+</ul>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h3><ul>
+<li><p>创建并切换到分支<br>  <code>git checkout -b dev</code> dev是新建分支的名字  </p>
+<blockquote>
+<p>上述命令相当于：<br>git branch dev<br>git checkout dev  </p>
+</blockquote>
+</li>
+<li><p>查看当前分支<br>  <code>git branch</code>  </p>
+</li>
+<li><p>合并分支<br>  <code>git checkout master</code> 将当前分支切到主分支<br>  <code>git merge dev</code> 将dev分支merge到当前分支，即主分支上<br>   <code>git branch -d dev</code> 合并后就可以删掉dev分支了  </p>
+</li>
+</ul>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3><ul>
+<li>产生冲突的情况<br>  当发生下面这种状态时就会产生冲突：<br>  <img src="/images/git2.png" alt="git2.png"></li>
+</ul>
+<ul>
+<li><p>查看冲突<br>  <code>git status</code> 可以看到有哪些文件产生了冲突  </p>
+</li>
+<li><p>解决冲突<br>  直接查看修改后的文件，它里面会标记不同分支冲突的内容，我们将其修改之后，再提交即可。</p>
+</li>
+<li>查看冲突解决的情况<br>  <code>git log --graph --pretty=oneline --abbrev-commit</code>  </li>
+</ul>
+<h3 id="分支管理策略"><a href="#分支管理策略" class="headerlink" title="分支管理策略"></a>分支管理策略</h3><ul>
+<li><code>git merge --no-ff -m &#39;message&#39; dev</code><br>  <code>--no-ff</code>：通常，不使用这个参数，Git会使用<code>Fast Forward</code>策略，master会直接指向dev分支，如果删除了这个分支，那么会丢掉分支的信息。而使用这个参数，则会在merge时产生一个新的commit，也因此要<code>-m</code>信息，这样，就可以从分支历史上看到分支信息。因此，通常要使用<code>--no-ff</code>参数  </li>
+<li>分支策略<br>  <code>master</code>分支应该是非常稳定的，<strong>仅用来发布新的版本</strong><br>  <code>dev</code>分支是不稳定的，大家都在dev上干活，合并也都在<code>dev</code>上合并<br>  <img src="./images/git3.png" alt="git3.png">  </li>
+</ul>
+<h3 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h3><p>  經常有這樣的事情發生，當你正在進行專案中某一部分的工作，裡面的東西處於一個比較雜亂的狀態，而你想轉到其他分支上進行一些工作。問題是，你不想只為了待會要回到這個工作點，就把做到一半的工作進行提交。解決這個問題的辦法就是<code>git stash</code>命令。</p>
+<ul>
+<li><code>git stash</code><br>  暂存当前工作现场，而不用进行提交，这样就可以在保存现在工作之后，切到别的分支以处理bug或做其他工作  </li>
+<li><code>git stash list</code><br>  切回原来的工作分支后，可以使用这个命令查看储藏了哪些工作现场<br>  ‘’’<br>  $ git stash list<br>  stash@{0}: WIP on dev: 6224937 add merge<br>  ‘’’</li>
+<li><code>git stash pop</code><br>  恢复并删除stash  <blockquote>
+<p>pop实际上是执行了这两步:<br>git slash apply stash@{0} 将stash恢复到工作现场<br>git stash drop 删除stash  </p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h3><p>  添加新功能时就新建一个feature分支，在上面开发，避免搞乱主分支（dev分支）<br>  假设此时feature分支需要销毁（老板说，不要这个功能了），而他还没有merge到dev分支，这时，由于还没有merge，因此不能用<code>-d</code>参数进行销毁，而要使用<code>-D</code>参数进行强制销毁：<br>  <code>git branch -D feature</code>  </p>
+<h3 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h3><h4 id="添加合作者"><a href="#添加合作者" class="headerlink" title="添加合作者"></a>添加合作者</h4><ol>
+<li>新建一个Repository</li>
+<li>进入Repository的Settings</li>
+<li>在Collaborators里就可以添加合作者了</li>
+<li>将生成的地址发给你的合作者，合作者选择是否同意</li>
+<li>接下来就可以愉快的合作开发了</li>
+</ol>
+<h4 id="进行多人协作"><a href="#进行多人协作" class="headerlink" title="进行多人协作"></a>进行多人协作</h4><p>  当你从远程仓库克隆时，实际上Git自动把本地的<code>master</code>分支和远程的<code>master</code>分支对应起来了，并且，远程仓库的默认名称是<code>origin</code>。</p>
+<ul>
+<li><p><code>git remote -v</code><br>查看远程库信息，将会显示可以<code>fetch</code>或者<code>push</code>的<code>origin</code>地址，如果没有推送权限，就抓不到<code>push</code>地址  </p>
+</li>
+<li><p>推送分支<br><code>git push origin &lt;branch&gt;</code> 将分支推送到远程<br>然而，并不是所有分支都需要推送，一般来说只有需要与别人合作的分支才有必要推送到远程，如<code>master</code>分支、<code>dev</code>分支，但如果是修复小bug的分支则无必要  </p>
+</li>
+<li><p>抓取分支<br><code>clone</code>只能得到主分支，要抓取别的分支，要先clone，再使用以下命令：<br><code>git checkout -b dev origin/dev</code><br>然后就可以对这个分支进行操作啦，还可以时不时地<code>push</code>到远程   </p>
+</li>
+<li><p>冲突解决<br>你的小伙伴已经向origin/dev分支推送了他的提交，而碰巧你也对同样的文件作了修改，并试图推送，那么就会出现冲突<br><strong>解决办法</strong><br>抓取远程<code>origin/dev</code>最新的提交，然后在本地处理好冲突再推送到远程，步骤如下：  </p>
+<ol>
+<li>指定本地<code>dev</code>分支与远程<code>origin/dev</code>分支的链接，根据提示，设置<code>dev</code>和<code>origin/dev</code>的链接：<br><code>git branch --set-upstream dev origin/dev</code>  </li>
+<li>pull<br><code>git pull</code>  </li>
+<li>解决冲突<br>与本地解决冲突的方法一样，解决完后，再提交</li>
+<li>push到远程<br><code>git push origin dev</code>  </li>
+</ol>
+</li>
+</ul>
+<h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><ul>
+<li><code>git tag &lt;name&gt;</code>用于新建一个标签，默认为<code>HEAD</code>，也可以指定一个commit id  </li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code> 可以指定标签信息  </li>
+<li><code>git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以用PGP签名标签  </li>
+<li><code>git tag</code>可以查看所有标签   </li>
+<li><code>git push origin &lt;tagname&gt;</code> 可以推送一个本地标签；</li>
+<li><code>git push origin --tags</code> 可以推送全部未推送过的本地标签；</li>
+<li><code>git tag -d &lt;tagname&gt;</code> 可以删除一个本地标签；</li>
+<li><code>git push origin :refs/tags/&lt;tagname&gt;</code> 可以删除一个远程标签。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> github </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[vim]]></title>
+      <url>/Linux/vim/</url>
+      <content type="html"><![CDATA[<h2 id="配置文件的位置"><a href="#配置文件的位置" class="headerlink" title="配置文件的位置"></a>配置文件的位置</h2><p>   终端中输入<code>vim</code><br>   命令模式输入<code>:echo $VIM</code>  </p>
+<h2 id="vim安装markdown插件"><a href="#vim安装markdown插件" class="headerlink" title="vim安装markdown插件"></a>vim安装markdown插件</h2><p>   参考链接： <a href="http://www.jianshu.com/p/44d31327f953" target="_blank" rel="external">http://www.jianshu.com/p/44d31327f953</a><br>   项目链接： <a href="https://github.com/suan/vim-instant-markdown" target="_blank" rel="external">https://github.com/suan/vim-instant-markdown</a><br>   安装了vim-instant-markdown插件,输入下面这个命令可以进行预览：<br>   <code>:InstantMarkdownPreview</code>    </p>
+<ul>
+<li><p>安装新版的<code>node.js</code>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:chris-lea/node.js</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install nodejs</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装instant-markdown-d<br><code>sudo npm -g install instant-markdown-d</code>  </p>
+</li>
+<li>按照参考链接的步骤配置vim配置文件/usr/share/vim/vimrc  </li>
+<li>下载项目链接里的文件，放在~/.vim下,修改配置文件，加入<code>Plugin 文件地址</code>    </li>
+<li>在vim里面运行PluginInstall,安装完成  </li>
+<li>在vimrc里面设置InstantMarkdown禁止自动启动，而是通过输入命令启动，并更改其启动的命令的名称：  <blockquote>
+<p>vimrc中加入<code>command Preview InstantMarkdownPreview</code> 简单更改为<code>Preview</code>  </p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> vim </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[docker]]></title>
+      <url>/notes/docker/</url>
+      <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
+<p>docker images<br>查看本地的镜像仓库  </p>
+<p>docker run -p 4000:80 friendlyhello<br>4000是主机端口，80是在Dockerfile里设置的对外开放的容器端口，最终要在主机的localhost:4000访问该服务<br>可以在浏览器中输入localhost:4000访问，也可以在终端中输入 curl <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  </p>
+<p>docker run -d -p 4000:80 friendlyhello<br>在background运行docker  </p>
+<p>docker ps<br>打印当前正在运行的容器信息  </p>
+<p>docker stop 1fa4ab2cf395<br>停止某个容器，后面的字符串是该容器的ID  </p>
+<h2 id="分享镜像"><a href="#分享镜像" class="headerlink" title="分享镜像"></a>分享镜像</h2><h3 id="注册账户、仓库与镜像的关系"><a href="#注册账户、仓库与镜像的关系" class="headerlink" title="注册账户、仓库与镜像的关系"></a>注册账户、仓库与镜像的关系</h3><p>A registry is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.</p>
+<p>docker login<br>登录你的Docker帐号  </p>
+<p>docker tag image username/repository:tag<br>这个命令标记你本地的Image所要上传的对应的账户和仓库，tag是可选的，但建议使用，可以通过他来给出镜像的版本号，如果不指定tag，那么它默认为latest</p>
+<p>docker push username/repository:tag<br>上传docker镜像,上传之后就可以在Docker Hub看到这个新的镜像。  </p>
+<h2 id="从远程仓库pull并运行镜像"><a href="#从远程仓库pull并运行镜像" class="headerlink" title="从远程仓库pull并运行镜像"></a>从远程仓库pull并运行镜像</h2><p>docker run -p 4000:80 username/repository:tag<br>如果docker在本地找不到这个镜像，那么他就会从远程把这个镜像pull到本地。  </p>
+<h2 id="nvidia-docker"><a href="#nvidia-docker" class="headerlink" title="nvidia-docker"></a>nvidia-docker</h2><p><code>nvidia-docker run -it -p hostPort:containerPort TensorFlowGPUImage</code> 在jupyter上运行tensorflow，这里的containerPort是8888<br><code>nvidia-docker run -it TensorFlowGPUImage bash</code> 可以在终端上运行tensorflow  </p>
+<p><code>-v host_folder:container_floder</code> 使得本地的文件在jupyter中可见<br><code>-p 8888:8888 -p 6006:6006</code> 前一个端口是jupyter的端口，后一个端口是tensorboard的端口  </p>
+<p>—————–我是分割线——————</p>
+<h2 id="在服务中使用docker"><a href="#在服务中使用docker" class="headerlink" title="在服务中使用docker"></a>在服务中使用docker</h2><h3 id="什么是服务？"><a href="#什么是服务？" class="headerlink" title="什么是服务？"></a>什么是服务？</h3><p>在分布式应用中，app的不同部分称为服务。比如说前端，后台，他们接管一个应用的不同服务。一个服务只需要跑一个镜像，然而他还要规范通信端口，容器应该跑多少部分等。  </p>
+<p>docker-compose.yml<br>定义Docker容器在产品中怎么做？  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ipython]]></title>
+      <url>/notes/ipython/</url>
+      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
+<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
+<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
+<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
+<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
+<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tmux]]></title>
+      <url>/Linux/tmux/</url>
+      <content type="html"><![CDATA[<h2 id="设置tmux参数"><a href="#设置tmux参数" class="headerlink" title="设置tmux参数"></a>设置tmux参数</h2><p>一般在.tmux.conf中，如果没有这个文件，使用<br><code>tmux show -g | cat &gt; ~/.tmux.conf</code><br>可以在这个文件中配置tmux前缀，默认是Ctrl+b  </p>
+<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><p>按下 Ctrl-b 后的快捷键如下:  </p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li>? 获取帮助信息  <h3 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h3></li>
+<li>s 列出所有会话  </li>
+<li>$ 重命名当前的会话  </li>
+<li>d 断开当前的会话  <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3></li>
+<li>c 创建一个新窗口  </li>
+<li>, 重命名当前窗口  </li>
+<li>w 列出所有窗口  </li>
+<li>% 水平分割窗口  </li>
+<li>“ 竖直分割窗口  </li>
+<li>n 选择下一个窗口  </li>
+<li>p 选择上一个窗口  </li>
+<li>0~9 选择0~9对应的窗口  <h3 id="窗格管理"><a href="#窗格管理" class="headerlink" title="窗格管理"></a>窗格管理</h3></li>
+<li>% 创建一个水平窗格  </li>
+<li>“ 创建一个竖直窗格</li>
+<li>o 在窗格间切换  </li>
+<li>} 与下一个窗格交换位置  </li>
+<li>{ 与上一个窗格交换位置  </li>
+<li>! 在新窗口中显示当前窗格  </li>
+<li>x 关闭当前窗格  </li>
+<li>按住Ctrl+x, 再使用方向键可以微调当前窗口的边界  <h2 id="设置前缀"><a href="#设置前缀" class="headerlink" title="设置前缀"></a>设置前缀</h2>修改~/.tmux.conf文件，输入:<br>set -g prefix C-a<br>unbind C-b  </li>
+</ul>
+<p>然后在tmux中，输入C+b : 进入命令模式，输入:<br>source-file ~/.tmux.conf<br>也可以在.tmux.conf中用r去bind这个命令，这样每次只要输入r就可以了  </p>
+<p>参考链接:<br><a href="http://mingxinglai.com/cn/2012/09/tmux/" target="_blank" rel="external">http://mingxinglai.com/cn/2012/09/tmux/</a><br><a href="http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/" target="_blank" rel="external">http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[pip]]></title>
+      <url>/notes/pip/</url>
+      <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用apt-get install pip会导致pip无法升级的问题<br>因此这里使用的是<br><code>sudo easy_install pip</code>  </p>
+<h2 id="使用国内镜像源"><a href="#使用国内镜像源" class="headerlink" title="使用国内镜像源"></a>使用国内镜像源</h2><p>以安装<code>pandas</code>为例：<br><code>pip  install --index https://pypi.mirrors.ustc.edu.cn/simple/ pandas</code><br>别的镜像：<a href="http://mirrors.sohu.com/python/" target="_blank" rel="external">http://mirrors.sohu.com/python/</a></p>
+<blockquote>
+<p>有时候，国内镜像更新不够及时（比如我装jupyter的时候），这时候就用默认的吧</p>
+</blockquote>
+<h2 id="pip的使用"><a href="#pip的使用" class="headerlink" title="pip的使用"></a>pip的使用</h2><p><a href="http://www.jianshu.com/p/9acc85d0ff16" target="_blank" rel="external">http://www.jianshu.com/p/9acc85d0ff16</a></p>
+<h2 id="安装位置"><a href="#安装位置" class="headerlink" title="安装位置"></a>安装位置</h2><p>pip install … 会直接安装在~/.local/lib/python2.7/site-packages这个目录下<br>sudo pip install … 安装在/usr/local/lib/… 这个目录下<br>sudo pip install -t destination-dir package-name  指定安装路径  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> python </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[opencv]]></title>
+      <url>/Deep-Learning/opencv/</url>
+      <content type="html"><![CDATA[<h2 id="安装opencv"><a href="#安装opencv" class="headerlink" title="安装opencv"></a>安装opencv</h2><p>1 解压，mkdir release , cd release<br>2 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local/opencv/2.4.9 -D CUDA_GENERATION=Kepler ..<br>3 make -j8<br>4 sudo make install  </p>
+<ul>
+<li>中间要修改graphcuts文件，并且拷贝ippcv文件到相应位置，因为下不下来。。  </li>
+</ul>
+<h2 id="同时装多个版本的opencv"><a href="#同时装多个版本的opencv" class="headerlink" title="同时装多个版本的opencv"></a>同时装多个版本的opencv</h2><p>将opencv的不同版本装在如下位置，如/usr/local/opencv/2.4.9和/usr/local/opencv/3.1.0<br>编译opencv2.4.9之后，在其指定的目标文件下会有一个python文件夹，里面包含了一个cv.so文件，将这个文件放在主机python库的dist-package文件夹底下即可,opencv3也是同样的道理。<br>    但是为了使得多版本并存，这里我想在dist-package中分别添加cv249和cv310这两个软链接，分别链接到这两个cv2.so文件上，这样，我们在使用时可以通过import cv249来导入2.4.9版本的opencv。但是事实上不能这么做，因为python会去寻找init<name>这个函数，但是更改名字之后就找不到了。。。。所以还是通过版本控制pkg-config试试吧～  </name></p>
+<ul>
+<li>不要使用apt-get install python-opencv，这会让Opencv的版本不可控         </li>
+</ul>
+<h3 id="pkg-config"><a href="#pkg-config" class="headerlink" title="pkg-config"></a>pkg-config</h3><p>pkg-config –modversion opencv 查看当前opencv的版本号  </p>
+<p>再将下面两行命令输入到~/.bashrc中，来控制当前版本:<br>export PKG_CONFIG_PATH=/usr/local/opencv/2.4.8/lib/pkgconfig<br>export LD_LIBRARY_PATH=/usr/local/opencv/2.4.8/lib/</p>
+<h3 id="加入PYTHONPATH"><a href="#加入PYTHONPATH" class="headerlink" title="加入PYTHONPATH"></a>加入PYTHONPATH</h3><p>export PYTHONPATH=$PYTHONPATH:/usr/local/opencv/2.4.9/lib/python2.7/dist-packages</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> libs </tag>
+            
+            <tag> computer vision </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Theano]]></title>
+      <url>/Deep-Learning/theano/</url>
+      <content type="html"><![CDATA[<h2 id="使用GPU"><a href="#使用GPU" class="headerlink" title="使用GPU"></a>使用GPU</h2><p>theano需要手工设定使用GPU，方法如下:<br><code>vim ~/.theanorc</code></p>
+<p>add these content<br>[global]<br>device=gpu<br>floatX=float32</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Deep Learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> libs </tag>
+            
+            <tag> theano </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Python]]></title>
+      <url>/notes/python/</url>
+      <content type="html"><![CDATA[<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><ul>
+<li><p>十六进制与八进制<br>0xAF<br>010<br>000010</p>
+</li>
+<li><p>获取用户输入<br><code>input(&quot;x:&quot;)</code> 输入必须是符合python表达式的输入，如是字符串则要带引号<br><code>raw_input(&quot;x:&quot;)</code> 将所有的输入当作原始数据，放入字符串中      </p>
+</li>
+<li><p>函数<br><code>2**3</code> equal to <code>pow(2,3)</code><br> <code>round(1.0/2.0)</code> 四舍五入  </p>
+</li>
+<li><p>模块<br> <code>import math</code><br>math.floar(32.9)<br> <code>from math import floar</code><br> floor(32.9)  </p>
+</li>
+<li><p>cmath和复数<br>cmath用来进行复数运算<br><code>import cmath</code><br><code>cmath.sqrt(-1)</code>  </p>
+<p>python本身提供了对复数的支持，可以直接计算<br><code>(-3+j) * (9 + 4j)</code>  </p>
+</li>
+<li><p><strong>future</strong><br>这个模块包含了未来会成为标准python组成部分的新特性<br><code>import __future__</code>      </p>
+</li>
+<li><p>让脚本向普通程序一样运行<br>在python脚本的首行中加入：<br><code>#! /usr/bin/python</code><br>并给予脚本运行权限，这样在终端中直接输入：<br><code>./hello.py</code>即可，而无需明确调用python  </p>
+</li>
+<li><p>注释<br><code>#</code><br><code>&#39;&#39;&#39;</code> </p>
+</li>
+<li><p>类型准换成字符串<br>str() 转化成适合人类理解的字符串<br>repr() 或者 反引号 转化成符合python表达式的字符串<br>python3 已经不支持反引号进行类型转换准换了</p>
+</li>
+<li><p>长字符串、原始字符串和Unicode<br><code>&#39;&#39;&#39;长字符串&#39;&#39;&#39;</code> 用三个’代替一个’确保字符串可以跨行书写<br>普通字符串也可以跨行，不过要在每行行末加转义字符\<br><code>r&#39;原始字符串&#39;</code> 原始字符串中不将\当作转义字符，注意，字符串最后不能是\，如要使用则需要再加一个\作为转义<br><code>u&#39;Unicode&#39;</code> python的字符串是用8位的ASCII码储存的，但如果要使用16位的Unicode码，则可以使用这种形式的字符串  </p>
+</li>
+</ul>
+<h2 id="列表和元组"><a href="#列表和元组" class="headerlink" title="列表和元组"></a>列表和元组</h2><ul>
+<li>序列<br>python包含6中内建序列，本章主要讨论两种最基本的序列:列表和元组，其他内建序列类型有字符串，Unicode字符串，buffer对象和xrange对象。</li>
+</ul>
+<ul>
+<li><p>索引<br><code>a[0:3]</code><br><code>a[:3]</code><br><code>a[3:0:-1]</code> 最后一个1是步长,步长为负表示从右向左提取元素  </p>
+</li>
+<li><p>序列相加<br>用<code>+</code>将相同类型的序列相加，可以连接到一起，如：<br><code>[1, 2, 3] + [4, 5]</code><br><code>&#39;Hello, &#39; + &#39;World!&#39;</code>  </p>
+</li>
+<li><p>乘法<br><code>&#39;a&#39;*2</code> 结果是 <code>&#39;aa&#39;</code><br><code>[&#39;a&#39;] * 2</code> 结果是<code>[&#39;a&#39;, &#39;a&#39;]</code>[None] * 10` 初始化一个长度为10的空列表  </p>
+</li>
+<li><p>长度、最小值、最大值<br><code>len() max() min()</code>  </p>
+</li>
+</ul>
+<ul>
+<li><p>列表<br>1、赋值<br><code>name[3:] = list(&#39;a&#39;)</code><br><code>name[1:1] = [1, 2, 3]</code> 在不替换任何原有元素的基础上，在1这个位置加入新元素<br><code>y = x</code> 实质上y将和x指向同一个序列，x改变的同时，y也改变，并没有生成一个新的列表y<br><code>y = x[:]</code> 将x赋值给了新的列表y    </p>
+<p>2、删除<br><code>del name[3:]</code><br><code>name[3:] = []</code>  </p>
+<p>3、方法<br>方法是一个与某些对象有紧密联系的函数，对象可能是列表，数字，也可能是字符串或其他类型的对象。<br>注意区别于某些以对象作为运算对象的函数，他们可能会返回某些值，而使用方法只对对象进行操作，他们有时候并不返回值，而只对对象进行处理。  </p>
+<ul>
+<li>append</li>
+<li>count<br><code>name.count(&#39;a&#39;)</code> 统计a在列表name中出现的次数  </li>
+<li>extend<br><code>a.extend(b)</code> 相当于:<br><code>a = a + b</code> 由于新生成了列表a+b，因此这种方法比extend效率低  </li>
+<li>index<br>name.index(‘a’) 找出a在name中的第一个匹配项的索引位置  </li>
+<li>insert<br>name.insert(3, ‘agq’) 在索引为3的位置出插入agq这个字符串  </li>
+<li>pop<br><code>pop()</code> 移除列表最后一个元素，并返回，实现栈操作<br><code>pop(1)</code> 移除列表第二个元素，并返回    </li>
+<li>remove<br><code>name.remove(&#39;a&#39;)</code> 移除name中与a匹配的一个匹配项  </li>
+<li>reverse<br><code>name.reverse()</code> 将列表反转存放  </li>
+<li>sort<br>x.sort() 对x进行排序，但是sort方法返回的是空值，不要直接将它赋值给别人  </li>
+<li>reversed函数和sorted函数<br><code>y = sorted(x)</code> 将x排序后的值赋值给y，x本身不改变排列状态<br><code>y = reversed(x)</code> 同上  </li>
+<li>高级排序<br>可以自定义一个compare(x,y)函数，当x&gt;y时返回正数，x&lt;y时返回负数，相等时返回0。通常，可以使用内建函数cmp来作为compare函数。再将这个函数送给sort,即可定制排序啦:<br><code>x.sort(cmp)</code><br>sort还有另外连个参数key和reverse:<br><code>x.sort(key=len)</code> 使用len作为键函数，则会根据元素的长度排序  </li>
+</ul>
+</li>
+<li><p>元组<br><code>(1,)</code> 生成一个只有一个元素的元组，注意必须要有括号和逗号…  </p>
+<ul>
+<li>tuple函数<br><code>tuple(name)</code> 将序列转换为元组  </li>
+<li>操作–基本与列表一致  </li>
+<li>意义<br>1、可以在映射中当键使用，而列表不行<br>2、元组是大量内建函数和方法的返回值，因此必须要会处理元组  </li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[linux常用语法]]></title>
+      <url>/Linux/linux/</url>
+      <content type="html"><![CDATA[<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找目录：find /（查找范围） -name ‘查找关键字’ -type d<br>查找文件：find /（查找范围） -name 查找关键字 -print  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[注意事项]]></title>
+      <url>/Server/attention/</url>
+      <content type="html"><![CDATA[<div class="message"><br>为了服务器的正常运行，请大家留意一下以下注意事项。<br></div>
+
+<h2 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h2><ul>
+<li>文件存放路径<ul>
+<li>数据集请放在/data目录下，如果需要在这个目录底下存放数据，请联系我</li>
+<li>各种软件、库的安装，请放在/tools底下，如若需要使用这个目录，同样请跟我联系</li>
+<li>服务器的主目录空间有限，请尽量避免在主目录底下放数据，如若需要存放大量数据，请联系我，我会在/data目录下，建立一个供你个人使用的目录，以存储数据</li>
+</ul>
+</li>
+<li>网络访问<ul>
+<li>服务器的静态ip地址已在slack上周知诸位，请勿外传</li>
+<li>现在网络可以仅通过校园网访问，这是不计外网流量的。同时，服务器通过无线网卡连接外网，大家可以通过服务器上网，但是，这是有流量限制的，因此，请诸位除科研用途外，尽量不要使用服务器的外网，请谅解！</li>
+</ul>
+</li>
+</ul>
+<h2 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h2><ul>
+<li><strong>请不要轻易关机或者重启，如有特别需要，请周知大家！</strong></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Server </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> server </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[服务器使用指南]]></title>
+      <url>/Server/guideline/</url>
+      <content type="html"><![CDATA[<div class="message"><br>考虑到服务器的安全问题，下文中，服务器的ip地址用ip_address表示<br></div>
+
+<p>为了方便大家使用，下面总结了一些服务器提供的服务，供大家作为参考。</p>
+<h2 id="ssh服务"><a href="#ssh服务" class="headerlink" title="ssh服务"></a>ssh服务</h2><p>ssh服务为用户提供远程登录的服务。我们可以使用ssh登录我们的服务器。 </p>
+<ul>
+<li><p><strong>Windows</strong><br>在Windows中，大家可以使用putty来进行ssh服务。<br>在网上，直接搜索安装putty即可。</p>
+</li>
+<li><p><strong>Linux</strong><br>首先打开终端，在终端中输入:<br><code>ssh username@ip_address</code><br>然后在终端中输入该帐号对应的密码即可。</p>
+</li>
+</ul>
+<h2 id="FTP服务"><a href="#FTP服务" class="headerlink" title="FTP服务"></a>FTP服务</h2><p>FTP服务为我们提供了远程文件传输服务。<br>建议大家通过Filezilla使用ssh服务，它除了可以提供ftp服务外，还可以提供SFTP、FTPS、FTPES等服务，实在相当好用。<br>Filezilla同时拥有Windows和Linux版本。Filezilla的安装比较简单，请大家自行安装，谢谢！</p>
+<blockquote>
+<p>具体操作方法，请参考<a href="http://www.cnblogs.com/yiyi-xuechen/p/3566965.html" target="_blank" rel="external">putty和Filezilla的相关操作</a></p>
+</blockquote>
+<h2 id="远程桌面"><a href="#远程桌面" class="headerlink" title="远程桌面"></a>远程桌面</h2><p>由于某些同学需要使用服务器的桌面，因此，我安装了x2go来提供远程桌面服务。但是，使用远程桌面会占据一部分服务器/home或/temp下的空间，这部分空间并不充足，同时，使用远程桌面还会占用一些带宽，因此，<strong>如无必要，请勿使用</strong>。下面，我给大家提供x2go的使用方法。</p>
+<ul>
+<li>安装<br>Windows或Mac OS X请在<a href="http://wiki.x2go.org/doku.php/start" target="_blank" rel="external">这个网站</a>下载安装。<br>Linux直接在终端输入:<br><code>sudo apt-get install x2goserver</code>  </li>
+<li>使用方法  <ul>
+<li>打开x2go，点击左上方的编辑按钮<br><img src="/images/x2go1.png" alt="png"></li>
+<li>点击New Session，创建一个新的连接<br><img src="/images/x2go2.png" alt="png"></li>
+<li>按下图方式配置，Session Name可以自己定义，注意Session Type选择xfce<br><img src="/images/x2go3.png" alt="png"></li>
+<li>点击ok后，进入这个session，输入用户名和密码，进入系统<br><img src="/images/x2go4.png" alt="png"></li>
+<li>由于现在的默认终端有问题，需要对终端进行重新设置。在桌面终端图标处,点击右键，设置终端属性。<br><img src="/images/x2go5.png" alt="png"></li>
+<li>点击编辑按钮<br><img src="/images/x2go6.png" alt="png"></li>
+<li>编辑command的路径，使其与下图一致<br><img src="/images/x2go7.png" alt="png"></li>
+<li>这样就可以使用这个远程桌面啦！不过终端的环境变量还要重新设置一下，这样就可以正常使用了！<br><img src="/images/x2go8.png" alt="png"></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Server </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> server </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[服务器配置过程]]></title>
+      <url>/Server/config/</url>
+      <content type="html"><![CDATA[<div class="message"><br>这个页面主要记录了服务器的配置过程，和一些问题的解决方法，为后期服务器的维护提供参考<br></div>
+
+]]></content>
+      
+        <categories>
+            
+            <category> Server </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> server </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[About Me]]></title>
+      <url>/about/index.html</url>
+      <content type="html"><![CDATA[<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><ul>
+<li>Persuing the M.Eng degree in pattern recognition and intelligence processing at Xidian University, now.</li>
+<li>B.Eng., July, 2016, Xidian University, Xi’an, China.</li>
+</ul>
+<h2 id="Projects"><a href="#Projects" class="headerlink" title="Projects"></a>Projects</h2><ul>
+<li><a href="https://github.com/ChunhuanLin" target="_blank" rel="external">Github</a></li>
+<li><a href="">Kaggle</a></li>
+</ul>
+<h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>School of Electronic Engineering,<br>Xidian University,<br>Xi’an, Shaanxi, 710071, P. R. China<br>Email: lch_xdu@163.com</p>
+]]></content>
+    </entry>
+    
+  
+</search>
