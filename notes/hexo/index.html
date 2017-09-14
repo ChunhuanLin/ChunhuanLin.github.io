@@ -329,7 +329,7 @@
 
     
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用的主题"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用的主题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本用法"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">基本用法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#个性化"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">个性化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Material的使用"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Material的使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Debug"><span class="post-toc-number">4.</span> <span class="post-toc-text">Debug</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用的主题"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用的主题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本用法"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">基本用法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#个性化"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">个性化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Material的使用"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">Material的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#多设备使用hexo"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">多设备使用hexo</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Debug"><span class="post-toc-number">4.</span> <span class="post-toc-text">Debug</span></a></li></ol>
         <!--
         <li class="mdl-menu__item">
             Some Action
@@ -703,6 +703,12 @@
 <h3 id="Material的使用"><a href="#Material的使用" class="headerlink" title="Material的使用"></a>Material的使用</h3><blockquote>
 <p>参考链接： <a href="https://material.viosey.com/" target="_blank" rel="external">https://material.viosey.com/</a>  </p>
 </blockquote>
+<h3 id="多设备使用hexo"><a href="#多设备使用hexo" class="headerlink" title="多设备使用hexo"></a>多设备使用hexo</h3><p>由于<strong>hexo</strong>传到<strong>github</strong>上的是生成的静态网页，而当我们使用另一台机器要对我们的文档进行更新时，需要获取相应的hexo部署的文件，而不能直接操作静态网页。因此，可以在github.io上建立一个source分支，在source分支中上传hexo的配置文件，包括md文档，这样当我们使用另一台设备要更新个人网页时，就可以从这个分支上下载配置文件。  </p>
+<ol>
+<li>在其他设备上都要有hexo的环境。  </li>
+<li>建立一个blog文件夹，运行<code>git remote add origin ...github.io</code>,<code>git pull</code>;然后<code>git checkout -b source origin/source</code>。  </li>
+<li>在source分支下即可进行编辑。运行完<code>hexo g -d</code>后，记得要向远程分支<code>origin/origin</code>，进行push。  </li>
+</ol>
 <h2 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h2><ul>
 <li>由于不明原因，默认启动的iP若使用<code>localhost</code>则打不开，而使用<code>127.0.0.1</code>却能打开。因此修改这个文件<code>/node_modules/hexo-server/lib/server.js</code>,将其中配置ip的那行改为：<br><code>var ip = args.i || args.ip || &#39;127.0.0.1&#39; || config.server.ip;</code></li>
 </ul>
