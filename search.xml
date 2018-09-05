@@ -3,6 +3,81 @@
   
     
     <entry>
+      <title><![CDATA[《智能的本质》]]></title>
+      <url>/book/book-intelligence/</url>
+      <content type="html"><![CDATA[<h2 id="第一章｜人工智能的起源"><a href="#第一章｜人工智能的起源" class="headerlink" title="第一章｜人工智能的起源"></a>第一章｜人工智能的起源</h2><ul>
+<li>奇点理论－－过于夸张，硅谷的‘宗教’</li>
+<li>分为两派</li>
+</ul>
+<ul>
+<li>逻辑派：利用数学逻辑方式模拟人类大脑思维的运行方式</li>
+<li>神经网络派：通过对大脑结构的仿真设计来模拟大脑的工作原理 </li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> book </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title></title>
+      <url>/info/saliency-360/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[sklearn]]></title>
+      <url>/notes/sklearn/</url>
+      <content type="html"><![CDATA[<h2 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h2><h3 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h3><p><strong>监督学习</strong>可以分为<strong>分类</strong>和<strong>回归</strong>这两个问题。具体模型如下：    </p>
+<h4 id="1-广义线性模型"><a href="#1-广义线性模型" class="headerlink" title="1.广义线性模型"></a>1.广义线性模型</h4><ul>
+<li><p>1.1 普通最小二乘<br>缺点：不适用于X的各项相关的情况。当数据的收集没有经过设计时，可能出现这种情况。<br>复杂度：使用X矩阵的奇异值分解来计算最小二乘解。如果X矩阵是[n,p]，则复杂度为(np^2)。</p>
+</li>
+<li><p>1.2 岭(Ridge)回归<br>在最小二乘的基础上，对系数进行惩罚，将其二次方项作为惩罚项。  </p>
+<ul>
+<li>岭回归的<em>正则化参数</em>可以通过cv来选择。使用<code>RidgeCV</code>函数即可。  </li>
+</ul>
+</li>
+<li><p>1.3 Lasso<br>用<em>l1范数</em>惩罚系数，使得系数更加稀疏，最终使结果得到一个稀疏的表示。因此，Lasso常用于压缩感知。<br>　<strong> Lasso正则化系数的选择</strong>  </p>
+<ul>
+<li>使用cv　<br>　　LassoCV：适用于高维且具有多重共线性（collinear regression，数据中某一个变量或某几个变量可以用其他变量的线性组合来表示，意味着数据存在一定程度的冗余）的数据。<br>LassoLarsCV：能够探索更多的正则项系数的相关值，如果样本数目相对特征数目较小，它比LassoCV更快。　　<br>　- 基于模型选择的信息准则　　<br>　　LassoLarsIC: 相比cv需要计算k+1次（k-fold），这种方法只要进行一次运算。然而这种方法是建立在对模型结果的自由度有一个合理的估计的基础上，需要有大量的样本并且假设模型是正确的。当特征数高于样本数目的时候，这个方法可能就崩了。　　</li>
+</ul>
+</li>
+<li><p>Multi-task Lasso<br>预测一个联合多回归问题，ｙ是一个(n_sample, n_tasks)的2D矩阵。　　<br>　该方法下，算法对不同的任务，每一次对特征的选择都是一致的，能够保证比Lasso有更稳定的特征选择。　　</p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> notes </tag>
+            
+            <tag> machine learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[python codec]]></title>
       <url>/info/python_codec/</url>
       <content type="html"><![CDATA[<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p><strong>codec</strong> ： 编码（code)和解码(decode)的缩写组合<br><strong>unicode</strong> ：一种对各种符号进行统一编码的规则，即一种规定了各种字符（如中文，英文）到二进制吗映射关系的规则<br><strong>utf-8</strong> ： 按照一定规则将unicode存储到计算机中。由于有的字符对应的unicode字节少（如英文），而有的多（如中文），因此需要一种体系对unicode进行处理，以便能够更加高效的存储到计算机中。  </p>
@@ -834,6 +909,28 @@ input_shape=(3, 32, 32)))
 </blockquote>
 </li>
 </ul>
+<h2 id="快捷键学习"><a href="#快捷键学习" class="headerlink" title="快捷键学习"></a>快捷键学习</h2><p>参考www.openvim.com</p>
+<ul>
+<li>移动方向：hjkl</li>
+<li>移动到词首、词尾：web，前面可加数字，表示移动几个词</li>
+<li>插入重复的自符，如：30i- Esc，插入30个-</li>
+<li>向前或向后查找某个词，f/F，如3fo，找到第三个出现的o</li>
+<li>跳转到括号前/后：％</li>
+<li>跳转到句首或句尾：0/$</li>
+<li>找到下/上一个跟光标一样的字：*/# </li>
+<li>文件首/尾/指定行号：gg/G/nG</li>
+<li>关键字查找：/;也可以用正则表达式</li>
+<li>插入行：o/O</li>
+<li>删除光标处字符x/X</li>
+<li>替换光标处字符：r</li>
+<li>删除单词：dw;删除两个单词:d2e</li>
+<li>重复上一个操作：.</li>
+<li>visual模式：v进入模式，然后hjkl选择文本，d删除</li>
+<li>u撤销;ctrl+R前进</li>
+<li><p>帮助：:help</p>
+</li>
+<li></li>
+</ul>
 ]]></content>
       
         <categories>
@@ -850,76 +947,6 @@ input_shape=(3, 32, 32)))
             <tag> linux </tag>
             
             <tag> vim </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[docker]]></title>
-      <url>/notes/docker/</url>
-      <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
-<p>docker images<br>查看本地的镜像仓库  </p>
-<p>docker run -p 4000:80 friendlyhello<br>4000是主机端口，80是在Dockerfile里设置的对外开放的容器端口，最终要在主机的localhost:4000访问该服务<br>可以在浏览器中输入localhost:4000访问，也可以在终端中输入 curl <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  </p>
-<p>docker run -d -p 4000:80 friendlyhello<br>在background运行docker  </p>
-<p>docker ps<br>打印当前正在运行的容器信息  </p>
-<p>docker stop 1fa4ab2cf395<br>停止某个容器，后面的字符串是该容器的ID  </p>
-<h2 id="分享镜像"><a href="#分享镜像" class="headerlink" title="分享镜像"></a>分享镜像</h2><h3 id="注册账户、仓库与镜像的关系"><a href="#注册账户、仓库与镜像的关系" class="headerlink" title="注册账户、仓库与镜像的关系"></a>注册账户、仓库与镜像的关系</h3><p>A registry is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.</p>
-<p>docker login<br>登录你的Docker帐号  </p>
-<p>docker tag image username/repository:tag<br>这个命令标记你本地的Image所要上传的对应的账户和仓库，tag是可选的，但建议使用，可以通过他来给出镜像的版本号，如果不指定tag，那么它默认为latest</p>
-<p>docker push username/repository:tag<br>上传docker镜像,上传之后就可以在Docker Hub看到这个新的镜像。  </p>
-<h2 id="从远程仓库pull并运行镜像"><a href="#从远程仓库pull并运行镜像" class="headerlink" title="从远程仓库pull并运行镜像"></a>从远程仓库pull并运行镜像</h2><p>docker run -p 4000:80 username/repository:tag<br>如果docker在本地找不到这个镜像，那么他就会从远程把这个镜像pull到本地。  </p>
-<h2 id="nvidia-docker"><a href="#nvidia-docker" class="headerlink" title="nvidia-docker"></a>nvidia-docker</h2><p><code>nvidia-docker run -it -p hostPort:containerPort TensorFlowGPUImage</code> 在jupyter上运行tensorflow，这里的containerPort是8888<br><code>nvidia-docker run -it TensorFlowGPUImage bash</code> 可以在终端上运行tensorflow  </p>
-<p><code>-v host_folder:container_floder</code> 使得本地的文件在jupyter中可见<br><code>-p 8888:8888 -p 6006:6006</code> 前一个端口是jupyter的端口，后一个端口是tensorboard的端口  </p>
-<p>—————–我是分割线——————</p>
-<h2 id="在服务中使用docker"><a href="#在服务中使用docker" class="headerlink" title="在服务中使用docker"></a>在服务中使用docker</h2><h3 id="什么是服务？"><a href="#什么是服务？" class="headerlink" title="什么是服务？"></a>什么是服务？</h3><p>在分布式应用中，app的不同部分称为服务。比如说前端，后台，他们接管一个应用的不同服务。一个服务只需要跑一个镜像，然而他还要规范通信端口，容器应该跑多少部分等。  </p>
-<p>docker-compose.yml<br>定义Docker容器在产品中怎么做？  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> notes </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> tools </tag>
-            
-            <tag> linux </tag>
-            
-            <tag> Deep Learning </tag>
-            
-            <tag> docker </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[ipython]]></title>
-      <url>/notes/ipython/</url>
-      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
-<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
-<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
-<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
-<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
-<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> notes </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> tools </tag>
-            
-            <tag> python </tag>
             
         </tags>
         
@@ -974,6 +1001,48 @@ input_shape=(3, 32, 32)))
     </entry>
     
     <entry>
+      <title><![CDATA[docker]]></title>
+      <url>/notes/docker/</url>
+      <content type="html"><![CDATA[<h2 id="生成和使用镜像"><a href="#生成和使用镜像" class="headerlink" title="生成和使用镜像"></a>生成和使用镜像</h2><p>docker build -t friendlyhello .<br>在当前目录下生成一个名为friendlyhello的镜像，该目录下要有Dockerfile及其所依赖的相关文件</p>
+<p>docker images<br>查看本地的镜像仓库  </p>
+<p>docker run -p 4000:80 friendlyhello<br>4000是主机端口，80是在Dockerfile里设置的对外开放的容器端口，最终要在主机的localhost:4000访问该服务<br>可以在浏览器中输入localhost:4000访问，也可以在终端中输入 curl <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  </p>
+<p>docker run -d -p 4000:80 friendlyhello<br>在background运行docker  </p>
+<p>docker ps<br>打印当前正在运行的容器信息  </p>
+<p>docker stop 1fa4ab2cf395<br>停止某个容器，后面的字符串是该容器的ID  </p>
+<h2 id="分享镜像"><a href="#分享镜像" class="headerlink" title="分享镜像"></a>分享镜像</h2><h3 id="注册账户、仓库与镜像的关系"><a href="#注册账户、仓库与镜像的关系" class="headerlink" title="注册账户、仓库与镜像的关系"></a>注册账户、仓库与镜像的关系</h3><p>A registry is a collection of repositories, and a repository is a collection of images—sort of like a GitHub repository, except the code is already built. An account on a registry can create many repositories. The docker CLI uses Docker’s public registry by default.</p>
+<p>docker login<br>登录你的Docker帐号  </p>
+<p>docker tag image username/repository:tag<br>这个命令标记你本地的Image所要上传的对应的账户和仓库，tag是可选的，但建议使用，可以通过他来给出镜像的版本号，如果不指定tag，那么它默认为latest</p>
+<p>docker push username/repository:tag<br>上传docker镜像,上传之后就可以在Docker Hub看到这个新的镜像。  </p>
+<h2 id="从远程仓库pull并运行镜像"><a href="#从远程仓库pull并运行镜像" class="headerlink" title="从远程仓库pull并运行镜像"></a>从远程仓库pull并运行镜像</h2><p>docker run -p 4000:80 username/repository:tag<br>如果docker在本地找不到这个镜像，那么他就会从远程把这个镜像pull到本地。  </p>
+<h2 id="nvidia-docker"><a href="#nvidia-docker" class="headerlink" title="nvidia-docker"></a>nvidia-docker</h2><p><code>nvidia-docker run -it -p hostPort:containerPort TensorFlowGPUImage</code> 在jupyter上运行tensorflow，这里的containerPort是8888<br><code>nvidia-docker run -it TensorFlowGPUImage bash</code> 可以在终端上运行tensorflow  </p>
+<p><code>-v host_folder:container_floder</code> 使得本地的文件在jupyter中可见<br><code>-p 8888:8888 -p 6006:6006</code> 前一个端口是jupyter的端口，后一个端口是tensorboard的端口  </p>
+<p>—————–我是分割线——————</p>
+<h2 id="在服务中使用docker"><a href="#在服务中使用docker" class="headerlink" title="在服务中使用docker"></a>在服务中使用docker</h2><h3 id="什么是服务？"><a href="#什么是服务？" class="headerlink" title="什么是服务？"></a>什么是服务？</h3><p>在分布式应用中，app的不同部分称为服务。比如说前端，后台，他们接管一个应用的不同服务。一个服务只需要跑一个镜像，然而他还要规范通信端口，容器应该跑多少部分等。  </p>
+<p>docker-compose.yml<br>定义Docker容器在产品中怎么做？  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
+            
+            <tag> Deep Learning </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[pip]]></title>
       <url>/notes/pip/</url>
       <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用apt-get install pip会导致pip无法升级的问题<br>因此这里使用的是<br><code>sudo easy_install pip</code>  </p>
@@ -999,6 +1068,34 @@ input_shape=(3, 32, 32)))
             <tag> python </tag>
             
             <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ipython]]></title>
+      <url>/notes/ipython/</url>
+      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
+<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
+<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
+<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
+<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
+<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> notes </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> python </tag>
             
         </tags>
         
