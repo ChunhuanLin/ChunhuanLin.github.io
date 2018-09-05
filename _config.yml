@@ -74,3 +74,8 @@ deploy:
 search: 
   path: search.xml
   field: all
+
+# MathJax Support
+mathjax:
+   enable: true
+   per_page: true
