@@ -62,7 +62,10 @@
 <ul>
 <li>选项：<code>docker pull --help</code>查看</li>
 <li>Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号] 。默认地址是 Docker Hub</li>
-<li>仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像   <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><code>docker run -it --rm ubuntu:16.04 bash</code></li>
+<li>仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像   </li>
+</ul>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p><code>docker run -it --rm ubuntu:16.04 bash</code></p>
+<ul>
 <li>-it ：这是两个参数，一个是 -i ：交互式操作，一个是 -t 终端。我们这里打算进入bash 执行一些命令并查看返回结果，因此我们需要交互式终端。</li>
 <li>–rm ：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 docker rm 。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 –rm 可以避免浪费空间。</li>
 <li>ubuntu:16.04 ：这是指用 ubuntu:16.04 镜像为基础来启动容器。</li>
