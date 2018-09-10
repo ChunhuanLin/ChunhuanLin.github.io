@@ -93,26 +93,36 @@
 <li>过滤器：加入–filter或-f参数，常用的filter参数有：since/before/label等</li>
 <li>只列出id: -q参数</li>
 <li>按一定格式输出，–format 参数， 并利用GO的模板语法<h3 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h3><code>docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</code><h4 id="用ID、镜像名、摘要删除镜像"><a href="#用ID、镜像名、摘要删除镜像" class="headerlink" title="用ID、镜像名、摘要删除镜像"></a>用ID、镜像名、摘要删除镜像</h4></li>
-<li>短ID和长ID</li>
-</ul>
-<ul>
+<li>短ID和长ID<ul>
 <li>可以用镜像的长ID，也即完整ID</li>
 <li>更方便的，可以用短ID，即长ID的前几位（一般3位），只要能够区分不同镜像即可。</li>
 </ul>
-<ul>
-<li>镜像名</li>
-</ul>
-<ul>
+</li>
+<li>镜像名<ul>
 <li>即&lt;仓库名&gt;:&lt;标签&gt;</li>
 </ul>
-<ul>
-<li>镜像摘要</li>
-</ul>
-<ul>
+</li>
+<li>镜像摘要<ul>
 <li><code>docker iamge ls --digests</code> 列出摘要</li>
-<li><h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2></li>
+<li><code>docker iamge rm &lt;res&gt;@&lt;digest&gt;</code></li>
 </ul>
-<h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
+</li>
+<li>配合<code>docker image ls</code>命令<ul>
+<li><code>docker image rm $(docker image ls -q redis)</code></li>
+<li><code>docker image rm $(docker image ls -q -f before=mongo:3.2)</code><h5 id="Untagged-和Deleted"><a href="#Untagged-和Deleted" class="headerlink" title="Untagged 和Deleted"></a>Untagged 和Deleted</h5></li>
+</ul>
+</li>
+<li>删除镜像时，会显示Untagged或Deleted信息</li>
+<li>镜像的唯一标识是ID和摘要，一个镜像可以有多个标签</li>
+<li>删除镜像时，实际上是删除某个标签的镜像，因此得到Untagged信息。 </li>
+<li>输出的是Deleted信息，必须<em>同时</em>满足：<ul>
+<li>该镜像所有标签都没有了</li>
+<li>没有任何层依赖当前层</li>
+<li>此时没有这个镜像启动的容器存在<h3 id="利用commit理解镜像构成"><a href="#利用commit理解镜像构成" class="headerlink" title="利用commit理解镜像构成"></a>利用commit理解镜像构成</h3></li>
+</ul>
+</li>
+</ul>
+<h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
       
         <categories>
             
