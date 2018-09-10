@@ -3,6 +3,137 @@
   
     
     <entry>
+      <title><![CDATA[Ubuntu网络配置]]></title>
+      <url>/Linux/network_config/</url>
+      <content type="html"><![CDATA[<h2 id="配置拨号网络"><a href="#配置拨号网络" class="headerlink" title="配置拨号网络"></a>配置拨号网络</h2><p>由于学校网络需要拨号，每次从网页进去相当麻烦，故直接在系统中设置好拨号</p>
+<ol>
+<li><code>sudo pppoeconf</code> 一路Yes，输入上网帐号</li>
+<li><code>sudo vim /etc/NetworkManager/NetworkManger.conf</code>将其中的managed=false改为managed=true</li>
+<li><code>sudo service network-manager restart</code><br>参考<a href="https://blog.csdn.net/essity/article/details/52618101" target="_blank" rel="external">链接</a></li>
+</ol>
+<h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><p>参考<a href="https://blog.csdn.net/wql2014302721/article/details/78571362" target="_blank" rel="external">链接</a></p>
+<h2 id="配置系统代理"><a href="#配置系统代理" class="headerlink" title="配置系统代理"></a>配置系统代理</h2><p>在系统设置-&gt;Network中，修改Network proxy，其中的Socks Host为127.0.0.1|1080</p>
+<h2 id="配置并运行VPN"><a href="#配置并运行VPN" class="headerlink" title="配置并运行VPN"></a>配置并运行VPN</h2><h2 id="配置Chrome"><a href="#配置Chrome" class="headerlink" title="配置Chrome"></a>配置Chrome</h2><ol>
+<li>以代理方式启动chrome，<code>google-chrome --proxy-server=&quot;socks5://localhost:1080&quot;</code>，此时应该可以google了～</li>
+<li>打开chrome<a href="https://chrome.google.com/webstore?utm_source=chrome-ntp-icon" target="_blank" rel="external">应用商店</a>，下载<a href="https://www.switchyomega.com/" target="_blank" rel="external">SwitchyOmega</a></li>
+<li>在SwitchOmega中<a href="https://www.switchyomega.com/settings/" target="_blank" rel="external">设置autoswitch</a>上网模式，具体方法如下：</li>
+</ol>
+<ul>
+<li>打开SwitchOmega-&gt;option</li>
+<li>建立新的情景模式（Profiles),命名为SS，配置为：Protocol–SOCKS5、Server–127.0.0.1、Port–1080, 底下忽略规则删去127.0.0.1</li>
+<li><p>修改情景模式auto swich，点击add condition,设置规则列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">规则列表格式： AutoProxy   </div><div class="line">规则列表网址： https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</div></pre></td></tr></table></figure>
+</li>
+<li><p>以auto switch模式运行switch omega，无需再配置pac</p>
+</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《Docker-从入门到实践》]]></title>
+      <url>/book/book-docker/</url>
+      <content type="html"><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>三个基本概念：镜像（Image）、容器（Container）、仓库（Repository）</p>
+<h3 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h3><p>操作系统分为内核和用户空间。对于 Linux 而言，内核启动后，会挂载 root文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu 16.04 最小系统的 root 文件系统。<br>Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</p>
+<h4 id="分层存储"><a href="#分层存储" class="headerlink" title="分层存储"></a>分层存储</h4><p>镜像构建时，会一层层构建，前一层是后一层的基础。每一层构建完就不会再发生改变，后一层上的任何改变只发生在自己这一层。<br>分层存储的特征还使得镜像的复用、定制变的更为容易。甚至可以用之前构建好的镜像作为基础层，然后进一步添加新的层，以定制自己所需的内容，构建新的镜像。</p>
+<h3 id="Docker容器"><a href="#Docker容器" class="headerlink" title="Docker容器"></a>Docker容器</h3><p>镜像（ Image ）和容器（ Container ）的关系，就像是面向对象程序设计中的 类 和 实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。<br>容器的实质是进程，但与直接在宿主执行的进程不同，容器进程运行于属于自己的独立的命名空间。因此容器可以拥有自己的 root 文件系统、自己的网络配置、自己的进程空间，甚至自己的用户 ID 空间。前面讲过镜像使用的是分层存储，容器也是如此。每一个容器运行时，是以镜像为基础层，<br>在其上创建一个当前容器的存储层，我们可以称这个为容器运行时读写而准备的存储层为容器存储层。<br>容器存储层的生存周期和容器一样，容器消亡时，容器存储层也随之消亡。因此，任何保存于容器存储层的信息都会随容器删除而丢失。<br>按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储层要保持无状态化。所有的文件写入操作，都应该使用 数据卷（Volume）、或者绑定宿主目录，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。<br>数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。</p>
+<h3 id="Docker-Registry"><a href="#Docker-Registry" class="headerlink" title="Docker Registry"></a>Docker Registry</h3><p>一个 Docker Registry 中可以包含多个仓库（ Repository ）；每个仓库可以包含多个标签（ Tag ）；每个标签对应一个镜像。<br>通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 &lt;仓库名&gt;:&lt;标签&gt; 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 latest 作为默认标签。<br>仓库名经常以 两段式路径 形式出现，比如 jwilder/nginx-proxy ，前者往往意味着 Docker　Registry 多用户环境下的用户名，后者则往往是对应的软件名。</p>
+<h4 id="Docker-Registry-公开服务"><a href="#Docker-Registry-公开服务" class="headerlink" title="Docker Registry 公开服务"></a>Docker Registry 公开服务</h4><p>最常使用的 Registry 公开服务是官方的 Docker Hub，这也是默认的 Registry，并拥有大量的高质量的官方镜像。除此以外，还有 CoreOS 的 Quay.io，CoreOS 相关的镜像存储在这里；Google 的 Google Container Registry，Kubernetes 的镜像使用的就是这个服务。<br>由于某些原因，在国内访问这些服务可能会比较慢。国内的一些云服务商提供了针对 Docker Hub 的镜像服务（ Registry Mirror ），这些镜像服务被称为加速器。常见的有 阿里云加速器、DaoCloud 加速器 等。使用加速器会直接从国内的地址下载 Docker Hub 的镜像，比直接从 Docker Hub 下载速度会提高很多。</p>
+<h4 id="私有-Docker-Registry"><a href="#私有-Docker-Registry" class="headerlink" title="私有 Docker Registry"></a>私有 Docker Registry</h4><p>除了使用公开服务外，用户还可以在本地搭建私有 Docker Registry。Docker 官方提供了Docker Registry 镜像，可以直接使用做为私有 Registry 服务。</p>
+<h4 id="高级服务"><a href="#高级服务" class="headerlink" title="高级服务"></a>高级服务</h4><p>开源的 Docker Registry 镜像只提供了 Docker Registry API 的服务端实现，足以支持docker 命令，不影响使用。但不包含图形界面，以及镜像维护、用户管理、访问控制等高级功能。在官方的商业化版本 Docker Trusted Registry 中，提供了这些高级功能。<br>除了官方的 Docker Registry 外，还有第三方软件实现了 Docker Registry API，甚至提供了用户界面以及一些高级功能。比如，VMWare Harbor 和 Sonatype Nexus。</p>
+<h2 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h2><p>详情见书籍，注意使用国内源，并配置加速器</p>
+<h2 id="使用镜像"><a href="#使用镜像" class="headerlink" title="使用镜像"></a>使用镜像</h2><h3 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h3><p><code>docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</code></p>
+<ul>
+<li>选项：<code>docker pull --help</code>查看</li>
+<li>Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号] 。默认地址是 Docker Hub</li>
+<li>仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像 <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><code>docker run -it --rm ubuntu:16.04 bash</code></li>
+<li>-it ：这是两个参数，一个是 -i ：交互式操作，一个是 -t 终端。我们这里打算进入bash 执行一些命令并查看返回结果，因此我们需要交互式终端。</li>
+<li>–rm ：这个参数是说容器退出后随之将其删除。默认情况下，为了排障需求，退出的容器并不会立即删除，除非手动 docker rm 。我们这里只是随便执行个命令，看看结果，不需要排障和保留结果，因此使用 –rm 可以避免浪费空间。</li>
+<li>ubuntu:16.04 ：这是指用 ubuntu:16.04 镜像为基础来启动容器。</li>
+<li>bash ：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 bash 。<h3 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h3><code>docker image ls</code><h4 id="镜像体积"><a href="#镜像体积" class="headerlink" title="镜像体积"></a>镜像体积</h4></li>
+<li>docker image ls</li>
+</ul>
+<ul>
+<li>Docker Hub上是压缩体积，而本地是展开后的体积，因此本地大</li>
+<li>由于镜像的多层结构，有一些可以继承、复用，因此实际占用空间小于列表中显示的空间总和</li>
+</ul>
+<ul>
+<li>docker system df</li>
+</ul>
+<ul>
+<li>便捷的查看镜像、容器、数据卷所占用的空间<h4 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h4></li>
+</ul>
+<ul>
+<li>特点：仓库名、标签等信息都是<none></none></li>
+<li>显示这类镜像：docker image ls -f dangling=true</li>
+<li>产生原因：旧镜像名称与新镜像同名，故被抹去信息</li>
+<li>产生环境：docker pull或docker build时，可能产生这种现象</li>
+<li>删除：docker image prune<h4 id="中间层镜像"><a href="#中间层镜像" class="headerlink" title="中间层镜像"></a>中间层镜像</h4></li>
+<li>docker image ls -a 将会把中间层镜像也显示出来</li>
+<li>特点：无标签</li>
+<li>删除： 不能删除此类镜像，在将依赖他们的镜像删除后，他们自然会被删除<h4 id="列出部分镜像"><a href="#列出部分镜像" class="headerlink" title="列出部分镜像"></a>列出部分镜像</h4></li>
+<li>根据仓库名：docker iamge ls &lt;仓库名&gt;</li>
+<li>指定仓库名和标签：docker image ls &lt;仓库名：标签&gt;</li>
+<li>过滤器：加入–filter或-f参数，常用的filter参数有：since/before/label等</li>
+<li>只列出id: -q参数</li>
+<li>按一定格式输出，–format 参数， 并利用GO的模板语法<h3 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h3><code>docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</code><h4 id="用ID、镜像名、摘要删除镜像"><a href="#用ID、镜像名、摘要删除镜像" class="headerlink" title="用ID、镜像名、摘要删除镜像"></a>用ID、镜像名、摘要删除镜像</h4></li>
+<li>短ID和长ID</li>
+</ul>
+<ul>
+<li>可以用镜像的长ID，也即完整ID</li>
+<li>更方便的，可以用短ID，即长ID的前几位（一般3位），只要能够区分不同镜像即可。</li>
+</ul>
+<ul>
+<li>镜像名</li>
+</ul>
+<ul>
+<li>即&lt;仓库名&gt;:&lt;标签&gt;</li>
+</ul>
+<ul>
+<li>镜像摘要</li>
+</ul>
+<ul>
+<li><code>docker iamge ls --digests</code> 列出摘要</li>
+<li><h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2></li>
+</ul>
+<h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
+      
+        <categories>
+            
+            <category> book </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tools </tag>
+            
+            <tag> notes </tag>
+            
+            <tag> docker </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[《智能的本质》]]></title>
       <url>/book/book-intelligence/</url>
       <content type="html"><![CDATA[<h2 id="第一章｜人工智能的起源"><a href="#第一章｜人工智能的起源" class="headerlink" title="第一章｜人工智能的起源"></a>第一章｜人工智能的起源</h2><ul>
@@ -976,39 +1107,19 @@ input_shape=(3, 32, 32)))
     </entry>
     
     <entry>
-      <title><![CDATA[tmux]]></title>
-      <url>/Linux/tmux/</url>
-      <content type="html"><![CDATA[<h2 id="设置tmux参数"><a href="#设置tmux参数" class="headerlink" title="设置tmux参数"></a>设置tmux参数</h2><p>一般在.tmux.conf中，如果没有这个文件，使用<br><code>tmux show -g | cat &gt; ~/.tmux.conf</code><br>可以在这个文件中配置tmux前缀，默认是Ctrl+b  </p>
-<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><p>按下 Ctrl-b 后的快捷键如下:  </p>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
-<li>? 获取帮助信息  <h3 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h3></li>
-<li>s 列出所有会话  </li>
-<li>$ 重命名当前的会话  </li>
-<li>d 断开当前的会话  <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3></li>
-<li>c 创建一个新窗口  </li>
-<li>, 重命名当前窗口  </li>
-<li>w 列出所有窗口  </li>
-<li>% 水平分割窗口  </li>
-<li>“ 竖直分割窗口  </li>
-<li>n 选择下一个窗口  </li>
-<li>p 选择上一个窗口  </li>
-<li>0~9 选择0~9对应的窗口  <h3 id="窗格管理"><a href="#窗格管理" class="headerlink" title="窗格管理"></a>窗格管理</h3></li>
-<li>% 创建一个水平窗格  </li>
-<li>“ 创建一个竖直窗格</li>
-<li>o 在窗格间切换  </li>
-<li>} 与下一个窗格交换位置  </li>
-<li>{ 与上一个窗格交换位置  </li>
-<li>! 在新窗口中显示当前窗格  </li>
-<li>x 关闭当前窗格  </li>
-<li>按住Ctrl+x, 再使用方向键可以微调当前窗口的边界  <h2 id="设置前缀"><a href="#设置前缀" class="headerlink" title="设置前缀"></a>设置前缀</h2>修改~/.tmux.conf文件，输入:<br>set -g prefix C-a<br>unbind C-b  </li>
-</ul>
-<p>然后在tmux中，输入C+b : 进入命令模式，输入:<br>source-file ~/.tmux.conf<br>也可以在.tmux.conf中用r去bind这个命令，这样每次只要输入r就可以了  </p>
-<p>参考链接:<br><a href="http://mingxinglai.com/cn/2012/09/tmux/" target="_blank" rel="external">http://mingxinglai.com/cn/2012/09/tmux/</a><br><a href="http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/" target="_blank" rel="external">http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/</a></p>
+      <title><![CDATA[ipython]]></title>
+      <url>/notes/ipython/</url>
+      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
+<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
+<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
+<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
+<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
+<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
 ]]></content>
       
         <categories>
             
-            <category> Linux </category>
+            <category> notes </category>
             
         </categories>
         
@@ -1017,7 +1128,7 @@ input_shape=(3, 32, 32)))
             
             <tag> tools </tag>
             
-            <tag> linux </tag>
+            <tag> python </tag>
             
         </tags>
         
@@ -1066,19 +1177,39 @@ input_shape=(3, 32, 32)))
     </entry>
     
     <entry>
-      <title><![CDATA[ipython]]></title>
-      <url>/notes/ipython/</url>
-      <content type="html"><![CDATA[<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>1 变量前面或后面加上？可以得到变量的一些通用信息<br>2 在函数或实例对象后面加一个？显示其docstring，加两个？显示源码  </p>
-<h2 id="run"><a href="#run" class="headerlink" title="%run"></a>%run</h2><p>在ipython中执行%run *.py与在终端中执行python *.py结果一样  </p>
-<h2 id="paste和-cpaste"><a href="#paste和-cpaste" class="headerlink" title="%paste和%cpaste"></a>%paste和%cpaste</h2><p>由于直接粘贴多行代码到ipython的环境中会导致只能运行一行而中断，因此在多行粘贴前，先在ipython中输入%paste或者%cpaste来实现多行复制  </p>
-<h2 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h2><p>C-b C-f C-a C-e C-k C-u<br>C-p或上箭头 C-n或下箭头<br>C-l  </p>
-<h2 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h2><p>%timeit 检查任意语句的执行时间<br>%quickref 显示ipython的快速参考<br>%magic 显示所有魔术命令的详细文档  </p>
-<h2 id="matplotlib集成"><a href="#matplotlib集成" class="headerlink" title="matplotlib集成"></a>matplotlib集成</h2><p>使用ipython时加上–pylab, 即<br>ipython –pylab  </p>
+      <title><![CDATA[tmux]]></title>
+      <url>/Linux/tmux/</url>
+      <content type="html"><![CDATA[<h2 id="设置tmux参数"><a href="#设置tmux参数" class="headerlink" title="设置tmux参数"></a>设置tmux参数</h2><p>一般在.tmux.conf中，如果没有这个文件，使用<br><code>tmux show -g | cat &gt; ~/.tmux.conf</code><br>可以在这个文件中配置tmux前缀，默认是Ctrl+b  </p>
+<h2 id="快捷键参考"><a href="#快捷键参考" class="headerlink" title="快捷键参考"></a>快捷键参考</h2><p>按下 Ctrl-b 后的快捷键如下:  </p>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li>? 获取帮助信息  <h3 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h3></li>
+<li>s 列出所有会话  </li>
+<li>$ 重命名当前的会话  </li>
+<li>d 断开当前的会话  <h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3></li>
+<li>c 创建一个新窗口  </li>
+<li>, 重命名当前窗口  </li>
+<li>w 列出所有窗口  </li>
+<li>% 水平分割窗口  </li>
+<li>“ 竖直分割窗口  </li>
+<li>n 选择下一个窗口  </li>
+<li>p 选择上一个窗口  </li>
+<li>0~9 选择0~9对应的窗口  <h3 id="窗格管理"><a href="#窗格管理" class="headerlink" title="窗格管理"></a>窗格管理</h3></li>
+<li>% 创建一个水平窗格  </li>
+<li>“ 创建一个竖直窗格</li>
+<li>o 在窗格间切换  </li>
+<li>} 与下一个窗格交换位置  </li>
+<li>{ 与上一个窗格交换位置  </li>
+<li>! 在新窗口中显示当前窗格  </li>
+<li>x 关闭当前窗格  </li>
+<li>按住Ctrl+x, 再使用方向键可以微调当前窗口的边界  <h2 id="设置前缀"><a href="#设置前缀" class="headerlink" title="设置前缀"></a>设置前缀</h2>修改~/.tmux.conf文件，输入:<br>set -g prefix C-a<br>unbind C-b  </li>
+</ul>
+<p>然后在tmux中，输入C+b : 进入命令模式，输入:<br>source-file ~/.tmux.conf<br>也可以在.tmux.conf中用r去bind这个命令，这样每次只要输入r就可以了  </p>
+<p>参考链接:<br><a href="http://mingxinglai.com/cn/2012/09/tmux/" target="_blank" rel="external">http://mingxinglai.com/cn/2012/09/tmux/</a><br><a href="http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/" target="_blank" rel="external">http://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/</a></p>
 ]]></content>
       
         <categories>
             
-            <category> notes </category>
+            <category> Linux </category>
             
         </categories>
         
@@ -1087,7 +1218,7 @@ input_shape=(3, 32, 32)))
             
             <tag> tools </tag>
             
-            <tag> python </tag>
+            <tag> linux </tag>
             
         </tags>
         
@@ -1149,6 +1280,27 @@ input_shape=(3, 32, 32)))
             <tag> libs </tag>
             
             <tag> theano </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[linux常用语法]]></title>
+      <url>/Linux/linux/</url>
+      <content type="html"><![CDATA[<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找目录：find /（查找范围） -name ‘查找关键字’ -type d<br>查找文件：find /（查找范围） -name 查找关键字 -print  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> linux </tag>
             
         </tags>
         
@@ -1231,27 +1383,6 @@ input_shape=(3, 32, 32)))
         <tags>
             
             <tag> python </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[linux常用语法]]></title>
-      <url>/Linux/linux/</url>
-      <content type="html"><![CDATA[<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找目录：find /（查找范围） -name ‘查找关键字’ -type d<br>查找文件：find /（查找范围） -name 查找关键字 -print  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> linux </tag>
             
         </tags>
         
@@ -1370,12 +1501,6 @@ input_shape=(3, 32, 32)))
   
     
     <entry>
-      <title><![CDATA[tags]]></title>
-      <url>/tags/index.html</url>
-      <content type="html"></content>
-    </entry>
-    
-    <entry>
       <title><![CDATA[About Me]]></title>
       <url>/about/index.html</url>
       <content type="html"><![CDATA[<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><ul>
@@ -1388,6 +1513,12 @@ input_shape=(3, 32, 32)))
 </ul>
 <h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>School of Electronic Engineering,<br>Xidian University,<br>Xi’an, Shaanxi, 710071, P. R. China<br>Email: lch_xdu@163.com</p>
 ]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[tags]]></title>
+      <url>/tags/index.html</url>
+      <content type="html"></content>
     </entry>
     
   
