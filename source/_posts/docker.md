@@ -70,8 +70,3 @@ docker run -p 4000:80 username/repository:tag
 docker-compose.yml  
 定义Docker容器在产品中怎么做？  
 
-
-
-
-
-
