@@ -214,7 +214,18 @@
 </li>
 <li>建议： <em>仅在需要自动解压缩的场合使用<code>ADD</code></em></li>
 </ul>
-<h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
+<h4 id="CMD容器启动命令"><a href="#CMD容器启动命令" class="headerlink" title="CMD容器启动命令"></a>CMD容器启动命令</h4><ul>
+<li>容器就是进程，因此启动容器时，需要指定所运行的程序和参数，这就用到了CMD</li>
+<li>在运行时，可以指定新的命令来替代镜像设置中CMD的命令。比如,<code>ubuntu</code>镜像默认的<code>CMD</code>是<code>/bin/bash</code>,如果我们直接<code>docker run -it ubuntu</code>的话,会直接进入<code>bash</code> 。我们也可以在运行时指定运行别的命令,如<code>docker run -it ubuntu cat /etc/os-release</code>。这就是用<code>cat /etc/os-release</code>命令替换了默认的<code>/bin/bash</code>命令了,输出了系统版本信息。</li>
+<li>格式–推荐使用<em>exec</em>格式<ul>
+<li>shell格式: <code>CMD &lt;命令&gt;</code></li>
+<li>exec格式: <code>CMD [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;...]</code>    </li>
+<li>参数列表格式: <code>CMD [&quot;参数1&quot;, &quot;参数2&quot;...]</code>。在指定了<code>ENTRYPOINT</code>指令后,用<code>CMD</code>指定具体的参数。</li>
+</ul>
+</li>
+<li>容器内没有后台服务的概念，不能像虚拟机、物理机那样启动后台服务，应该直接执行可执行文件，并要求以前台形式运行，如：<code>CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code></li>
+</ul>
+<h4 id="ENTRYPOINT入口点"><a href="#ENTRYPOINT入口点" class="headerlink" title="ENTRYPOINT入口点"></a>ENTRYPOINT入口点</h4><h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
       
         <categories>
             
