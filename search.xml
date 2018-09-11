@@ -137,7 +137,84 @@
 </ul>
 </li>
 </ul>
-<h3 id="利用commit理解镜像构成"><a href="#利用commit理解镜像构成" class="headerlink" title="利用commit理解镜像构成"></a>利用commit理解镜像构成</h3><h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
+<h3 id="利用commit理解镜像构成"><a href="#利用commit理解镜像构成" class="headerlink" title="利用commit理解镜像构成"></a>利用commit理解镜像构成</h3><ul>
+<li>用于学习，也可以用于被入侵后保留现场</li>
+<li>不要用<code>docker commit</code>定制镜像，应该使用<code>Dockerfile</code></li>
+<li>具体学习内容见书籍</li>
+<li><p>进行一个简单的实验，我们运行一个镜像的容器，然后对这个容器进行修改，那么容器的<em>存储层</em>会发生改变，换言之，原有镜像+容器的存储层==新镜像，这时候就可以commit：<br><code>docker commit [选项] &lt;容器ID或容器名&gt; [&lt;仓库名&gt;[:&lt;标签&gt;]]</code><br>例如可以这样保存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> $ docker commit	\</div><div class="line">--author &quot;Tao Wang &lt;twang2218@gmail.com&gt;&quot; \ //作者信息</div><div class="line">--message &quot;修改了默认网页&quot; \ // 修改的内容说明</div><div class="line">webserver \ // 容器名称</div><div class="line">nginx:v2 // 修改后保存的镜像名称</div></pre></td></tr></table></figure>
+</li>
+<li><p>几个命令</p>
+<ul>
+<li><code>docker diff &lt;容器名&gt;</code></li>
+<li><code>docker history &lt;镜像名&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="慎用docker-commit"><a href="#慎用docker-commit" class="headerlink" title="慎用docker commit"></a>慎用<code>docker commit</code></h4><ul>
+<li>利用commit方法，生成镜像时，产生大量无用文件</li>
+<li>别人无从得知这个镜像是如何得到的，因此，这种方式得到的镜像也被称为“黑箱镜像”</li>
+<li>每一次修改只会增加新层，对旧层无法删除，因此会使镜像变得臃肿</li>
+</ul>
+<h3 id="使用Dockerfile定制镜像"><a href="#使用Dockerfile定制镜像" class="headerlink" title="使用Dockerfile定制镜像"></a>使用Dockerfile定制镜像</h3><p>Dockerfile是一个文本文件,其内包含了一条条的指令(Instruction),每一条指令构建一层,因此每一条指令的内容,就是描述该层应当如何构建。</p>
+<h4 id="FROM指定基础镜像"><a href="#FROM指定基础镜像" class="headerlink" title="FROM指定基础镜像"></a>FROM指定基础镜像</h4><ul>
+<li>必须是第一条指令</li>
+<li>指示从哪个镜像开始修改</li>
+<li><a href="https://store.docker.com" target="_blank" rel="external">Docker Store</a>有很多官方镜像。服务类镜像，如<a href="https://store.docker.com/images/python/" target="_blank" rel="external">python</a>、操作系统镜像，如<a href="https://store.docker.com/images/ubuntu/" target="_blank" rel="external">ubuntu</a></li>
+<li>特别地，存在一个空白镜像，名为<code>scratch</code>,适用于可执行文件直接复制到docker，而无需操作系统支持的情况；其次，使用Go语言开发的应用很多会使用这种方式制作镜像。</li>
+</ul>
+<h4 id="RUN执行命令"><a href="#RUN执行命令" class="headerlink" title="RUN执行命令"></a>RUN执行命令</h4><ul>
+<li><code>RUN</code>指令有两种格式：<ul>
+<li>shell格式，<code>RUN &lt;命令&gt;</code></li>
+<li>exec格式，<code>RUN [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;]</code></li>
+</ul>
+</li>
+<li>RUN指令也是每个指令会新建一层，故不能每行都写RUN</li>
+<li>Union FS目前最大不得超过127层</li>
+<li>注意能用一层写就用一层，可以使用<em>&amp;&amp;</em>连接符;在最后要进行<em>清理工作</em></li>
+</ul>
+<h4 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h4><p>得到<code>Dockerfile</code>之后就可以开始构建镜像了,在<em>Dockerfile所在目录</em>运行<br><code>docker    build    [选项]    &lt;上下文路径/URL/-&gt;</code><br>如： <code>docker build -t nginx:v3 .</code></p>
+<h4 id="镜像构建上下文（Context）"><a href="#镜像构建上下文（Context）" class="headerlink" title="镜像构建上下文（Context）"></a>镜像构建上下文（Context）</h4><ul>
+<li>构建镜像时用到的上下文路径并非指<code>Dockerfile</code>路径</li>
+<li><code>docker build</code>的工作原理实则是C/S设计的模式，<code>docker</code>命令作为客户端，调用远程Docker引擎的API，进而进行build。而构建镜像时，可能需要用到本地的文件，为了使得远程引擎可以获得这些地址，需要告诉他们上下文信息，这样Dockerfile中的路径，就可以被正确的解读。</li>
+<li>正确方法是：<ul>
+<li>在空目录/项目根目录下放置Dockerfile</li>
+<li>将所需的文件拷贝一份到当前目录下</li>
+<li>如果当前目录下有不需要传给Docker引擎的，那么可以用<code>.gitignore</code>的语法，写一个<code>.dockerignore</code></li>
+</ul>
+</li>
+<li>默认会将上下文目录中的<code>Dockerfile</code>文件视作Dockerfile，实际上可以通过-f参数，对Dockerfile进行配置</li>
+</ul>
+<h4 id="其他docker-build用法"><a href="#其他docker-build用法" class="headerlink" title="其他docker build用法"></a>其他<code>docker build</code>用法</h4><ol>
+<li>Git repo, 如docker build <a href="https://github.com/twang2218/gitlab-ce-zh.git" target="_blank" rel="external">https://github.com/twang2218/gitlab-ce-zh.git</a></li>
+<li>tar压缩包，如<code>docker    build http://server/context.tar.gz</code></li>
+<li>从标准输入中读取Dockerfile（文本文件），如<code>docker build - &lt; Dockerfile</code>或<code>cat Dockerfile | docker build -</code></li>
+<li>从标准输入中读取上下文压缩包（压缩包格式文件），如 <code>docker build - &lt; context.tar.gz</code> </li>
+</ol>
+<h3 id="Dockerfile指令详解"><a href="#Dockerfile指令详解" class="headerlink" title="Dockerfile指令详解"></a>Dockerfile指令详解</h3><p>除了<code>FROM</code>，<code>RUN</code>，<code>Dockerfile</code>还有很多其他指令。<br>参考文档：</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="external">Dockerfile官方文档</a></li>
+<li><a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/" target="_blank" rel="external">Dockerfile最佳实践文档</a></li>
+<li><a href="https://github.com/docker-library/docs" target="_blank" rel="external">Docker官方镜像的Dockerfile</a></li>
+</ul>
+<h4 id="COPY复制文件"><a href="#COPY复制文件" class="headerlink" title="COPY复制文件"></a>COPY复制文件</h4><ul>
+<li>格式<ul>
+<li><code>COPY &lt;源路径&gt;... &lt;目标路径&gt;</code></li>
+<li><code>COPY [&quot;&lt;源路径1&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;]</code></li>
+</ul>
+</li>
+<li>可以有多个源路径，可以使用通配符，规则与Go的<a href="https://golang.org/pkg/path/filepath/#Match" target="_blank" rel="external">filepath.Match</a>一致</li>
+<li>会保留源文件的元数据，比如说文件权限，变更时间等</li>
+</ul>
+<h4 id="ADD更高级的复制文件"><a href="#ADD更高级的复制文件" class="headerlink" title="ADD更高级的复制文件"></a>ADD更高级的复制文件</h4><ul>
+<li>高配版COPY，具体表现在：<ul>
+<li>源文件可以是<code>URL</code>，但这个命令有限制，所以不实用，不如直接使用<code>RUN</code></li>
+<li>自动解压缩，如果源文件是压缩文件，会自动解压到<code>目标路径</code></li>
+</ul>
+</li>
+<li>建议： <em>仅在需要自动解压缩的场合使用<code>ADD</code></em></li>
+</ul>
+<h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
       
         <categories>
             
