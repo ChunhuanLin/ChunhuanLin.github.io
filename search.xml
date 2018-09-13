@@ -11,6 +11,14 @@
 <li><code>sudo vim /etc/NetworkManager/NetworkManger.conf</code>将其中的managed=false改为managed=true</li>
 <li><code>sudo service network-manager restart</code><br>参考<a href="https://blog.csdn.net/essity/article/details/52618101" target="_blank" rel="external">链接</a></li>
 </ol>
+<ul>
+<li>其他：<ul>
+<li>联网：<code>sudo pon dsl-provider</code></li>
+<li>断网：<code>sudo poff</code></li>
+<li>查看接口信息： <code>ifconfig ppp0</code></li>
+</ul>
+</li>
+</ul>
 <h2 id="安装chrome"><a href="#安装chrome" class="headerlink" title="安装chrome"></a>安装chrome</h2><p>参考<a href="https://blog.csdn.net/wql2014302721/article/details/78571362" target="_blank" rel="external">链接</a></p>
 <h2 id="配置系统代理"><a href="#配置系统代理" class="headerlink" title="配置系统代理"></a>配置系统代理</h2><p>在系统设置-&gt;Network中，修改Network proxy，其中的Socks Host为127.0.0.1|1080</p>
 <h2 id="配置并运行VPN"><a href="#配置并运行VPN" class="headerlink" title="配置并运行VPN"></a>配置并运行VPN</h2><h2 id="配置Chrome"><a href="#配置Chrome" class="headerlink" title="配置Chrome"></a>配置Chrome</h2><ol>
@@ -225,7 +233,116 @@
 </li>
 <li>容器内没有后台服务的概念，不能像虚拟机、物理机那样启动后台服务，应该直接执行可执行文件，并要求以前台形式运行，如：<code>CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code></li>
 </ul>
-<h4 id="ENTRYPOINT入口点"><a href="#ENTRYPOINT入口点" class="headerlink" title="ENTRYPOINT入口点"></a>ENTRYPOINT入口点</h4><h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
+<h4 id="ENTRYPOINT入口点"><a href="#ENTRYPOINT入口点" class="headerlink" title="ENTRYPOINT入口点"></a>ENTRYPOINT入口点</h4><ul>
+<li><code>ENTRYPOINT</code>和<code>CMD</code>一样，都用于指定容器启动程序和参数</li>
+<li>当制定<code>ENTRYPOINT</code>后，<code>CMD</code>的内容就只能是作为<code>ENTRYPOINT</code>的参数</li>
+<li><code>ENTRYPOINT</code>可以在容器启动时，被替代；不过与<code>CMD</code>不同的是，他需要特别的使用<code>--entrypoint</code>参数来指定</li>
+<li>使用场合：<ul>
+<li>让镜像变成像命令一样使用<br>由容器运行的格式，<code>docker run &lt;镜像&gt; &lt;CMD&gt;</code>，那么如果我们在Dockerfile里指定的是<code>ENTRYPOINT</code>，我们<cmd>就可以作为参数传递给<code>ENTRYPOINT</code>，这样就使得镜像可以像命令一样使用（可以传递参数）</cmd></li>
+<li>应用运行前的准备工作<br>可以写一个脚本，这个脚本由<code>ENTRYPOINT</code>启动运行，这里将会执行一些主程序运行前的准备工作；然后在<code>CMD</code>写如最后需要执行的命令，它将作为参数传入到该脚本中，交给该脚本最终运行。</li>
+</ul>
+</li>
+</ul>
+<h4 id="ENV设置环境变量"><a href="#ENV设置环境变量" class="headerlink" title="ENV设置环境变量"></a>ENV设置环境变量</h4><ul>
+<li>格式:<ul>
+<li><code>ENV &lt;key&gt; &lt;value&gt;</code></li>
+<li><code>ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</code></li>
+</ul>
+</li>
+<li>使用方法<ul>
+<li><code>\</code>可以用于换行，对含空格的值可以用双引号括起来</li>
+<li>使用：<code>$key</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="ARG构建参数"><a href="#ARG构建参数" class="headerlink" title="ARG构建参数"></a>ARG构建参数</h4><ul>
+<li>格式：<code>ARG &lt;参数名&gt;[=&lt;默认值&gt;]</code></li>
+<li>同样用于设置环境变量，但这个变量在容器运行时是不会存在的</li>
+<li><code>ARG</code>设置的变量和默认值可以在构建命令（<code>docker build</code>）时，加入<code>--build-arg &lt;参数名&gt;=&lt;值&gt;</code>来覆盖</li>
+</ul>
+<h4 id="VOLUME定义匿名卷"><a href="#VOLUME定义匿名卷" class="headerlink" title="VOLUME定义匿名卷"></a>VOLUME定义匿名卷</h4><ul>
+<li>格式：<ul>
+<li><code>VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]</code></li>
+<li><code>VOLUME &lt;路径&gt;</code></li>
+</ul>
+</li>
+<li>为保证容器存储层不发生写操作，对数据库类需要保存动态数据的应用，其数据库文件应该保存到<code>卷（volume）</code>中</li>
+<li>可以事先制定某些目录挂载为匿名卷</li>
+</ul>
+<h4 id="EXPOSE声明端口"><a href="#EXPOSE声明端口" class="headerlink" title="EXPOSE声明端口"></a>EXPOSE声明端口</h4><ul>
+<li>格式：<code>EXPOSE &lt;端口1&gt;    [&lt;端口2&gt;...]</code></li>
+<li><code>EXPOSE</code>指令是声明运行时容器提供服务端口,这只是一个声明,在运行时并不会因为这个声明应用就会开启这个端口的服务。在<code>Dockerfile</code>中写入这样的声明有两个好处,一个是帮助镜像使用者理解这个镜像服务的守护端口,以方便配置映射;另一个用处则是在运行时使用随机端口映射时,也就是<code>docker run -P</code>时,会自动随机映射<code>EXPOSE</code>端口。</li>
+<li>要将<code>EXPOSE</code>和在运行时使用<code>-p &lt;宿主端口&gt;:&lt;容器端口&gt;</code>区分开来。<code>-p</code>,是映射宿主端口和容器端口,换句话说,就是将容器的对应端口服务公开给外界访问,而<code>EXPOSE</code>仅仅是声明容器打算使用什么端口而已,并不会自动在宿主进行端口映射。</li>
+</ul>
+<h4 id="WORKDIR指定工作目录"><a href="#WORKDIR指定工作目录" class="headerlink" title="WORKDIR指定工作目录"></a>WORKDIR指定工作目录</h4><ul>
+<li>格式：<code>WORKDIR &lt;工作目录路径&gt;</code>    </li>
+<li>使用<code>WORKDIR</code>指令可以来指定工作目录(或者称为当前目录),以后各层的当前目录就被改为指定的目录,如该目录不存在,<code>WORKDIR</code>会帮你建立目录。</li>
+<li><p>理解工作目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RUN cd /app</div><div class="line">RUN echo &quot;hello&quot; &gt; world.txt</div></pre></td></tr></table></figure>
+<p>上述命令并不会真正的cd到/app目录，并在该目录下创建文件。这是由于在shell中连续两行是在同一个进程中执行，而docker中，两个<code>RUN</code>实质实在不同的执行环境中执行的，两个镜像层之间互不影响，因此此时就需要使用WORKDIR。</p>
+</li>
+</ul>
+<h4 id="USER指定当前用户"><a href="#USER指定当前用户" class="headerlink" title="USER指定当前用户"></a>USER指定当前用户</h4><ul>
+<li>格式：<code>USER &lt;用户名&gt;</code></li>
+<li><code>USER</code>改变之后的层的用户，但这个用户必须在事先建立好</li>
+<li><p>案例一：建立用户并执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RUN groupadd -r redis &amp;&amp; useradd -r -g redis redis</div><div class="line">USER redis</div><div class="line">RUN [&quot;redis-server&quot;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>案例二：使用<code>gosu</code>，以<code>root</code>来执行脚本，并且在执行期间改变身份。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 建立redis用户,并使用gosu换另一个用户执行命令</div><div class="line">RUN groupadd -r redis &amp;&amp; useradd -r -g redis redis</div><div class="line"># 下载gosu</div><div class="line">RUN wget -O /usr/local/bin/gosu &quot;https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64&quot; \</div><div class="line">    &amp;&amp; chmod +x /usr/local/bin/gosu \</div><div class="line">    &amp;&amp; gosu nobody true</div><div class="line"># 设置CMD,并以另外的用户执行</div><div class="line">CMD [&quot;exec&quot;, &quot;gosu&quot;, &quot;redis&quot;, &quot;redis-server&quot;]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="HEALTHCHECK健康检查"><a href="#HEALTHCHECK健康检查" class="headerlink" title="HEALTHCHECK健康检查"></a>HEALTHCHECK健康检查</h4><ul>
+<li>格式：<ul>
+<li><code>HEALTHCHECK [选项] CMD &lt;命令&gt;</code>:设置检查容器健康状况的命令</li>
+<li><code>HEALTHCHECK NONE</code>:如果基础镜像有健康检查指令,使用这行可以屏蔽掉其健康检查指令</li>
+</ul>
+</li>
+<li>与<code>CMD</code>，<code>ENTRYPOINT</code>一样，<code>HEALTHCHECK</code>只可以出现一次，如果写了多个，只有最后一个生效</li>
+<li>选项：<ul>
+<li><code>--interval=&lt;间隔&gt;</code>：两次健康检查的间隔,默认为30秒</li>
+<li><code>--timeout=&lt;时长&gt;</code>：健康检查命令运行超时时间,如果超过这个时间,本次健康检查就被视为失败,默认30秒</li>
+<li><code>--retries=&lt;次数&gt;</code>：当连续失败指定次数后,则将容器状态视为<code>unhealthy</code>,默认3次 </li>
+</ul>
+</li>
+<li>使用:    <ul>
+<li>命令返回值分别为：0:成功;1:失败;2:保留,不要使用这个值，可以在命令后加<code>|| exit 1</code>以只显示0或1</li>
+<li>运行镜像后，运行<code>docker ps</code>查看健康状态；<code>docker inspect</code>查看健康检查命令的输出</li>
+</ul>
+</li>
+</ul>
+<h4 id="ONBUILD为他人做嫁衣裳"><a href="#ONBUILD为他人做嫁衣裳" class="headerlink" title="ONBUILD为他人做嫁衣裳"></a>ONBUILD为他人做嫁衣裳</h4><ul>
+<li>格式：<code>ONBUILD &lt;其它指令&gt;</code></li>
+<li>它后面跟的是其它指令,比如<code>RUN</code>,<code>COPY</code>等,而这些指令,在当前镜像构建时并不会被执行。只有当以当前镜像为基础镜像,去构建下一级镜像的时候才会被执行。</li>
+<li>用于写基础镜像，方便其他镜像继承</li>
+</ul>
+<h3 id="多阶段构建"><a href="#多阶段构建" class="headerlink" title="多阶段构建"></a>多阶段构建</h3><h4 id="之前的做法"><a href="#之前的做法" class="headerlink" title="之前的做法"></a>之前的做法</h4><ul>
+<li>全部放入一个Dockerfile<ul>
+<li>Dockerfile 特别长,可维护性降低</li>
+<li>镜像层次多,镜像体积较大,部署时间变长</li>
+<li>源代码存在泄露的风险</li>
+</ul>
+</li>
+<li>分散到多个Dockerfile<ul>
+<li>部署过程复杂</li>
+</ul>
+</li>
+</ul>
+<h4 id="多阶段构建-1"><a href="#多阶段构建-1" class="headerlink" title="多阶段构建"></a>多阶段构建</h4><ul>
+<li>写到一个Dockerfile里</li>
+<li>不同阶段用<code>FROM</code>隔开</li>
+</ul>
+<h4 id="其他制作镜像的方式"><a href="#其他制作镜像的方式" class="headerlink" title="其他制作镜像的方式"></a>其他制作镜像的方式</h4><ol>
+<li>从rootfs压缩包导入</li>
+<li><code>docker save</code>和<code>docker load</code><ul>
+<li>用于镜像迁移，现在更推荐<code>Docker Registry</code></li>
+<li>保存镜像：<code>docker save alpine | gzip &gt; alpine-latest.tar.gz</code></li>
+<li>加载镜像：<code>docker load -i alpine-latest.tar.gz</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="操作容器"><a href="#操作容器" class="headerlink" title="操作容器"></a>操作容器</h2><p>简单的说,容器是独立运行的一个或一组应用,以及它们的运行态环境。对应的,虚拟机可以理解为模拟运行的一整套操作系统(提供了运行态环境和其他系统环境)和跑在上面的应用。</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><h3 id="守护态运行"><a href="#守护态运行" class="headerlink" title="守护态运行"></a>守护态运行</h3><h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><h3 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h3><h3 id="导出和导入"><a href="#导出和导入" class="headerlink" title="导出和导入"></a>导出和导入</h3><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><h2 id="访问仓库"><a href="#访问仓库" class="headerlink" title="访问仓库"></a>访问仓库</h2><h2 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h2><h2 id="使用网络"><a href="#使用网络" class="headerlink" title="使用网络"></a>使用网络</h2>]]></content>
       
         <categories>
             
