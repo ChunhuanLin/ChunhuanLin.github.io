@@ -14,7 +14,10 @@ categories:
 2. `sudo vim /etc/NetworkManager/NetworkManger.conf`将其中的managed=false改为managed=true
 3. `sudo service network-manager restart` 
 参考[链接](https://blog.csdn.net/essity/article/details/52618101)
-
+* 其他：
+  - 联网：`sudo pon dsl-provider`
+  - 断网：`sudo poff`
+  - 查看接口信息： `ifconfig ppp0`
 
 ## 安装chrome
 参考[链接](https://blog.csdn.net/wql2014302721/article/details/78571362)
